@@ -6,8 +6,8 @@ repo_name: homelab
 nav:
   - Home: index.md
   - Cheatsheet Markdown: cheatsheet/index_cheatsheet.md
-
-
+  - Blog:
+    - blog/index.md
 
 theme:
   name: material
