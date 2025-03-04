@@ -38,12 +38,12 @@ plugins:
 - search
 - blog
 - tags
-- git-revision-date-localized:
-    enable_creation_date: false
-    type: iso_date
-- git-committers:
-    repository: louisonsarlinmagnus/homelab
-    branch: master
+# - git-revision-date-localized:
+#     enable_creation_date: false
+#     type: iso_date
+# - git-committers:
+#     repository: louisonsarlinmagnus/homelab
+#     branch: master
 extra:
   tags:
     test: testID
