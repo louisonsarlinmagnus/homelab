@@ -1,0 +1,99 @@
+site_name: Documentation and journey of my homelab
+site_url: https://louisonsarlinmagnus.github.io/homelab
+repo_url: https://github.com/louisonsarlinmagnus/homelab
+repo_name: homelab
+
+nav:
+  - Home: index.md
+  - Cheatsheet Markdown: cheatsheet/index_cheatsheet.md
+
+
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: green
+  icon:
+    repo: fontawesome/brands/github
+    tag:
+      testID: material/test-tube
+  language: en
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.path
+    - navigation.prune
+    - navigation.indexes
+    - toc.follow
+    - toc.integrate
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - navigation.footer
+plugins:
+- search
+- blog
+- tags
+- git-revision-date-localized:
+    enable_creation_date: false
+    type: iso_date
+- git-committers:
+    repository: louisonsarlinmagnus/homelab
+    branch: master
+extra:
+  tags:
+    test: testID
+  social:
+    - icon: fontawesome/brands/linkedin 
+      link: https://www.linkedin.com/in/louisonsm/
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - tables
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem
+  - pymdownx.blocks.caption
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji 
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      use_pygments: true
+      pygments_lang_class: true
+      linenums: true
+      linenums_style: pymdownx-inline
+      line_spans: __span
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
