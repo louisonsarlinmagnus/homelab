@@ -4,8 +4,15 @@ repo_url: https://github.com/louisonsarlinmagnus/homelab
 repo_name: homelab
 
 nav:
-  - Home: index.md
-  - Cheatsheet Markdown: cheatsheet/index_cheatsheet.md
+  - Welcome to my homelab project: index.md
+  - Cheatsheet Markdown:
+      - cheatsheet/index.md
+      - Generic formatting: cheatsheet/generic_formatting.md
+      - Links and images: cheatsheet/links_and_images.md
+      - Diagrams: cheatsheet/diagrams.md
+      - Tables: cheatsheet/tables.md
+      - Superfences and tabs: cheatsheet/superfences_and_tabs.md
+      - Maths: cheatsheet/maths.md
   - Blog:
     - blog/index.md
 
@@ -14,6 +21,7 @@ theme:
   palette:
     scheme: slate
     primary: green
+    accent: lime
   icon:
     repo: fontawesome/brands/github
     tag:
