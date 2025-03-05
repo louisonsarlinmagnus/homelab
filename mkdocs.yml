@@ -36,14 +36,12 @@ theme:
     - navigation.footer
 plugins:
 - search
-- blog
+- blog:
+    blog_toc: true
+    authors: true
+    authors_file: blog/.authors.yaml
+    post_excerpt: required
 - tags
-# - git-revision-date-localized:
-#     enable_creation_date: false
-#     type: iso_date
-# - git-committers:
-#     repository: louisonsarlinmagnus/homelab
-#     branch: master
 extra:
   tags:
     test: testID
@@ -59,6 +57,7 @@ markdown_extensions:
   - md_in_html
   - toc:
       permalink: true
+      baselevel: "3"
   - tables
   - pymdownx.arithmatex:
       generic: true
@@ -95,5 +94,8 @@ markdown_extensions:
       custom_checkbox: true
 
 extra_javascript:
-  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/custom.css
