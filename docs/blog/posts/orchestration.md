@@ -52,3 +52,56 @@ Kubernetes
 | Ease of maintenance         |       *****        |      *****       |            ***             |      ***       |
 | Ease of evolution           |       *****        |      *****       |             **             |       **       |
 | Total                       |         24         |      ==26==      |             17             |       15       |
+
+# Detailed Pros and cons
+
+## Docker Compose
+
+On my previous (actual at the time i'm writing this) NAS I used Docker Compose to deploy my services. Docker Compose allow the definition of the deployments in a simple `docker-compose.yaml` file and with minimal configuration. I consider Docker Compose as an easy and efficient way to deploy stuff but it can lack some features.
+
+
+Pros
+: - Easy to use and setup
+: - Easy deployment declaration
+
+Cons
+: - Not really an orchestrator
+: - Already known
+: - Limited to single-host deployments
+
+
+## Docker Swarm
+
+Docker Swarm is a native clustering and orchestration tool for Docker. It provides more feature that Docker Compose like load balancing, service discovery, and scaling for containerized applications.
+
+Pros
+: - Easy to use and setup
+: - Built-in load balancing and service discovery
+
+Cons
+: - Less feature than Kubernetes
+: - Potential leaning experience (Never used neither as a hobby nor at work)
+
+## Lightweight Kubernetes
+
+Lightweight Kubernetes are designed to provide a simplified Kubernetes experience for local development and testing. It provide a way to run Kubernetes clusters on a local machines with minimal setup and resource requirements.
+
+Pros
+: - Easy to use and setup
+: - Provides simplified Kubernetes experience
+
+Cons
+: - Less featured than Kubernetes
+: - For testing and developing purpose (not for prod in theory)
+
+## Kubernetes
+
+Kubernetes automates the deployment, scaling, and management of containerized applications across clusters of hosts. It offers advanced features like self-healing, load balancing, and service discovery.
+
+Pros
+: - Highly scalable and robust
+: - Huge ecosystem, tools and plugins
+
+Cons
+: - More complex to setup
+: - Less resource efficient
