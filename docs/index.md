@@ -12,3 +12,4 @@ Add this to a freshly graduate innocent engineer this lead to my first homelab t
 
 # Needs
 
+My need is to be able to host cool free open-source projects and hosting pictures, videos, passwords, recipe, video-game servers, etc. I want something as automated and autonomous as possible, and that I can rely on.
