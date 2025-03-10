@@ -1,7 +1,7 @@
 ---
 title: Container orchestration
-draft: true 
-date: 2025-03-06
+draft: false 
+date: 2025-03-10
 pin: false
 # links:
 #   - Test: setup/setting-up-site-search.md
@@ -105,3 +105,9 @@ Pros
 Cons
 : - More complex to setup
 : - Less resource efficient
+
+# Conclusion
+
+I will use Docker Swarm to orchestrate my services for two main reasons.  
+Firstly, Docker Swarm is something I had never use despite my curiosity for this tool since years .  
+Secondly, Docker Swarm is easy to setup, use and maintain and therefore is perfectly adapted to homelabs.
