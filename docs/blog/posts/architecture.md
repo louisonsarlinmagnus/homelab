@@ -1,7 +1,7 @@
 ---
-title: Architecture
+title: Architecture overview
 draft: true 
-date: 2025-03-10
+date: 2025-03-17
 pin: false
 # links:
 #   - Test: setup/setting-up-site-search.md
@@ -10,10 +10,25 @@ pin: false
 authors:
     - louison
 ---
-Here is a first short introduction acting as a excerpt.
+
+This article explores the architecture of a scalable hosting service that utilizes Docker Swarm for efficient container orchestration and a Network-Attached Storage (NAS) system for centralized data management. It highlights the benefits of Docker Swarm, including simplified deployment, scaling, and high availability, while emphasizing the importance of a NAS for reliable data access and redundancy. The article provides practical insights and best practices for setting up and managing this architecture.
 
 <!-- more -->
 
-# The begin of the real article
+# Introduction
 
-The the rest of the article here.
+# Definitions
+## Docker Swarm
+
+## NAS
+
+# Networking
+## Reverse-proxying
+
+## Domain name
+
+## Certificate management
+
+# Monitoring
+
+# Conclusion
