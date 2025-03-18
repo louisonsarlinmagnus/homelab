@@ -15,33 +15,53 @@ Setting up a monitoring stack for a homelab is crucial for ensuring optimal perf
 
 # Requirements definition
 
-Monitoring the infrastructure is crucial to detect potential hardware problems or limitations, have security insight (brut-force attack for example) and to track applications resource consumption. It could be handy to aggregate 
-
+Monitoring the infrastructure is crucial to detect potential hardware problems or limitations, have security insight (brut-force attack for example) and to track applications resource consumption. For both the system and containers I want to monitor CPU, RAM, Disks (including RAID) usage and capacity. I want as well to retrieve system and applicative logs. I could also be handy to be allowed to implement other visualizations like fail2ban stats.
 
 On this article I will explore the following stacks.
 
-Prometheus + Grafana
-: prom
+## Prometheus + Grafana
+: Prometheus stores collects real-time metrics, while Grafana visualizes them in dashboards. It has to be completed with exporters for specific data (cadvisor for containers, Node-exporter for system, fail2ban-exporter for security)
 
-Nagios
-: nagios
+Pros
+: - Highly flexible and extensible with numerous exporters available.
+: - Grafana provides rich and interactive visualizations.
 
-Zabbix
-: zabbix
+Cons
+: - Prometheus can be complex to configure for beginners.
+: - Long-term data management may require additional solutions.
 
-Dozzle
-: dozzle
+## Zabbix
+: An open-source monitoring solution for IT infrastructures, with a web interface.
 
-NetData
-: netdata
+Pros
+: Rich and functional user interface.
+: Capable of monitoring a wide range of services and applications.
 
-Uptime-Kuma
-: uptime-kuma
+Cons
+: Can be resource-intensive.
+: Steep learning curve for advanced configuration.
 
-VictoriaMetrics:
-: victoriaMetrics
+## Dozzle
+: A log viewer for Docker, allowing real-time monitoring of container logs.
 
+Pros
+: Lightweight and easy to install.
+: Ideal for Docker environments.
 
+Cons
+: Limited functionality compared to more comprehensive solutions.
+: Lacks advanced monitoring or alerting capabilities.
+
+## Uptime-Kuma
+: An open-source monitoring tool for website and service availability.
+
+Pros
+: Easy to configure and use.
+: Ideal for monitoring service availability.
+
+Cons
+: Limited functionality compared to more comprehensive solutions.
+: Less suitable for detailed performance monitoring.
 
 
 # General comparison
