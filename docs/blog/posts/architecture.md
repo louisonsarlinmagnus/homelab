@@ -1,7 +1,7 @@
 ---
 title: Architecture and hardware overview
 draft: true 
-date: 2025-03-17
+date: 2025-03-24
 pin: false
 # links:
 #   - Test: setup/setting-up-site-search.md
@@ -33,7 +33,7 @@ First, let see from actual useful services I host and want to keep :
 Second, let's take a look at the core/administration service I want to keep but I'm open to change :
 
 - A reverse-proxy to serve the services to internet ([Traefik](https://github.com/traefik/traefik))
-- A monitoring and logging stack (Grafana+Prometheus+cadvisor+node-exporter+fail2ban-exporter and [Dozzle]([20/dozzle](https://github.com/amir20/dozzle)))
+- A monitoring and logging stack (Grafana+Prometheus+cadvisor+node-exporter+fail2ban-exporter and [Dozzle](https://github.com/amir20/dozzle))
 - A notifying tool ([Gotify](https://github.com/gotify/server))
 - An identity provider ([LLDAP](https://github.com/lldap/lldap))
 - A SSO (single-sign on) ([Authelia](https://github.com/authelia/authelia))
@@ -51,11 +51,13 @@ Then, the services I want to add :
 Next, some tool find on the internet that could be cool :
 
 - [Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF)
-- [Pi-hole](https://github.com/pi-hole/pi-hole)
+- [Pi-hole](https://github.com/pi-hole/pi-hole) ([Blocky ?](https://github.com/0xERR0R/blocky))
 - [Paperless-ngx](https://github.com/paperless-ngx/paperless-ngx)
+- [Guacamole](https://github.com/apache/guacamole-server)
+- [OliveTin](https://github.com/OliveTin/OliveTin)
 - 
 
-Finally, let's list the feature that this involve :
+Finally, let's list the feature that this involve.
 
 
 # Computing unit
@@ -63,6 +65,18 @@ Finally, let's list the feature that this involve :
 To define most of the hardware we first have to fin 
 
 # Storage
+
+In this project, there will be 3 main types of storage.  
+
+The first type will be the "working storage", mainly dedicated to store OS a on each node.
+Since the recommended memory for most of OS + tools will be 32 Go and the need for fast drive, any kind of SSD compatible with the node's hardware will suffice.  
+
+Then, the "movie storage", today a RAID 5 array with 4 $\times$ 2 To WD Red Plus 2 To 3.5" HDD at 5400 RPM disks.
+For now, all movies are stored on a HDD RAID, it's convenient because this kind of array combines flexibility, security and the can easily be expanded.  
+
+Finally and the one that has to be the most reliable, the "picture storage", I will have to think a bit more for this one. This storage will be dedicated to personal pictures and videos of me and my family saved from our smartphones. On top of being saved on the homelab, these files has to be backed-up off site.
+
+
 
 ## NAS
 
