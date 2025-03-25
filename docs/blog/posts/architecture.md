@@ -48,16 +48,20 @@ Then, the services I want to add :
 - A home automation tool (like [home-assistant](https://github.com/home-assistant/home-assistant.io))
 - Something to reduce idle consumption (like [ContainerNursery](https://github.com/ItsEcholot/ContainerNursery), [sablier](https://github.com/sablierapp/sablier) or [traefik-lazy-load](https://github.com/zix99/traefik-lazyload))
 
-Next, some tool find on the internet that could be cool :
+Finally, some tool find on the internet that could be cool :
 
 - [Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF)
 - [Pi-hole](https://github.com/pi-hole/pi-hole) ([Blocky ?](https://github.com/0xERR0R/blocky))
 - [Paperless-ngx](https://github.com/paperless-ngx/paperless-ngx)
 - [Guacamole](https://github.com/apache/guacamole-server)
 - [OliveTin](https://github.com/OliveTin/OliveTin)
-- 
-
-Finally, let's list the feature that this involve.
+- [ddns-updater](https://github.com/qdm12/ddns-updater)
+- [duplicati](https://github.com/duplicati/duplicati)
+- [mailinabox](https://github.com/mail-in-a-box/mailinabox)
+- [WeddingShare](https://github.com/Cirx08/WeddingShare)
+- [13ft](https://github.com/wasi-master/13ft)
+- [crowdsec](https://github.com/crowdsecurity/crowdsec)
+- [invidious](https://github.com/iv-org/invidious)
 
 
 # Computing unit
@@ -66,19 +70,13 @@ To define most of the hardware we first have to fin
 
 # Storage
 
-In this project, there will be 3 main types of storage.  
+In this project, we're going to have two main types of storage.  
 
-The first type will be the "working storage", mainly dedicated to store OS a on each node.
-Since the recommended memory for most of OS + tools will be 32 Go and the need for fast drive, any kind of SSD compatible with the node's hardware will suffice.  
+Since the recommended memory for most OS + tools will be 32 Go and the need for fast drive, any kind of SSD compatible with the node's hardware will suffice.  
 
-Then, the "movie storage", today a RAID 5 array with 4 $\times$ 2 To WD Red Plus 2 To 3.5" HDD at 5400 RPM disks.
-For now, all movies are stored on a HDD RAID, it's convenient because this kind of array combines flexibility, security and the can easily be expanded.  
+And for "media storage", a RAID 5 array with 4 $\times$ 2 To WD Red Plus 2 To 3.5" HDD at 5400 RPM disks is used today on the current homelab.
+This kind of RAID is convenient because this kind of array combines flexibility, security and the can easily be expanded.  
 
-Finally and the one that has to be the most reliable, the "picture storage", I will have to think a bit more for this one. This storage will be dedicated to personal pictures and videos of me and my family saved from our smartphones. On top of being saved on the homelab, these files has to be backed-up off site.
-
-
-
-## NAS
 
 # Networking
 
