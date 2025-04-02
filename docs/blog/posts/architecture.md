@@ -23,46 +23,6 @@ A complete satisfying homelab is more complex to setup than a Raspberry Pi, Dock
 
 Before emptying the bank account with useless stuff, I have to clearly define what I want my homelab to be capable of.  
 
-First, let see from actual useful services I host and want to keep :
-
-- Homepage : to have a quick view of my services
-- Vaultwarden : my password manager  
-- Jellyfin : my media server  
-- The *arr suite
-
-Second, let's take a look at the core/administration service I want to keep but I'm open to change :
-
-- A reverse-proxy to serve the services to internet ([Traefik](https://github.com/traefik/traefik))
-- A monitoring and logging stack (Grafana+Prometheus+cadvisor+node-exporter+fail2ban-exporter and [Dozzle](https://github.com/amir20/dozzle))
-- A notifying tool ([Gotify](https://github.com/gotify/server))
-- An identity provider ([LLDAP](https://github.com/lldap/lldap))
-- A SSO (single-sign on) ([Authelia](https://github.com/authelia/authelia))
-- A tool to update regularly docker images ([Watchtower](https://github.com/containrrr/watchtower))
-- Something to prevent brute-force ([fail2ban](https://github.com/fail2ban/fail2ban))
-- A recipe book ([Mealie](https://github.com/mealie-recipes/mealie/))
-
-Then, the services I want to add :
-
-- A photo and video management tool (like [Immich](https://immich.app/))
-- A tool to monitor uptime (like [uptime-kuma](https://github.com/louislam/uptime-kuma))
-- A home automation tool (like [home-assistant](https://github.com/home-assistant/home-assistant.io))
-- Something to reduce idle consumption (like [ContainerNursery](https://github.com/ItsEcholot/ContainerNursery), [sablier](https://github.com/sablierapp/sablier) or [traefik-lazy-load](https://github.com/zix99/traefik-lazyload))
-
-Finally, some tool find on the internet that could be cool :
-
-- [Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF)
-- [Pi-hole](https://github.com/pi-hole/pi-hole) ([Blocky ?](https://github.com/0xERR0R/blocky))
-- [Paperless-ngx](https://github.com/paperless-ngx/paperless-ngx)
-- [Guacamole](https://github.com/apache/guacamole-server)
-- [OliveTin](https://github.com/OliveTin/OliveTin)
-- [ddns-updater](https://github.com/qdm12/ddns-updater)
-- [duplicati](https://github.com/duplicati/duplicati)
-- [mailinabox](https://github.com/mail-in-a-box/mailinabox)
-- [WeddingShare](https://github.com/Cirx08/WeddingShare)
-- [13ft](https://github.com/wasi-master/13ft)
-- [crowdsec](https://github.com/crowdsecurity/crowdsec)
-- [invidious](https://github.com/iv-org/invidious)
-
 
 # Computing unit
 
