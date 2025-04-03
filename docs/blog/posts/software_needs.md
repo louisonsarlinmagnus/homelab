@@ -46,12 +46,12 @@ What is the purpose of a beautiful rack full of hardware without any software to
 - Reverse-proxy : [Traefik](https://github.com/traefik/traefik)
 - Monitoring and logging stack (Grafana+Prometheus+cadvisor+node-exporter+fail2ban-exporter and [Dozzle](https://github.com/amir20/dozzle))
 - Notifying tool : [Gotify](https://github.com/gotify/server)
-- Identity provider : [LLDAP](https://github.com/lldap/lldap) Authentik? Keycloak?
-- SSO (single-sign on) : [Authelia](https://github.com/authelia/authelia) Authentik?
+- Identity provider : [LLDAP](https://github.com/lldap/lldap)
+- SSO (single-sign on) : [Authelia](https://github.com/authelia/authelia)
 - Updates : [Watchtower](https://github.com/containrrr/watchtower)
 - Network security : [fail2ban-exporter](https://github.com/fail2ban/fail2ban)
 - Uptime monitoring : [uptime-kuma](https://github.com/louislam/uptime-kuma)
-- Auto-pause Container : [ContainerNursery](https://github.com/ItsEcholot/ContainerNursery), [sablier](https://github.com/sablierapp/sablier) or [traefik-lazy-load](https://github.com/zix99/traefik-lazyload))
+- Auto-pause Container : [ContainerNursery](https://github.com/ItsEcholot/ContainerNursery), [sablier](https://github.com/sablierapp/sablier) or [traefik-lazy-load](https://github.com/zix99/traefik-lazyload)
 - Remote desktop gateway : [Guacamole](https://github.com/apache/guacamole-server)
 - Remote automation : [OliveTin](https://github.com/OliveTin/OliveTin)
 - [duplicati](https://github.com/duplicati/duplicati)
@@ -60,7 +60,6 @@ What is the purpose of a beautiful rack full of hardware without any software to
 
 ## What SSO to use ?
 
-Homepage => No multi users support
 Jellyfin => [Authelia via plugin](https://www.authelia.com/integration/openid-connect/jellyfin/)
 Mealie => OIDC [with Authelia, Authentik and Keycloak examples](https://docs.mealie.io/documentation/getting-started/authentication/oidc-v2/)
 Immich => OIDC [with Authelia and Authentik examples](https://immich.app/docs/administration/oauth)
