@@ -58,9 +58,11 @@ What is the purpose of a beautiful rack full of hardware without any software to
 - [crowdsec](https://github.com/crowdsecurity/crowdsec) => https://docs.crowdsec.net/docs/next/appsec/intro/#introduction
 
 
-Homepage
-Jellyfin
-Mealie
-Immich => 
+## What SSO to use ?
+
+Homepage => No multi users support
+Jellyfin => [Authelia via plugin](https://www.authelia.com/integration/openid-connect/jellyfin/)
+Mealie => OIDC [with Authelia, Authentik and Keycloak examples](https://docs.mealie.io/documentation/getting-started/authentication/oidc-v2/)
+Immich => OIDC [with Authelia and Authentik examples](https://immich.app/docs/administration/oauth)
 Home assistant => addons [authelia for example](https://github.com/BenoitAnastay/authelia-home-assistant-addon)
 Paperless-ngx => [OIDC](https://docs.paperless-ngx.com/advanced_usage/#sso-and-third-party-authentication-with-paperless-ngx)
