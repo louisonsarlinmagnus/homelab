@@ -28,6 +28,8 @@ Before emptying the bank account with useless stuff, I have to clearly define wh
 
 To define most of the hardware we first have to fin 
 
+https://jellyfin.org/docs/general/administration/hardware-selection/#server-with-integrated-graphics
+
 # Storage
 
 In this project, we're going to have two main types of storage.  
