@@ -5,6 +5,9 @@ repo_name: homelab
 
 nav:
   - Welcome to my homelab project: index.md
+  - Scripts:
+      - scripts/index.md
+      - PWM fan control: scripts/pwm_fan_control.md
   - Cheatsheet Markdown:
       - cheatsheet/index.md
       - Generic formatting: cheatsheet/generic_formatting.md
