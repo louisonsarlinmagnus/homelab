@@ -1,7 +1,7 @@
 ---
 title: Architecture and hardware overview
 draft: true 
-date: 2025-03-24
+date: 2025-04-04
 pin: false
 # links:
 #   - Test: setup/setting-up-site-search.md
@@ -39,17 +39,35 @@ Since the recommended memory for most OS + tools will be 32 Go and the need for 
 And for "media storage", a RAID 5 array with 4 $\times$ 2 To WD Red Plus 2 To 3.5" HDD at 5400 RPM disks is used today on the current homelab.
 This kind of RAID is convenient because this kind of array combines flexibility, security and the can easily be expanded.  
 
+# Backup
 
-# Networking
+In my homelab I will try to implement the well known 3-2-1-0-0 golden backup rule.
 
-## Router
+> 3 copies of the data (live copy, local backup and offsite backup)  
+> 2 different media (HHD powered RAID, SSD)  
+> 1 copy offsite (Remote external SSD)  
+> 1 copy offline (Local external SSD)  
+> 0 corrupted backup
 
-## POE switch
+To do this I will have to choose a strategy, tool and network protocol (for offsite) :
 
-## Reverse-proxying
-## Certificates management
+| Strategy | Full backup                                                                          | Incremental backup                                                                                                               |
+| -------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Pros** | Easy to setup and restore. Each backup is autonomous, reducing the risk of data loss | Space, time and bandwidth efficient because it only backed up changed and new files                                              |
+| **Cons** | Consumes more storage space, time and bandwidth                                      | More prone to corruption and more complex to restore. Often requires the last full backup and all subsequent incremental backups |
 
-## Domain name
+| Tool     | Dedicated tool (restic, duplicati, etc.)                                                            | Scripts (using rsync for example)                                                                                                                   |
+| -------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Pros** | More feature rich (encryption, deduplication, version management), user interfaces and more secured | Flexible, requires fewer system resources and could be more performant                                                                              |
+| **Cons** | May be more complex to setup and more resource-intensive                                            | Less feature rich (encryption, deduplication, version management to be developed), requires additional tools to secure data in transit (SSH or VPN) |
+
+| Network  | SSH                                                                                                                | VPN                                                                      |
+| -------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| **Pros** | Highly secure **for point-to-point connections**, easy to configure for specific tasks and more resource efficient | For securing a whole network traffic between two sites and more flexible |
+| **Cons** | Not suitable for securing a whole network traffic between two sites                                                | More complex to configure, manage and more resource-intensive            |
+
+
+
 
 # Hardware
 
