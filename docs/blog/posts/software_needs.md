@@ -28,15 +28,15 @@ What is the purpose of a beautiful rack full of hardware without any software to
   - Movies : [Radarr](https://github.com/Radarr/Radarr)
   - Indexer manager : [Jackett](https://github.com/Jackett/Jackett)
   - Torrent client : [qBittorrent](https://github.com/qbittorrent/qBittorrentFlareSolverr)
-  - FlareSolverr
-  - Decluttarr (for stuck dl)
-  - Profilarr (profile manager for sonarr and radarr)
+  - Solve challenges : [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr)
+  - Stalled torrents remover : [Decluttarr](https://github.com/ManiMatter/decluttarr)
+  - Profile manager : [Profilarr](https://github.com/Dictionarry-Hub/profilarr)
   - Tdarr/transcoderr (for transcoding automation)
 - Recipe book : [Mealie](https://github.com/mealie-recipes/mealie/)
 - Photo manager : [Immich](https://immich.app/) : A photo and video management tool
 - Home automation : [home-assistant](https://github.com/home-assistant/home-assistant.io) Can it replace Alexa ?
 - PDF tool : [Stirling PDF](https://github.com/Stirling-Tools/Stirling-PDF)
-- Ad blocker : [Pi-hole](https://github.com/pi-hole/pi-hole) ([Blocky ?](https://github.com/0xERR0R/blocky))
+- Ad blocker : [Pi-hole](https://github.com/pi-hole/pi-hole) ou [Blocky ?](https://github.com/0xERR0R/blocky)
 - Document manager : [Paperless-ngx](https://github.com/paperless-ngx/paperless-ngx)
 - Picture share : [WeddingShare](https://github.com/Cirx08/WeddingShare)
  
@@ -54,14 +54,4 @@ What is the purpose of a beautiful rack full of hardware without any software to
 - Auto-pause Container : [ContainerNursery](https://github.com/ItsEcholot/ContainerNursery), [sablier](https://github.com/sablierapp/sablier) or [traefik-lazy-load](https://github.com/zix99/traefik-lazyload)
 - Remote desktop gateway : [Guacamole](https://github.com/apache/guacamole-server)
 - Remote automation : [OliveTin](https://github.com/OliveTin/OliveTin)
-- [duplicati](https://github.com/duplicati/duplicati)
-- [crowdsec](https://github.com/crowdsecurity/crowdsec) => https://docs.crowdsec.net/docs/next/appsec/intro/#introduction
-
-
-## What SSO to use ?
-
-Jellyfin => [Authelia via plugin](https://www.authelia.com/integration/openid-connect/jellyfin/)
-Mealie => OIDC [with Authelia, Authentik and Keycloak examples](https://docs.mealie.io/documentation/getting-started/authentication/oidc-v2/)
-Immich => OIDC [with Authelia and Authentik examples](https://immich.app/docs/administration/oauth)
-Home assistant => addons [authelia for example](https://github.com/BenoitAnastay/authelia-home-assistant-addon)
-Paperless-ngx => [OIDC](https://docs.paperless-ngx.com/advanced_usage/#sso-and-third-party-authentication-with-paperless-ngx)
+- Protection against malicious IPs : [crowdsec](https://github.com/crowdsecurity/crowdsec) => https://docs.crowdsec.net/docs/next/appsec/intro/#introduction
