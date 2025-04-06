@@ -44,14 +44,23 @@ What is the purpose of a beautiful rack full of hardware without any software to
 ## The admin and monitoring things
 
 - Reverse-proxy : [Traefik](https://github.com/traefik/traefik)
-- Monitoring and logging stack (Grafana+Prometheus+cadvisor+node-exporter+fail2ban-exporter and [Dozzle](https://github.com/amir20/dozzle))
+- Monitoring and logging stack
+  - [Grafana](https://github.com/grafana/grafana)
+  - [Prometheus](https://github.com/prometheus/prometheus)
+  - [cAdvisor](https://github.com/google/cadvisor)
+  - [node-exporter](https://github.com/prometheus/node_exporter)
+  - [fail2ban-prometheus-exporter](https://github.com/hctrdev/fail2ban-prometheus-exporter)
+  - Promtail
+  - [Loki](https://github.com/grafana/loki)
+- Centralized logging : [Dozzle](https://github.com/amir20/dozzle)
 - Notifying tool : [Gotify](https://github.com/gotify/server)
 - Identity provider : [LLDAP](https://github.com/lldap/lldap)
 - SSO (single-sign on) : [Authelia](https://github.com/authelia/authelia)
 - Updates : [Watchtower](https://github.com/containrrr/watchtower)
-- Network security : [fail2ban-exporter](https://github.com/fail2ban/fail2ban)
 - Uptime monitoring : [uptime-kuma](https://github.com/louislam/uptime-kuma)
-- Auto-pause Container : [ContainerNursery](https://github.com/ItsEcholot/ContainerNursery), [sablier](https://github.com/sablierapp/sablier) or [traefik-lazy-load](https://github.com/zix99/traefik-lazyload)
+- Auto-pause Container : [Sablier](https://github.com/sablierapp/sablier)
 - Remote desktop gateway : [Guacamole](https://github.com/apache/guacamole-server)
 - Remote automation : [OliveTin](https://github.com/OliveTin/OliveTin)
 - Protection against malicious IPs : [crowdsec](https://github.com/crowdsecurity/crowdsec) => https://docs.crowdsec.net/docs/next/appsec/intro/#introduction
+
+- Network security daemon  : [fail2ban](https://github.com/fail2ban/fail2ban)
