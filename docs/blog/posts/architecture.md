@@ -1,7 +1,7 @@
 ---
 title: Architecture and hardware overview
 draft: true 
-date: 2025-04-04
+date: 2025-04-14
 pin: false
 # links:
 #   - Test: setup/setting-up-site-search.md
