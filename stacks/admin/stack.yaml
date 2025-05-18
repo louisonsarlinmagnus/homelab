@@ -1,0 +1,15 @@
+################################################################################
+# ADMIN STACK 
+################################################################################
+
+version: '3.8'
+
+include:
+  - stacks/admin/services/authelia.yaml
+  - stacks/admin/services/crowdsec.yaml
+  - stacks/admin/services/lldap.yaml
+  - stacks/admin/services/traefik.yaml
+
+networks:
+  admin_net:
+    driver: overlay
