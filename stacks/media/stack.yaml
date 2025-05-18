@@ -1,0 +1,21 @@
+################################################################################
+# MEDIA STACK 
+################################################################################
+
+version: '3.8'
+
+include:
+  - stacks/media/services/decluttarr.yaml
+  - stacks/media/services/flaresolverr.yaml
+  - stacks/media/services/jackett.yaml
+  - stacks/media/services/jellyfin.yaml
+  - stacks/media/services/jellyseerr.yaml
+  - stacks/media/services/profilarr.yaml
+  - stacks/media/services/qbittorrent.yaml
+  - stacks/media/services/radarr.yaml
+  - stacks/media/services/sonarr.yaml
+  - stacks/media/services/tdarr.yaml
+
+networks:
+  media:
+    driver: overlay

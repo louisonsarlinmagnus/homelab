@@ -1,0 +1,14 @@
+################################################################################
+# DOCUMENTS STACK 
+################################################################################
+
+version: '3.8'
+
+include:
+  - stacks/documents/services/paperless_ngx_postgresql.yaml
+  - stacks/documents/services/paperless_ngx.yaml
+  - stacks/documents/services/stirling_pdf.yaml
+
+networks:
+  documents:
+    driver: overlay

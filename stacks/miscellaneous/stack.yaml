@@ -1,0 +1,13 @@
+################################################################################
+# MISCELLANEOUS STACK 
+################################################################################
+
+version: '3.8'
+
+include:
+  - stacks/miscellaneous/services/mealie.yaml
+  - stacks/miscellaneous/services/vaultwarden.yaml
+
+networks:
+  miscellaneous:
+    driver: overlay

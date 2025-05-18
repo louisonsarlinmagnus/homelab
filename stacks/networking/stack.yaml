@@ -1,0 +1,12 @@
+################################################################################
+# NETWORKING STACK 
+################################################################################
+
+version: '3.8'
+
+include:
+  - stacks/networking/services/blocky.yaml
+
+networks:
+  networking:
+    driver: overlay

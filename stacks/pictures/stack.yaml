@@ -1,0 +1,16 @@
+################################################################################
+# PICTURES STACK 
+################################################################################
+
+version: '3.8'
+
+include:
+  - stacks/pictures/services/immich_machine_learning.yaml
+  - stacks/pictures/services/immich_postgresql.yaml
+  - stacks/pictures/services/immich_redis.yaml
+  - stacks/pictures/services/immich.yaml
+  - stacks/pictures/services/wedding_share.yaml
+
+networks:
+  pictures_net:
+    driver: overlay

@@ -1,0 +1,16 @@
+################################################################################
+# CORE STACK 
+################################################################################
+
+version: '3.8'
+
+include:
+  - stacks/core/services/gotify.yaml
+  - stacks/core/services/guacamole.yaml
+  - stacks/core/services/homepage.yaml
+  - stacks/core/services/olivetin.yaml
+  - stacks/core/services/watchtower.yaml
+
+networks:
+  core:
+    driver: overlay

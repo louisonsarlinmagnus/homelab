@@ -1,0 +1,20 @@
+################################################################################
+# MONITORING STACK 
+################################################################################
+
+version: '3.8'
+
+include:
+  - stacks/monitoring/services/cadvisor.yaml
+  - stacks/monitoring/services/dozzle.yaml
+  - stacks/monitoring/services/fail2ban_exporter.yaml
+  - stacks/monitoring/services/grafana.yaml
+  - stacks/monitoring/services/loki.yaml
+  - stacks/monitoring/services/node-_exporter.yaml
+  - stacks/monitoring/services/prometheus.yaml
+  - stacks/monitoring/services/promtail.yaml
+  - stacks/monitoring/services/uptime_kuma.yaml
+
+networks:
+  monitoring:
+    driver: overlay
