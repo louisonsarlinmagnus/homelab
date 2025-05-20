@@ -1,0 +1,38 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/settings
+
+title: homelab
+
+language: fr
+
+theme: dark
+color: gray
+
+target: _blank
+background: 
+  image: images/wallpaper.jpg
+  # blur: sm # sm, "", md, xl... see https://tailwindcss.com/docs/backdrop-blur
+  saturate: 150 # 0, 50, 100... see https://tailwindcss.com/docs/backdrop-saturate
+  brightness: 80 # 0, 50, 75... see https://tailwindcss.com/docs/backdrop-brightness
+  opacity: 75 # 0-100
+
+cardBlur: xl
+
+fiveColumns: true
+
+layout:
+  admin:
+  core:
+  documents:
+  media:
+  miscellaneous:
+  monitoring:
+  networking:
+  pictures:
+
+disableCollapse: true
+hideVersion: true
+# showStats: true
+useEqualHeights: true
+# language: fr

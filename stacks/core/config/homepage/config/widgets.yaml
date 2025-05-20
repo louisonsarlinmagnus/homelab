@@ -1,0 +1,36 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/service-widgets
+
+- resources:
+    label: Hardware
+    expanded: true
+    cpu: true
+    cputemp: true
+    memory: true
+    uptime: true
+    # units: metric
+
+- resources:
+    label: SSD
+    expanded: true
+    refresh: 3000
+    disk: /
+
+- search:
+    provider: duckduckgo
+    target: _blank
+
+- openmeteo:
+    # label: YourLocationLabel # optional
+    latitude: 44.566667
+    longitude: 6.083333
+    # timezone: YourTimezone # optional
+    units: metric # or imperial
+    cache: 15 # Time in minutes to cache API responses
+
+- datetime:
+    text_size: 4xl
+    format:
+        timeStyle: short
+        hourCycle: h23

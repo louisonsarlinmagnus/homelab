@@ -1,16 +1,108 @@
 ################################################################################
-# CORE STACK 
+# CORE STACK => docker stack deploy -c stacks/core/stack.yaml core
 ################################################################################
 
 version: '3.8'
 
-include:
-  - stacks/core/services/gotify.yaml
-  - stacks/core/services/guacamole.yaml
-  - stacks/core/services/homepage.yaml
-  - stacks/core/services/olivetin.yaml
-  - stacks/core/services/watchtower.yaml
+services:
+  gotify:
+    image: gotify/server
+    deploy:
+      replicas: 1
+      labels:
+        - homepage.group=Core
+        - homepage.name=Gotify
+        - homepage.icon=gotify.png
+        # - homepage.href=https://gotify.${DOMAIN_NAME}
+    ports:
+      - 3001:80
+    volumes:
+      - gotify_data:/app/data
+      - ./config/gotify/gotify.yaml:/etc/gotify/config.yml
+    networks:
+      - overlay_net
+
+  # guacamole:
+  #   image: jamiequigley/oliveTin
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    deploy:
+      replicas: 1
+      labels:
+        - homepage.group=Core
+        - homepage.name=Homepage
+        - homepage.icon=homepage.png
+        # - homepage.href=https://homepage.${DOMAIN_NAME}
+    ports:
+      - 3000:3000
+    environment:
+      - HOMEPAGE_ALLOWED_HOSTS=homepage.${DOMAIN_NAME}
+    volumes:
+      - ./config/homepage/config/bookmarks.yaml:/app/config/bookmarks.yaml
+      - ./config/homepage/config/docker.yaml:/app/config/docker.yaml
+      - ./config/homepage/config/services.yaml:/app/config/services.yaml
+      - ./config/homepage/config/settings.yaml:/app/config/settings.yaml
+      - ./config/homepage/config/widgets.yaml:/app/config/widgets.yaml      
+      - ./config/homepage/wallpaper:/app/public/images
+      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
+    networks:
+      - overlay_net
+
+
+  olivetin:
+    image: jamesread/olivetin
+    deploy:
+      replicas: 1
+      labels:
+        - homepage.group=Core
+        - homepage.name=OliveTin
+        - homepage.icon=olivetin.png
+        # - homepage.href=https://olivetin.${DOMAIN_NAME}
+    volumes:
+      - ./config/homepage:/config # replace host path or volume as needed
+    ports:
+      - "1337:1337"
+    networks:
+      - overlay_net
+
+  watchtower:
+    image: containrrr/watchtower:latest 
+    deploy:
+      replicas: 1
+      labels:
+        - homepage.group=Core
+        - homepage.name=Watchtower
+        - homepage.icon=watchtower.png
+        - homepage.widget.type=watchtower
+        - homepage.widget.url=http://watchtower:8080
+        - homepage.widget.key=changeme
+        - homepage.widget.fields=["containers_scanned", "containers_updated", "containers_failed"]
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=${TIMEZONE}
+      - WATCHTOWER_DEBUG=true
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_SCHEDULE=0 30 6 * * *
+      - WATCHTOWER_LABEL_ENABLE=true
+      # - WATCHTOWER_NOTIFICATIONS=gotify
+      # - WATCHTOWER_NOTIFICATION_GOTIFY_URL=https://gotify.${DOMAIN_NAME}
+      # - WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN=changeme
+      # - WATCHTOWER_NOTIFICATION_GOTIFY_TLS_SKIP_VERIFY=true
+      - WATCHTOWER_HTTP_API_METRICS=true
+      - WATCHTOWER_HTTP_API_TOKEN=changeme
+    networks:
+      - overlay_net
+
+volumes:
+  gotify_data:
 
 networks:
-  core:
+  overlay_net:
     driver: overlay
+    attachable: true
