@@ -1,5 +1,5 @@
 ################################################################################
-# DOCUMENTS STACK 
+# DOCUMENTS STACK => docker stack deploy -c stacks/documents/stack.yaml documents
 ################################################################################
 
 version: '3.8'
@@ -10,5 +10,6 @@ include:
   - stacks/documents/services/stirling_pdf.yaml
 
 networks:
-  documents:
+  overlay_net:
     driver: overlay
+    attachable: true
