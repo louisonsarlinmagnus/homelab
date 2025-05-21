@@ -4,9 +4,29 @@
 
 version: '3.8'
 
-include:
-  - stacks/networking/services/blocky.yaml
+services:
+  blocky:
+    image: spx01/blocky
+    deploy:
+      replicas: 1
+      labels:
+        - homepage.group=Networking
+        - homepage.name=Blocky
+        - homepage.icon=blocky.png
+    volumes:
+      # - /etc/localtime:/etc/localtime:ro
+      - ./config/blocky/config.yaml:/app/config.yml:ro
+    environment:
+      - TZ=${TIMEZONE}
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "4000:4000/tcp" # Prometheus stats (if enabled)
+    networks:
+      - overlay_net
+
 
 networks:
-  networking:
+  overlay_net:
     driver: overlay
+    attachable: true
