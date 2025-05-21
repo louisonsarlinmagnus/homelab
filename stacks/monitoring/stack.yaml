@@ -1,20 +1,94 @@
 ################################################################################
-# MONITORING STACK 
+# MONITORING STACK => docker stack deploy -c stacks/monitoring/stack.yaml monitoring
 ################################################################################
 
 version: '3.8'
 
-include:
-  - stacks/monitoring/services/cadvisor.yaml
-  - stacks/monitoring/services/dozzle.yaml
-  - stacks/monitoring/services/fail2ban_exporter.yaml
-  - stacks/monitoring/services/grafana.yaml
-  - stacks/monitoring/services/loki.yaml
-  - stacks/monitoring/services/node-_exporter.yaml
-  - stacks/monitoring/services/prometheus.yaml
-  - stacks/monitoring/services/promtail.yaml
-  - stacks/monitoring/services/uptime_kuma.yaml
+services:
+  # cadvisor:
+  #   image: 
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  dozzle:
+    image: amir20/dozzle
+    deploy:
+      labels:
+        - homepage.group=Monitoring
+        - homepage.name=Dozzle
+        - homepage.icon=dozzle.png
+        - homepage.href=https://dozzle.${DOMAIN_NAME}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 3003:8080
+    environment:
+      - DOZZLE_HOSTNAME=Turbonas
+      - DOZZLE_ENABLE_ACTIONS=true
+      - DOZZLE_MODE=swarm
+    networks:
+      - overlay_net
+
+  # dozzle:
+  #   image: 
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  # fail2ban_exporter:
+  #   image: 
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  # grafana:
+  #   image: 
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  # loki:
+  #   image: 
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  # node_exporter:
+  #   image: 
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  # prometheus:
+  #   image:
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  # promtail:
+  #   image: 
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  # uptime_kuma:
+  #   image: jamiequigley/oliveTin
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
 
 networks:
-  monitoring:
+  overlay_net:
     driver: overlay
+    attachable: true
