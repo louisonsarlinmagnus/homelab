@@ -1,16 +1,77 @@
 ################################################################################
-# PICTURES STACK 
+# PICTURES STACK => docker stack deploy -c stacks/pictures/stack.yaml pictures
 ################################################################################
 
 version: '3.8'
 
-include:
-  - stacks/pictures/services/immich_machine_learning.yaml
-  - stacks/pictures/services/immich_postgresql.yaml
-  - stacks/pictures/services/immich_redis.yaml
-  - stacks/pictures/services/immich.yaml
-  - stacks/pictures/services/wedding_share.yaml
+services:
+  # immich_machine_learning:
+  #   image: 
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  # immich_postgresql:
+  #   image: 
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  # immich_redis:
+  #   image: 
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  # immich:
+  #   image: 
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  # wedding_share:
+  #   image: 
+  #   deploy:
+  #     replicas: 1
+  #   networks:
+  #     - overlay_net
+
+  wedding_share:
+    image: cirx08/wedding_share:latest
+    deploy:
+      replicas: 1
+      labels:
+        - homepage.group=Pictures
+        - homepage.name=Wedding Share
+        - homepage.icon=sh-weddingshare.png
+        - homepage.href=https://wedding_share.${DOMAIN_NAME}
+    ports:
+      - 3004:5000/tcp
+    environment:
+      - TITLE=Marie & Louison
+      - ACCOUNT_ADMIN_USERNAME=admin
+      - ACCOUNT_ADMIN_PASSWORD=admin
+      - DATABASE_TYPE=sqlite
+      - ENCRYPTION_KEY=ChangeMe
+      - ENCRYPTION_SALT=ChangeMe
+      - SINGLE_GALLERY_MODE=true
+      # - BASE_URL=
+    volumes:
+      - wedding_share_data:/app/config:rw
+      - wedding_share_data:/app/wwwroot/thumbnails:rw
+      - wedding_share_data:/app/wwwroot/custom_resources:rw
+      - ./config/wedding_share/uploads:/app/wwwroot/uploads:rw
+    networks:
+      - overlay_net
+volumes:
+  wedding_share_data:
+
 
 networks:
-  pictures_net:
+  overlay_net:
     driver: overlay
+    attachable: true
