@@ -22,14 +22,14 @@ cardBlur: xl
 fiveColumns: true
 
 layout:
-  admin:
-  core:
-  documents:
-  media:
-  miscellaneous:
-  monitoring:
-  networking:
-  pictures:
+  Admin:
+  Core:
+  Documents:
+  Media:
+  Miscellaneous:
+  Monitoring:
+  Networking:
+  Pictures:
 
 disableCollapse: true
 hideVersion: true
