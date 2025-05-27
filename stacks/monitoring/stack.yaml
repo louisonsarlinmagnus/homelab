@@ -19,7 +19,8 @@ services:
         - homepage.group=Monitoring
         - homepage.name=Dozzle
         - homepage.icon=dozzle.png
-        - homepage.href=https://dozzle.${DOMAIN_NAME}
+        - homepage.href=http://localhost:3003/
+        # - homepage.href=https://dozzle.${DOMAIN_NAME}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
