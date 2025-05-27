@@ -56,21 +56,22 @@ services:
       - overlay_net
 
 
-  olivetin:
-    image: jamesread/olivetin
-    deploy:
-      replicas: 1
-      labels:
-        - homepage.group=Core
-        - homepage.name=OliveTin
-        - homepage.icon=olivetin.png
-        # - homepage.href=https://olivetin.${DOMAIN_NAME}
-    volumes:
-      - ./config/homepage:/config # replace host path or volume as needed
-    ports:
-      - "1337:1337"
-    networks:
-      - overlay_net
+  # olivetin:
+  #   image: jamesread/olivetin
+  #   deploy:
+  #     replicas: 1
+  #     labels:
+  #       - homepage.group=Core
+  #       - homepage.name=OliveTin
+  #       - homepage.icon=olivetin.png
+  #       - homepage.href=http://localhost:3002/
+  #       # - homepage.href=https://olivetin.${DOMAIN_NAME}
+  #   volumes:
+  #     - ./config/olivetin:/config # replace host path or volume as needed
+  #   ports:
+  #     - 3002:1337
+  #   networks:
+  #     - overlay_net
 
   watchtower:
     image: containrrr/watchtower:latest 
