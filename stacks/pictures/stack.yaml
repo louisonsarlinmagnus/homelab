@@ -71,7 +71,13 @@ services:
         - homepage.group=Pictures
         - homepage.name=Immich
         - homepage.icon=immich.png
-        - homepage.href=https://wedding_share.${DOMAIN_NAME}
+        - homepage.href=http://localhost:3005/
+        # - homepage.href=https://wedding_share.${DOMAIN_NAME}
+        # - homepage.widget.type=immich
+        # - homepage.widget.url=http://immich
+        # - homepage.widget.key=changeme
+        # - homepage.widget.version=2
+        # - homepage.widget.fields=["users" ,"photos", "videos", "storage"]
     volumes:
       - ./config/immich/library:/usr/src/app/upload
     environment:
