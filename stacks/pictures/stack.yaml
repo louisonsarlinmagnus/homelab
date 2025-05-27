@@ -79,7 +79,7 @@ services:
         # - homepage.widget.version=2
         # - homepage.widget.fields=["users" ,"photos", "videos", "storage"]
     volumes:
-      - ./config/immich/library:/usr/src/app/upload
+      - /home/louison/homelab/RAID/immich/library:/usr/src/app/upload
     environment:
       DB_PASSWORD: changeme
       DB_USERNAME: postgres
