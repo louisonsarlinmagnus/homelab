@@ -4,10 +4,96 @@
 
 version: '3.8'
 
-include:
-  - stacks/documents/services/paperless_ngx_postgresql.yaml
-  - stacks/documents/services/paperless_ngx.yaml
-  - stacks/documents/services/stirling_pdf.yaml
+services:
+  paperless_ngx:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    deploy:
+      replicas: 1
+      labels:
+        - homepage.group=Documents
+        - homepage.name=Paperless NGX
+        - homepage.icon=paperless
+        - homepage.href=http://localhost:3007/
+        # - homepage.href=https://paperless_ngx.${DOMAIN_NAME}
+    ports:
+      - 3007:8000
+    volumes:
+      - paperless_data:/usr/src/paperless/data
+      - /home/louison/homelab/RAID/paperless_ngx/media:/usr/src/paperless/media
+      - paperless_data:/usr/src/paperless/export
+      - paperless_data:/usr/src/paperless/consume
+    environment:
+      PAPERLESS_REDIS: redis://paperless_ngx_redis:6379
+      PAPERLESS_DBHOST: paperless_ngx_postgres
+      PAPERLESS_DBNAME: paperless
+      PAPERLESS_DBUSER: changeme
+      PAPERLESS_DBPASS: changeme
+      # PAPERLESS_URL: https://paperless_ngx.${DOMAIN_NAME}
+      PAPERLESS_SECRET_KEY: changeme
+      PAPERLESS_TIME_ZONE: ${TIMEZONE}
+      PAPERLESS_OCR_LANGUAGE: fra
+      PAPERLESS_ADMIN_USER: changeme
+      PAPERLESS_ADMIN_PASSWORD: changeme
+    networks:
+      - overlay_net
+
+  paperless_ngx_postgres:
+    image: docker.io/library/postgres:17
+    deploy:
+      replicas: 1
+      labels:
+        - homepage.group=Documents
+        - homepage.name=Stirling PDF Postgres
+        - homepage.icon=postgres.png
+    volumes:
+      - paperless_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: paperless
+      POSTGRES_USER: changeme
+      POSTGRES_PASSWORD: changeme
+    networks:
+      - overlay_net
+
+  paperless_ngx_redis:
+    image: docker.io/library/redis:8
+    deploy:
+      replicas: 1
+      labels:
+        - homepage.group=Documents
+        - homepage.name=Stirling PDF Redis
+        - homepage.icon=redis.png
+    # volumes:
+      # - redisdata:/data
+    networks:
+      - overlay_net
+
+  stirling_pdf:
+    image: docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest
+    deploy:
+      replicas: 1
+      labels:
+        - homepage.group=Documents
+        - homepage.name=Stirling PDF
+        - homepage.icon=stirling-pdf.png
+        - homepage.href=http://localhost:3006/   
+        # - homepage.href=https://stirling_pdf.${DOMAIN_NAME}      
+    volumes:
+      - stirling_pdf_data:/usr/share/tessdata:rw # Required for extra OCR languages
+      - stirling_pdf_data:/configs:rw
+      - stirling_pdf_data:/customFiles/:rw
+      - stirling_pdf_data:/logs/:rw
+      - stirling_pdf_data:/pipeline/:rw
+    environment:
+      - DOCKER_ENABLE_SECURITY=true
+      - LANGS=fr_FR
+    ports:
+      - 3006:8080
+    networks:
+      - overlay_net
+
+volumes:
+  stirling_pdf_data:
+  paperless_data:
 
 networks:
   overlay_net:
