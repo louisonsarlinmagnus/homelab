@@ -16,9 +16,7 @@ services:
         - homepage.name=Immich-Machine-Learning
         - homepage.icon=immich.png
     volumes:
-      - immich-model-cache:/cache
-    env_file:
-      - config/immich/immich.env
+      - immich_model_cache:/cache
     # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference - use the `-wsl` version for WSL2 where applicable
@@ -33,7 +31,7 @@ services:
       replicas: 1
       labels:
         - homepage.group=Pictures
-        - homepage.name=Immich-Postgre
+        - homepage.name=Immich Postgres
         - homepage.icon=postgres.png
     environment:
       POSTGRES_PASSWORD: changeme
@@ -58,7 +56,7 @@ services:
       replicas: 1
       labels:
         - homepage.group=Pictures
-        - homepage.name=Immich-Valkey
+        - homepage.name=Immich Valkey
         - homepage.icon=valkey.png
     healthcheck:
       test: redis-cli ping || exit 1
@@ -122,9 +120,8 @@ services:
       - overlay_net
 volumes:
   wedding_share_data:
-  immich-model-cache:
+  immich_model_cache:
   immich_database:
-
 
 networks:
   overlay_net:
