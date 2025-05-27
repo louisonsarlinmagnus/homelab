@@ -112,10 +112,10 @@ services:
       - SINGLE_GALLERY_MODE=true
       # - BASE_URL=
     volumes:
-      - wedding_share_data:/app/config:rw
-      - wedding_share_data:/app/wwwroot/thumbnails:rw
-      - wedding_share_data:/app/wwwroot/custom_resources:rw
-      - ./config/wedding_share/uploads:/app/wwwroot/uploads:rw
+      - wedding_share_data:/app/config
+      - wedding_share_data:/app/wwwroot/thumbnails
+      - wedding_share_data:/app/wwwroot/custom_resources
+      - /home/louison/homelab/RAID/wedding_share/uploads:/app/wwwroot/uploads
     networks:
       - overlay_net
 volumes:
