@@ -1,13 +1,59 @@
 ################################################################################
-# MISCELLANEOUS STACK 
+# MISCELLANEOUS STACK => docker stack deploy -c stacks/miscellaneous/stack.yaml miscellaneous
 ################################################################################
 
 version: '3.8'
 
-include:
-  - stacks/miscellaneous/services/mealie.yaml
-  - stacks/miscellaneous/services/vaultwarden.yaml
+services:
+  mealie:
+    image: hkotel/mealie:nightly
+    deploy:
+      replicas: 1
+      labels:
+      - homepage.group=Miscellaneous
+      - homepage.name=Mealie
+      - homepage.icon=mealie.png
+      - homepage.href=http://localhost:3008
+      # - homepage.href=https://mealie.${DOMAIN_NAME}
+    volumes:
+      - mealie_data:/app/data/
+    ports:
+      - 3008:9000
+    environment:
+      TZ: ${TIMEZONE}
+      ALLOW_SIGNUP: "false"
+      # BASE_URL: https://mealie.${DOMAIN_NAME}
+    networks:
+      - overlay_net
+
+  vaultwarden:
+    image: vaultwarden/server:latest
+    deploy:
+      replicas: 1
+      labels:
+      - homepage.group=Miscellaneous
+      - homepage.name=Vaultwarden
+      - homepage.icon=bitwarden.png
+      - homepage.href=http://localhost:3009
+      # - homepage.href=https://vaultwarden.${DOMAIN_NAME}
+    ports:
+      - 3009:80
+    volumes:
+      - vaultwarden_data:/data
+    environment:
+      SIGNUPS_ALLOWED: "true"
+      INVITATIONS_ALLOWED: "false"
+      LOG_LEVEL: debug
+      ADMIN_TOKEN: changeme
+      TZ: ${TIMEZONE}
+    networks:
+      - overlay_net
 
 networks:
-  miscellaneous:
+  overlay_net:
     driver: overlay
+    attachable: true
+
+volumes:
+  mealie_data:
+  vaultwarden_data:
