@@ -43,10 +43,10 @@ services:
       replicas: 1
       labels:
         - homepage.group=Documents
-        - homepage.name=Stirling PDF Postgres
+        - homepage.name=Paperless PDF Postgres
         - homepage.icon=postgres.png
     volumes:
-      - paperless_data:/var/lib/postgresql/data
+      - paperless_database:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: paperless
       POSTGRES_USER: changeme
@@ -62,10 +62,10 @@ services:
       replicas: 1
       labels:
         - homepage.group=Documents
-        - homepage.name=Stirling PDF Redis
+        - homepage.name=Paperless PDF Redis
         - homepage.icon=redis.png
-    # volumes:
-      # - redisdata:/data
+    volumes:
+      - paperless_key_value:/data
     networks:
       - overlay_net
 
@@ -86,8 +86,8 @@ services:
       - stirling_pdf_data:/logs/
       - stirling_pdf_data:/pipeline/
     environment:
-      - DOCKER_ENABLE_SECURITY=true
-      - LANGS=fr_FR
+      DOCKER_ENABLE_SECURITY: "true"
+      LANGS: fr_FR
     ports:
       - 3006:8080
     networks:
@@ -96,6 +96,8 @@ services:
 volumes:
   stirling_pdf_data:
   paperless_data:
+  paperless_database:
+  paperless_key_value:
 
 networks:
   overlay_net:
