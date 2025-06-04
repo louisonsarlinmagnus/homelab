@@ -86,7 +86,7 @@ services:
       DB_DATABASE_NAME: immich
       DB_HOSTNAME: immich_postgresql
       REDIS_HOSTNAME: immich_valkey
-      TZ: ${TIMEZONE}
+      TZ: Europe/Paris
     # extends:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding

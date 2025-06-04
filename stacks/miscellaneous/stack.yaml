@@ -20,7 +20,7 @@ services:
     ports:
       - 3008:9000
     environment:
-      TZ: ${TIMEZONE}
+      TZ: Europe/Paris
       ALLOW_SIGNUP: "false"
       # BASE_URL: https://mealie.${DOMAIN_NAME}
     networks:
@@ -45,7 +45,7 @@ services:
       INVITATIONS_ALLOWED: "false"
       LOG_LEVEL: debug
       ADMIN_TOKEN: changeme
-      TZ: ${TIMEZONE}
+      TZ: Europe/Paris
     networks:
       - overlay_net
 
