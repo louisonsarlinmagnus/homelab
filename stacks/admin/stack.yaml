@@ -62,9 +62,9 @@ services:
       - homepage.icon=traefik.png
       - homepage.href=https://traefik.${DOMAIN_NAME}
     environment:
-      - TZ: ${TIMEZONE}
+      - TZ=${TIMEZONE}
     networks:
-      - admin_net
+      - overlay_net
 
   authelia:
     image: authelia/authelia:latest
@@ -85,9 +85,9 @@ services:
     expose:
       - ${AUTHELIA_EXTERNAL_PORT}
     environment:
-      - TZ: ${TIMEZONE}
+      - TZ=${TIMEZONE}
     networks:
-      - admin_net
+      - overlay_net
 
   crowdsec:
     image: crowdsecurity/crowdsec
@@ -96,7 +96,7 @@ services:
     volumes:
       - ./crowdsec_data:/var/lib/crowdsec/data
     networks:
-      - admin_net
+      - overlay_net
 
   lldap:
     image: nitnelave/lldap:stable
@@ -105,9 +105,11 @@ services:
     volumes:
       - ./lldap_data:/data
     networks:
-      - admin_net
-
+      - overlay_net
 
 networks:
-  admin_net:
+  overlay_net:
     driver: overlay
+
+volumes:
+  overlay_net:
