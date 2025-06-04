@@ -88,17 +88,17 @@ services:
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - TZ=${TIMEZONE}
-      - WATCHTOWER_DEBUG=true
-      - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_SCHEDULE=0 30 6 * * *
-      - WATCHTOWER_LABEL_ENABLE=true
-      # - WATCHTOWER_NOTIFICATIONS=gotify
-      # - WATCHTOWER_NOTIFICATION_GOTIFY_URL=https://gotify.${DOMAIN_NAME}
-      # - WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN=changeme
-      # - WATCHTOWER_NOTIFICATION_GOTIFY_TLS_SKIP_VERIFY=true
-      - WATCHTOWER_HTTP_API_METRICS=true
-      - WATCHTOWER_HTTP_API_TOKEN=changeme
+      TZ: Europe/Paris
+      WATCHTOWER_DEBUG: "true"
+      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_SCHEDULE: "0 30 6 * * *"
+      WATCHTOWER_LABEL_ENABLE: "true"
+      # WATCHTOWER_NOTIFICATIONS: gotify
+      # WATCHTOWER_NOTIFICATION_GOTIFY_URL: https://gotify.${DOMAIN_NAME}
+      # WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN :changeme
+      # WATCHTOWER_NOTIFICATION_GOTIFY_TLS_SKIP_VERIFY: "true"
+      WATCHTOWER_HTTP_API_METRICS: true
+      WATCHTOWER_HTTP_API_TOKEN: changeme
     networks:
       - overlay_net
 
