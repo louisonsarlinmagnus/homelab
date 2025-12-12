@@ -1,7 +1,7 @@
 ---
-title: Hardware overview
+title: Backup
 draft: true
-date: 2025-05-14
+date: 2025-12-12
 pin: false
 # links:
 #   - Test: setup/setting-up-site-search.md
@@ -11,7 +11,7 @@ authors:
     - louison
 ---
 
-Storing and serving data is the main goal, but that data is precious and it would be terrible to lose it.
+Storing and serving data is the main goal, but that data is precioussss and it would be awful to lose it.
 
 <!-- more -->
 
@@ -23,7 +23,8 @@ In my homelab I will try to implement the well known 3-2-1-0-0 golden backup rul
 > 2 different media (HHD powered RAID, SSD)  
 > 1 copy offsite (Remote external SSD)  
 > 1 copy offline (Local external SSD)  
-> 0 corrupted backup
+> 0 corrupted backup  
+> 0 data loss
 
 To do this I will have to choose a strategy, tool and network protocol (for offsite) :
 
@@ -33,7 +34,7 @@ To do this I will have to choose a strategy, tool and network protocol (for offs
 | **Cons** | Consumes more storage space, time and bandwidth                                      | More prone to corruption and more complex to restore. Often requires the last full backup and all subsequent incremental backups |
 
 | Tool     | Dedicated tool (restic, duplicati, etc.)                                                            | Scripts (using rsync for example)                                                                                                                   |
-| -------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Pros** | More feature rich (encryption, deduplication, version management), user interfaces and more secured | Flexible, requires fewer system resources and could be more performant                                                                              |
 | **Cons** | May be more complex to setup and more resource-intensive                                            | Less feature rich (encryption, deduplication, version management to be developed), requires additional tools to secure data in transit (SSH or VPN) |
 
