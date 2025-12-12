@@ -1,21 +1,50 @@
 ################################################################################
-# MEDIA STACK 
+# MEDIA STACK => docker stack deploy -c stacks/media/stack.yaml media
 ################################################################################
 
 version: '3.8'
 
-include:
-  - stacks/media/services/decluttarr.yaml
-  - stacks/media/services/flaresolverr.yaml
-  - stacks/media/services/jackett.yaml
-  - stacks/media/services/jellyfin.yaml
-  - stacks/media/services/jellyseerr.yaml
-  - stacks/media/services/profilarr.yaml
-  - stacks/media/services/qbittorrent.yaml
-  - stacks/media/services/radarr.yaml
-  - stacks/media/services/sonarr.yaml
-  - stacks/media/services/tdarr.yaml
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    deploy:
+      replicas: 1
+      labels:
+        - homepage.group=Media
+        - homepage.name=Jellyfin
+        - homepage.icon=jellyfin.png
+    # volumes:
+    #   - /path/to/config:/config
+    #   - /path/to/cache:/cache
+    #   - type: bind
+    #     source: /path/to/media
+    #     target: /media
+    #   - type: bind
+    #     source: /path/to/media2
+    #     target: /media2
+    #     read_only: true
+    #   # Optional - extra fonts to be used during transcoding with subtitle burn-in
+    #   - type: bind
+    #     source: /path/to/fonts
+    #     target: /usr/local/share/fonts/custom
+    #     read_only: true
+    # Optional - alternative address used for autodiscovery
+    # environment:
+    #   - JELLYFIN_PublishedServerUrl=http://example.com
+    # # Optional - may be necessary for docker healthcheck to pass if running in host network mode
+    # extra_hosts:
+    #   - 'host.docker.internal:host-gateway'
+    # # Optional - specify the uid and gid you would like Jellyfin to use instead of root
+    # user: 1000:1000
+    ports:
+      - 3010:8096/tcp
+      - 3011:7359/udp
+    healthcheck:
+      disable: false
+    networks:
+      - overlay_net
 
 networks:
-  media:
+  overlay_net:
     driver: overlay
+    attachable: true
