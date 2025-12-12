@@ -27,7 +27,7 @@ services:
       - 3003:8080
     environment:
       DOZZLE_HOSTNAME: Turbonas
-      DOZZLE_ENABLE_ACTIONS: true
+      DOZZLE_ENABLE_ACTIONS: "true"
       DOZZLE_MODE: swarm
     networks:
       - overlay_net
