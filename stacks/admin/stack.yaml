@@ -1,5 +1,5 @@
 ################################################################################
-# ADMIN STACK 
+# ADMIN STACK => docker stack deploy -c stacks/admin/stack.yaml admin
 ################################################################################
 
 version: '3.8'
@@ -9,60 +9,60 @@ services:
     image: traefik:chaource
     deploy:
       replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.traefik.entrypoints=websecure
+        - traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_NAME}`)
+        - traefik.http.routers.traefik.tls=true
+        - traefik.http.routers.traefik.tls.certresolver=myresolver
+        - homepage.group=Administration
+        - homepage.name=Traefik
+        - homepage.icon=traefik.png
+        - homepage.href=https://traefik.${DOMAIN_NAME}
     command:
       # API SETTINGS
       - --api=true
       - --api.insecure=false
       - --api.dashboard=true
       # ENTRYPOINTS
-      - --entrypoints.web.address=:80
+      - --entrypoints.web.address=80
       - --entrypoints.web.http.redirections.entrypoint.to=websecure
       - --entrypoints.web.http.redirections.entrypoint.scheme=https
       - --entrypoints.web.http.redirections.entrypoint.permanent=true
-      - --entrypoints.websecure.address=:443
-      - --entrypoints.websecure.http.tls= true
+      - --entrypoints.websecure.address=443
+      - --entrypoints.websecure.http.tls=true
       # CERTIFICATE RESOLVERS
-      - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
-      - --certificatesresolvers.myresolver.acme.email=certificates_provider_email_address
-      - --certificatesresolvers.myresolver.acme.storage=/acme_data/acme.json
-      # PROVIDERS
-      - --providers.docker=true
-      - --providers.docker.exposedbydefault=false
-      - --providers.docker.watch=true
-      # LOGGING SETTINGS
-      - --log=true
-      - --log.format=common
-      - --log.level=INFO # DEBUG, INFO, WARN, ERROR, FATAL, PANIC
-      - --accessLog=true
-      - --accesslog.format=common
-      # MIDDLEWARES
-      # FAIL2BAN
-      - --http.middlewares.my-fail2ban.plugin.fail2ban.logLevel=INFO
-      - --http.middlewares.my-fail2ban.plugin.fail2ban.bantime=3h
-      - --http.middlewares.my-fail2ban.plugin.fail2ban.findtime=3m
-      - --http.middlewares.my-fail2ban.plugin.fail2ban.maxretry=3
-      - --http.middlewares.my-fail2ban.plugin.fail2ban.enabled=true
-      # AUTHELIA
-      - --http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https://login.${DOMAIN_NAME}/
-      - --http.middlewares.authelia.forwardauth.trustForwardHeader=true
-      - --http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email
+      # - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
+      # - --certificatesresolvers.myresolver.acme.email=certificates_provider_email_address
+      # - --certificatesresolvers.myresolver.acme.storage=/acme_data/acme.json
+      # # PROVIDERS
+      # - --providers.docker=true
+      # - --providers.docker.exposedbydefault=false
+      # - --providers.docker.watch=true
+      # # LOGGING SETTINGS
+      # - --log=true
+      # - --log.format=common
+      # - --log.level=INFO # DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+      # - --accessLog=true
+      # - --accesslog.format=common
+      # # MIDDLEWARES
+      # # FAIL2BAN
+      # - --http.middlewares.my-fail2ban.plugin.fail2ban.logLevel=INFO
+      # - --http.middlewares.my-fail2ban.plugin.fail2ban.bantime=3h
+      # - --http.middlewares.my-fail2ban.plugin.fail2ban.findtime=3m
+      # - --http.middlewares.my-fail2ban.plugin.fail2ban.maxretry=3
+      # - --http.middlewares.my-fail2ban.plugin.fail2ban.enabled=true
+      # # AUTHELIA
+      # - --http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https://login.${DOMAIN_NAME}/
+      # - --http.middlewares.authelia.forwardauth.trustForwardHeader=true
+      # - --http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email
     ports:
       - 80:80
       - 443:443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - traefik.enable:true
-      - traefik.http.routers.traefik.entrypoints=websecure
-      - traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN_NAME}`)
-      - traefik.http.routers.traefik.tls=true
-      - traefik.http.routers.traefik.tls.certresolver=myresolver
-      - homepage.group=Administration
-      - homepage.name=Traefik
-      - homepage.icon=traefik.png
-      - homepage.href=https://traefik.${DOMAIN_NAME}
     environment:
-      - TZ=${TIMEZONE}
+      TZ: Europe/Paris
     networks:
       - overlay_net
 
@@ -70,42 +70,42 @@ services:
     image: authelia/authelia:latest
     deploy:
       replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.authelia.entrypoints=websecure
+        - traefik.http.routers.authelia.rule=Host(`${AUTHELIA_URL}`)
+        - traefik.http.routers.authelia.tls=true
+        - traefik.http.routers.authelia.tls.certresolver=myresolver
+        - homepage.group=Administration
+        - homepage.name=Authelia
+        - homepage.icon=authelia.png
+        - homepage.href=https://login.lsarlinmagnus.fr
     volumes:
       - /home/louison/turbonas/authelia:/config
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.authelia.entrypoints=websecure
-      - traefik.http.routers.authelia.rule=Host(`${AUTHELIA_URL}`)
-      - traefik.http.routers.authelia.tls=true
-      - traefik.http.routers.authelia.tls.certresolver=myresolver
-      - homepage.group=Administration
-      - homepage.name=Authelia
-      - homepage.icon=authelia.png
-      - homepage.href=https://login.lsarlinmagnus.fr
     expose:
       - ${AUTHELIA_EXTERNAL_PORT}
     environment:
-      - TZ=${TIMEZONE}
+      TZ: Europe/Paris
     networks:
       - overlay_net
 
-  crowdsec:
-    image: crowdsecurity/crowdsec
-    deploy:
-      replicas: 1
-    volumes:
-      - ./crowdsec_data:/var/lib/crowdsec/data
-    networks:
-      - overlay_net
+  # crowdsec:
+  #   image: crowdsecurity/crowdsec
+  #   deploy:
+  #     replicas: 1
+  #   volumes:
+  #     - ./crowdsec_data:/var/lib/crowdsec/data
+  #   networks:
+  #     - overlay_net
 
-  lldap:
-    image: nitnelave/lldap:stable
-    deploy:
-      replicas: 1
-    volumes:
-      - ./lldap_data:/data
-    networks:
-      - overlay_net
+  # lldap:
+  #   image: nitnelave/lldap:stable
+  #   deploy:
+  #     replicas: 1
+  #   volumes:
+  #     - ./lldap_data:/data
+  #   networks:
+  #     - overlay_net
 
 networks:
   overlay_net:
