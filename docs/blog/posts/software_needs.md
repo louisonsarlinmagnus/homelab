@@ -47,7 +47,6 @@ This stack is for all my services related to pictures storing and sharing?
   - [immich machine learning](https://immich.app/docs/guides/remote-machine-learning/)
   - [postgreSQL]()
   - [redis]()
-- Picture share : [WeddingShare](https://github.com/Cirx08/WeddingShare)
 
 ## media stack
 

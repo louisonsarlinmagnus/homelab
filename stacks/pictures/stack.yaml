@@ -97,36 +97,7 @@ services:
     networks:
       - overlay_net
 
-  wedding_share:
-    image: cirx08/wedding_share:latest
-    deploy:
-      replicas: 1
-      labels:
-        - homepage.group=Pictures
-        - homepage.name=Wedding Share
-        - homepage.icon=sh-weddingshare.png
-        - homepage.href=http://localhost:3004/
-        # - homepage.href=https://wedding_share.${DOMAIN_NAME}
-    ports:
-      - 3004:5000/tcp
-    environment:
-      TITLE: "Marie & Louison"
-      ACCOUNT_ADMIN_USERNAME: admin
-      ACCOUNT_ADMIN_PASSWORD: admin
-      DATABASE_TYPE: sqlite
-      ENCRYPTION_KEY: ChangeMe
-      ENCRYPTION_SALT: ChangeMe
-      SINGLE_GALLERY_MODE: "true"
-      # - BASE_URL=https://wedding_share.${DOMAIN_NAME}
-    volumes:
-      - wedding_share_data:/app/config
-      - wedding_share_data:/app/wwwroot/thumbnails
-      - wedding_share_data:/app/wwwroot/custom_resources
-      - /home/louison/homelab/RAID/wedding_share/uploads:/app/wwwroot/uploads
-    networks:
-      - overlay_net
 volumes:
-  wedding_share_data:
   immich_model_cache:
   immich_database:
 
