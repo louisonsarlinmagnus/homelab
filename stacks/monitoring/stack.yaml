@@ -32,13 +32,6 @@ services:
     networks:
       - overlay_net
 
-  # dozzle:
-  #   image: 
-  #   deploy:
-  #     replicas: 1
-  #   networks:
-  #     - overlay_net
-
   # fail2ban_exporter:
   #   image: 
   #   deploy:
