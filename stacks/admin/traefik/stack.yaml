@@ -1,11 +1,10 @@
 ################################################################################
-# ADMIN STACK => docker stack deploy -c stacks/admin/stack.yaml admin
+# ADMIN STACK => docker stack deploy -c stacks/admin/traefik/stack.yaml traefik
 ################################################################################
 
 version: '3.8'
 
 services:
-
   traefik:
     image: traefik:ramequin
     deploy:
@@ -63,23 +62,23 @@ services:
 
 configs:
   traefik_config:
-    file: ./config/traefik/traefik.yaml
+    file: ./traefik/traefik.yaml
   traefik_middlewares:
-    file: ./config/traefik/files/middlewares.yaml
+    file: ./traefik/files/middlewares.yaml
   traefik_routers:
-    file: ./config/traefik/files/routers.yaml
+    file: ./traefik/files/routers.yaml
   traefik_services:
-    file: ./config/traefik/files/services.yaml
+    file: ./traefik/files/services.yaml
 
 secrets:
   ovh_endpoint:
-    file: ./config/traefik/secrets/ovh_endpoint.secret
+    file: ./traefik/secrets/ovh_endpoint.secret
   ovh_application_key:
-    file: ./config/traefik/secrets/ovh_application_key.secret
+    file: ./traefik/secrets/ovh_application_key.secret
   ovh_application_secret:
-    file: ./config/traefik/secrets/ovh_application_secret.secret
+    file: ./traefik/secrets/ovh_application_secret.secret
   ovh_consumer_key:
-    file: ./config/traefik/secrets/ovh_consumer_key.secret
+    file: ./traefik/secrets/ovh_consumer_key.secret
 
 networks:
   proxy:
@@ -89,38 +88,6 @@ networks:
 
 volumes:
   traefik_certs_data:
-
-  # authelia:
-  #   image: authelia/authelia:latest
-  #   deploy:
-  #     replicas: 1
-  #     labels:
-  #       # - traefik.enable=true
-  #       # - traefik.http.routers.authelia.entrypoints=websecure
-  #       # - traefik.http.routers.authelia.rule=Host(`${AUTHELIA_URL}`)
-  #       # - traefik.http.routers.authelia.tls=true
-  #       # - traefik.http.routers.authelia.tls.certresolver=myresolver
-  #       - homepage.group=Administration
-  #       - homepage.name=Authelia
-  #       - homepage.icon=authelia.png
-  #       - homepage.href=http://localhost:2999/
-  #   volumes:
-  #     - .config/authelia:/config
-  #   ports:
-  #     - 2999:9091
-  #   environment:
-  #     TZ: Europe/Paris
-  #   networks:
-  #     - overlay_net
-
-  # crowdsec:
-  #   image: crowdsecurity/crowdsec
-  #   deploy:
-  #     replicas: 1
-  #   volumes:
-  #     - ./crowdsec_data:/var/lib/crowdsec/data
-  #   networks:
-  #     - overlay_net
 
   # lldap:
   #   image: nitnelave/lldap:stable
@@ -143,5 +110,14 @@ volumes:
   #     LLDAP_LDAP_USER_PASS: ${LLDAP_USER_PASS}
   #     LLDAP_LDAP_BASE_DN: dc=lsarlinmagnus,dc=fr
   #     TZ: Europe/Paris
+  #   networks:
+  #     - overlay_net
+
+  # crowdsec:
+  #   image: crowdsecurity/crowdsec
+  #   deploy:
+  #     replicas: 1
+  #   volumes:
+  #     - ./crowdsec_data:/var/lib/crowdsec/data
   #   networks:
   #     - overlay_net
