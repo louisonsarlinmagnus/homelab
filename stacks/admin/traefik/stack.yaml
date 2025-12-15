@@ -13,7 +13,7 @@ services:
         - homepage.group=Administration
         - homepage.name=Traefik
         - homepage.icon=traefik.png
-        - homepage.href=http://localhost:80/
+        # - homepage.href=http://localhost:80/
     ports:
       - 80:80
       - 443:443
@@ -57,6 +57,10 @@ services:
         - traefik.http.routers.whoami-https.entrypoints=websecure
         - traefik.http.routers.whoami-https.tls=true
         - traefik.http.routers.whoami-https.tls.certresolver=ovh
+        # - homepage.group=Administration
+        # - homepage.name=Traefik
+        # - homepage.icon=traefik.png
+        # - homepage.href=http://localhost:80/
     networks:
       - proxy
 
