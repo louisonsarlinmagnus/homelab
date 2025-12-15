@@ -62,23 +62,23 @@ services:
 
 configs:
   traefik_config:
-    file: ./traefik/traefik.yaml
+    file: ./traefik.yaml
   traefik_middlewares:
-    file: ./traefik/files/middlewares.yaml
+    file: ./files/middlewares.yaml
   traefik_routers:
-    file: ./traefik/files/routers.yaml
+    file: ./files/routers.yaml
   traefik_services:
-    file: ./traefik/files/services.yaml
+    file: ./files/services.yaml
 
 secrets:
   ovh_endpoint:
-    file: ./traefik/secrets/ovh_endpoint.secret
+    file: ./secrets/ovh_endpoint.secret
   ovh_application_key:
-    file: ./traefik/secrets/ovh_application_key.secret
+    file: ./secrets/ovh_application_key.secret
   ovh_application_secret:
-    file: ./traefik/secrets/ovh_application_secret.secret
+    file: ./secrets/ovh_application_secret.secret
   ovh_consumer_key:
-    file: ./traefik/secrets/ovh_consumer_key.secret
+    file: ./secrets/ovh_consumer_key.secret
 
 networks:
   proxy:
