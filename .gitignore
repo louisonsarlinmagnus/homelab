@@ -1,3 +1,4 @@
 .vscode
 RAID
 *.secret
+users.yaml
