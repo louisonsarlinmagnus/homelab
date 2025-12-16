@@ -10,7 +10,7 @@ services:
   #   deploy:
   #     replicas: 1
   #   networks:
-  #     - overlay_net
+  #     - proxy
 
   dozzle:
     image: amir20/dozzle
@@ -21,68 +21,73 @@ services:
         - homepage.icon=dozzle.png
         - homepage.href=http://localhost:3003/
         # - homepage.href=https://dozzle.${DOMAIN_NAME}
+        - traefik.enable=true
+        - traefik.http.services.dozzle.loadbalancer.server.port=8080
+        - traefik.http.routers.dozzle.rule=Host(`dozzle.lsarlinmagnus.fr`)
+        - traefik.http.routers.dozzle.entrypoints=websecure
+        - traefik.http.routers.dozzle.tls=true
+        - traefik.http.routers.dozzle.tls.certresolver=ovh
+        - traefik.http.routers.dozzle.middlewares=authelia@file
+
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - 3003:8080
     environment:
-      DOZZLE_HOSTNAME: Turbonas
+      DOZZLE_HOSTNAME: homelab
       DOZZLE_ENABLE_ACTIONS: "true"
       DOZZLE_MODE: swarm
     networks:
-      - overlay_net
+      - proxy
 
   # fail2ban_exporter:
   #   image: 
   #   deploy:
   #     replicas: 1
   #   networks:
-  #     - overlay_net
+  #     - proxy
 
   # grafana:
   #   image: 
   #   deploy:
   #     replicas: 1
   #   networks:
-  #     - overlay_net
+  #     - proxy
 
   # loki:
   #   image: 
   #   deploy:
   #     replicas: 1
   #   networks:
-  #     - overlay_net
+  #     - proxy
 
   # node_exporter:
   #   image: 
   #   deploy:
   #     replicas: 1
   #   networks:
-  #     - overlay_net
+  #     - proxy
 
   # prometheus:
   #   image:
   #   deploy:
   #     replicas: 1
   #   networks:
-  #     - overlay_net
+  #     - proxy
 
   # promtail:
   #   image: 
   #   deploy:
   #     replicas: 1
   #   networks:
-  #     - overlay_net
+  #     - proxy
 
   # uptime_kuma:
   #   image: jamiequigley/oliveTin
   #   deploy:
   #     replicas: 1
   #   networks:
-  #     - overlay_net
+  #     - proxy
 
 
 networks:
-  overlay_net:
-    driver: overlay
-    attachable: true
+  proxy:
+    external: true
