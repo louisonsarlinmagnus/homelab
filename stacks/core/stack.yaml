@@ -5,73 +5,72 @@
 version: '3.8'
 
 services:
-  gotify:
-    image: gotify/server
-    deploy:
-      replicas: 1
-      labels:
-        - homepage.group=Core
-        - homepage.name=Gotify
-        - homepage.icon=gotify.png
-        - homepage.href=http://localhost:3001/
-        # - homepage.href=https://gotify.${DOMAIN_NAME}
-    ports:
-      - 3001:80
-    volumes:
-      - gotify_data:/app/data
-      - ./config/gotify/gotify.yaml:/etc/gotify/config.yml
-    networks:
-      - overlay_net
-
-  # guacamole:
-  #   image: jamiequigley/oliveTin
+  # gotify:
+  #   image: gotify/server
   #   deploy:
   #     replicas: 1
+  #     labels:
+  #       - homepage.group=Core
+  #       - homepage.name=Gotify
+  #       - homepage.icon=gotify.png
+  #       # - homepage.href=https://gotify.${DOMAIN_NAME}
+  #   ports:
+  #     - 3001:80
+  #   volumes:
+  #     - gotify_data:/app/data
+  #     - ./config/gotify/gotify.yaml:/etc/gotify/config.yml
   #   networks:
-  #     - overlay_net
+  #     - proxy
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     deploy:
       replicas: 1
       labels:
+        - traefik.enable=true
+        - traefik.http.services.homepage.loadbalancer.server.port=3000
+        - traefik.http.routers.homepage.rule=Host(`homepage.lsarlinmagnus.fr`)
+        - traefik.http.routers.homepage.entrypoints=websecure
+        - traefik.http.routers.homepage.tls=true
+        - traefik.http.routers.homepage.tls.certresolver=ovh
+        - traefik.http.routers.homepage.middlewares=authelia@file
         - homepage.group=Core
         - homepage.name=Homepage
         - homepage.icon=homepage.png
-        - homepage.href=http://localhost:3000/
-        # - homepage.href=https://homepage.${DOMAIN_NAME}
-    ports:
-      - 3000:3000
+        - homepage.href=https://homepage.lsarlinmagnus.fr
+    configs:
+      - source: homepage_bookmarks
+        target: /app/config/bookmarks.yaml
+      - source: homepage_docker
+        target: /app/config/docker.yaml
+      - source: homepage_services
+        target: /app/config/services.yaml
+      - source: homepage_settings
+        target: /app/config/settings.yaml
+      - source: homepage_widgets
+        target: /app/config/widgets.yaml
+      - source: homepage_wallpaper
+        target: /app/public/images/wallpaper.jpg
     environment:
-      - HOMEPAGE_ALLOWED_HOSTS=homepage.${DOMAIN_NAME}
+      - HOMEPAGE_ALLOWED_HOSTS=homepage.lsarlinmagnus.fr
     volumes:
-      - ./config/homepage/config/bookmarks.yaml:/app/config/bookmarks.yaml
-      - ./config/homepage/config/docker.yaml:/app/config/docker.yaml
-      - ./config/homepage/config/services.yaml:/app/config/services.yaml
-      - ./config/homepage/config/settings.yaml:/app/config/settings.yaml
-      - ./config/homepage/config/widgets.yaml:/app/config/widgets.yaml      
-      - ./config/homepage/wallpaper:/app/public/images
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
     networks:
-      - overlay_net
-
-
-  # olivetin:
-  #   image: jamesread/olivetin
-  #   deploy:
-  #     replicas: 1
-  #     labels:
-  #       - homepage.group=Core
-  #       - homepage.name=OliveTin
-  #       - homepage.icon=olivetin.png
-  #       - homepage.href=http://localhost:3002/
-  #       # - homepage.href=https://olivetin.${DOMAIN_NAME}
-  #   volumes:
-  #     - ./config/olivetin:/config # replace host path or volume as needed
-  #   ports:
-  #     - 3002:1337
-  #   networks:
-  #     - overlay_net
+      - proxy
+  
+configs:
+  homepage_bookmarks:
+    file: ./config/homepage/config/bookmarks.yaml
+  homepage_docker:
+    file: ./config/homepage/config/docker.yaml
+  homepage_services:
+    file: ./config/homepage/config/services.yaml
+  homepage_settings:
+    file: ./config/homepage/config/settings.yaml
+  homepage_widgets:
+    file: ./config/homepage/config/widgets.yaml
+  homepage_wallpaper:
+    file: ./config/homepage/wallpaper/wallpaper.jpg
 
   # watchtower:
   #   image: containrrr/watchtower:latest 
@@ -106,6 +105,5 @@ volumes:
   gotify_data:
 
 networks:
-  overlay_net:
-    driver: overlay
-    attachable: true
+  proxy:
+    external: true
