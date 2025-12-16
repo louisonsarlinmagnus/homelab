@@ -1,0 +1,64 @@
+################################################################################
+# ADMIN STACK => docker stack deploy -c stacks/admin/authelia/stack.yaml authelia
+################################################################################
+
+version: '3.8'
+
+services:
+  authelia:
+    image: authelia/authelia:4.39.15
+    deploy:
+      replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.services.authelia.loadbalancer.server.port=9091
+        - traefik.http.routers.authelia.rule=Host(`login.lsarlinmagnus.fr`)
+        - traefik.http.routers.authelia.entrypoints=websecure
+        - traefik.http.routers.authelia.tls=true
+        - traefik.http.routers.authelia.tls.certresolver=ovh
+        # - homepage.group=Administration
+        # - homepage.name=Authelia
+        # - homepage.icon=authelia.png
+        # - homepage.href=http://localhost:2999/
+    configs:
+      - source: authelia_config
+        target: /config/configuration.yml
+      - source: authelia_users
+        target: /config/users.yaml
+    secrets:
+      - authelia_jwt_secret
+      - authelia_storage_encryption_key
+      - authelia_session_secret
+    environment:
+      TZ: Europe/Paris
+      AUTHELIA_JWT_SECRET: /run/secrets/authelia_jwt_secret
+      AUTHELIA_STORAGE_ENCRYPTION_KEY: /run/secrets/authelia_storage_encryption_key
+      AUTHELIA_SESSION_SECRET: /run/secrets/authelia_session_secret
+    volumes:
+      - authelia_data:/config
+    networks:
+      - proxy
+
+configs:
+  authelia_config:
+    file: ./config.yaml.secret
+  authelia_users:
+    file: ./users.yaml.secret
+
+secrets:
+  authelia_jwt_secret:
+    file: .env.secret
+    name: AUTHELIA_JWT_SECRET
+  authelia_storage_encryption_key:
+    file: .env.secret
+    name: AUTHELIA_STORAGE_ENCRYPTION_KEY
+  authelia_session_secret:
+    file: .env.secret
+    name: AUTHELIA_SESSION_SECRET
+
+volumes:
+  authelia_data:
+
+networks:
+  proxy:
+    external: true
