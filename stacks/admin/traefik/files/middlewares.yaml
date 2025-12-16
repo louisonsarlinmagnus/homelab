@@ -12,3 +12,14 @@ http:
         stsSeconds: 31536000
         stsIncludeSubdomains: true
         stsPreload: true
+
+    authelia:
+      forwardauth:
+        address: http://authelia:9091/api/verify?rd=https://login.lsarlinmagnus.fr/
+        trustForwardHeader: true
+        authResponseHeaders: 
+          - Remote-User
+          - Remote-Groups
+          - Remote-Name
+          - Remote-Email
+    

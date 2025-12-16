@@ -57,6 +57,8 @@ services:
         - traefik.http.routers.whoami-https.entrypoints=websecure
         - traefik.http.routers.whoami-https.tls=true
         - traefik.http.routers.whoami-https.tls.certresolver=ovh
+        - traefik.http.routers.whoami-https.middlewares=authelia@file
+
         # - homepage.group=Administration
         # - homepage.name=Traefik
         # - homepage.icon=traefik.png
