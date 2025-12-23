@@ -16,10 +16,10 @@ services:
         - traefik.http.routers.authelia.entrypoints=websecure
         - traefik.http.routers.authelia.tls=true
         - traefik.http.routers.authelia.tls.certresolver=ovh
-        # - homepage.group=Administration
-        # - homepage.name=Authelia
-        # - homepage.icon=authelia.png
-        # - homepage.href=http://localhost:2999/
+        - homepage.group=Administration
+        - homepage.name=Authelia
+        - homepage.icon=authelia.png
+        - homepage.href=https://login.lsarlinmagnus.fr
     configs:
       - source: authelia_config
         target: /config/configuration.yml

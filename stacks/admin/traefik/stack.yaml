@@ -13,7 +13,6 @@ services:
         - homepage.group=Administration
         - homepage.name=Traefik
         - homepage.icon=traefik.png
-        # - homepage.href=http://localhost:80/
     ports:
       - 80:80
       - 443:443
@@ -58,11 +57,10 @@ services:
         - traefik.http.routers.whoami-https.tls=true
         - traefik.http.routers.whoami-https.tls.certresolver=ovh
         - traefik.http.routers.whoami-https.middlewares=authelia@file
-
-        # - homepage.group=Administration
-        # - homepage.name=Traefik
-        # - homepage.icon=traefik.png
-        # - homepage.href=http://localhost:80/
+        - homepage.group=Administration
+        - homepage.name=Whoami
+        - homepage.icon=traefik.png
+        - homepage.href=https://new.lsarlinmagnus.fr
     networks:
       - proxy
 

@@ -16,11 +16,6 @@ services:
     image: amir20/dozzle:v8.14.12
     deploy:
       labels:
-        - homepage.group=Monitoring
-        - homepage.name=Dozzle
-        - homepage.icon=dozzle.png
-        - homepage.href=http://localhost:3003/
-        # - homepage.href=https://dozzle.${DOMAIN_NAME}
         - traefik.enable=true
         - traefik.http.services.dozzle.loadbalancer.server.port=8080
         - traefik.http.routers.dozzle.rule=Host(`dozzle.lsarlinmagnus.fr`)
@@ -28,6 +23,10 @@ services:
         - traefik.http.routers.dozzle.tls=true
         - traefik.http.routers.dozzle.tls.certresolver=ovh
         - traefik.http.routers.dozzle.middlewares=authelia@file
+        - homepage.group=Monitoring
+        - homepage.name=Dozzle
+        - homepage.icon=dozzle.png
+        - homepage.href=https://dozzle.lsarlinmagnus.fr
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
@@ -49,6 +48,10 @@ services:
         - traefik.http.routers.grafana.entrypoints=websecure
         - traefik.http.routers.grafana.tls=true
         - traefik.http.routers.grafana.tls.certresolver=ovh
+        - homepage.group=Monitoring
+        - homepage.name=Grafana
+        - homepage.icon=grafana.png
+        - homepage.href=https://grafana.lsarlinmagnus.fr
     env_file:
       - ./grafana/.env
       - ./grafana/.env.secret
@@ -68,6 +71,10 @@ services:
         - traefik.http.routers.prometheus.tls=true
         - traefik.http.routers.prometheus.tls.certresolver=ovh
         - traefik.http.routers.prometheus.middlewares=authelia@file
+        - homepage.group=Monitoring
+        - homepage.name=Prometheus
+        - homepage.icon=prometheus.png
+        - homepage.href=https://prometheus.lsarlinmagnus.fr
     configs: 
       - source: prometheus_config
         target: /etc/prometheus/prometheus.yml
@@ -78,6 +85,10 @@ services:
     image: prom/node-exporter:v1.10.2
     deploy:
       replicas: 1
+      labels:
+        - homepage.group=Monitoring
+        - homepage.name=Node-Exporter
+        - homepage.icon=prometheus.png
     networks:
       - proxy
       
