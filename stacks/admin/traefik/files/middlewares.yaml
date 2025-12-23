@@ -15,7 +15,7 @@ http:
 
     authelia:
       forwardauth:
-        address: http://authelia:9091/api/verify?rd=https://login.lsarlinmagnus.fr/
+        address: http://authelia:9091/api/authz/forward-auth
         trustForwardHeader: true
         authResponseHeaders: 
           - Remote-User
