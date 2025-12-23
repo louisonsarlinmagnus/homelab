@@ -38,14 +38,28 @@ services:
     networks:
       - proxy
 
-  # fail2ban_exporter:
-  #   image: 
-  #   deploy:
-  #     replicas: 1
-  #   networks:
-  #     - proxy
 
-  # grafana:
+  grafana:
+    image: grafana/grafana:12.3.0
+    deploy:
+      replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.services.grafana.loadbalancer.server.port=3000
+        - traefik.http.routers.grafana.rule=Host(`grafana.lsarlinmagnus.fr`)
+        - traefik.http.routers.grafana.entrypoints=websecure
+        - traefik.http.routers.grafana.tls=true
+        - traefik.http.routers.grafana.tls.certresolver=ovh
+    env_file:
+      - ./grafana/.env
+      - ./grafana/.env.secret
+    environment:
+      TZ: Europe/Paris
+    networks:
+      - proxy
+
+
+  # fail2ban_exporter:
   #   image: 
   #   deploy:
   #     replicas: 1
