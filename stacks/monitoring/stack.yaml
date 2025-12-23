@@ -13,7 +13,7 @@ services:
   #     - proxy
 
   dozzle:
-    image: amir20/dozzle
+    image: amir20/dozzle:v8.14.12
     deploy:
       labels:
         - homepage.group=Monitoring
