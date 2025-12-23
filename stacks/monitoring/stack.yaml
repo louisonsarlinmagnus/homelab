@@ -28,7 +28,6 @@ services:
         - traefik.http.routers.dozzle.tls=true
         - traefik.http.routers.dozzle.tls.certresolver=ovh
         - traefik.http.routers.dozzle.middlewares=authelia@file
-
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
@@ -58,6 +57,27 @@ services:
     networks:
       - proxy
 
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.services.prometheus.loadbalancer.server.port=9090
+        - traefik.http.routers.prometheus.rule=Host(`prometheus.lsarlinmagnus.fr`)
+        - traefik.http.routers.prometheus.entrypoints=websecure
+        - traefik.http.routers.prometheus.tls=true
+        - traefik.http.routers.prometheus.tls.certresolver=ovh
+        - traefik.http.routers.prometheus.middlewares=authelia@file
+    configs: 
+      - source: prometheus_config
+        target: /etc/prometheus/prometheus.yml
+    networks:
+      - proxy
+
+
+configs:
+  prometheus_config:
+    file: ./prometheus/prometheus.yaml
 
   # fail2ban_exporter:
   #   image: 
@@ -75,13 +95,6 @@ services:
 
   # node_exporter:
   #   image: 
-  #   deploy:
-  #     replicas: 1
-  #   networks:
-  #     - proxy
-
-  # prometheus:
-  #   image:
   #   deploy:
   #     replicas: 1
   #   networks:
