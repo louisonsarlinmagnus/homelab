@@ -74,7 +74,13 @@ services:
     networks:
       - proxy
 
-
+  node-exporter:
+    image: prom/node-exporter:v1.10.2
+    deploy:
+      replicas: 1
+    networks:
+      - proxy
+      
 configs:
   prometheus_config:
     file: ./prometheus/prometheus.yaml
@@ -87,13 +93,6 @@ configs:
   #     - proxy
 
   # loki:
-  #   image: 
-  #   deploy:
-  #     replicas: 1
-  #   networks:
-  #     - proxy
-
-  # node_exporter:
   #   image: 
   #   deploy:
   #     replicas: 1
