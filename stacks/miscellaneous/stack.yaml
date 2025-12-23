@@ -5,27 +5,6 @@
 version: '3.8'
 
 services:
-  mealie:
-    image: hkotel/mealie:nightly
-    deploy:
-      replicas: 1
-      labels:
-      - homepage.group=Miscellaneous
-      - homepage.name=Mealie
-      - homepage.icon=mealie.png
-      - homepage.href=http://localhost:3008
-      # - homepage.href=https://mealie.${DOMAIN_NAME}
-    volumes:
-      - mealie_data:/app/data/
-    ports:
-      - 3008:9000
-    environment:
-      TZ: Europe/Paris
-      ALLOW_SIGNUP: "false"
-      # BASE_URL: https://mealie.${DOMAIN_NAME}
-    networks:
-      - overlay_net
-
   vaultwarden:
     image: vaultwarden/server:latest
     deploy:
