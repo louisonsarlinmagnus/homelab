@@ -31,7 +31,7 @@ services:
       - authelia_session_secret
     environment:
       TZ: Europe/Paris
-      AUTHELIA_JWT_SECRET: /run/secrets/authelia_jwt_secret
+      AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE : /run/secrets/authelia_jwt_secret
       AUTHELIA_STORAGE_ENCRYPTION_KEY: /run/secrets/authelia_storage_encryption_key
       AUTHELIA_SESSION_SECRET: /run/secrets/authelia_session_secret
     volumes:
@@ -48,7 +48,7 @@ configs:
 secrets:
   authelia_jwt_secret:
     file: .env.secret
-    name: AUTHELIA_JWT_SECRET
+    name: AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE 
   authelia_storage_encryption_key:
     file: .env.secret
     name: AUTHELIA_STORAGE_ENCRYPTION_KEY
