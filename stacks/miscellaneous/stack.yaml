@@ -6,32 +6,35 @@ version: '3.8'
 
 services:
   vaultwarden:
-    image: vaultwarden/server:latest
+    image: vaultwarden/server:1.34.3
     deploy:
       replicas: 1
       labels:
-      - homepage.group=Miscellaneous
-      - homepage.name=Vaultwarden
-      - homepage.icon=bitwarden.png
-      - homepage.href=http://localhost:3009
-      # - homepage.href=https://vaultwarden.${DOMAIN_NAME}
-    ports:
-      - 3009:80
-    volumes:
-      - vaultwarden_data:/data
+        - traefik.enable=true
+        - traefik.http.services.vaultwarden.loadbalancer.server.port=80
+        - traefik.http.routers.vaultwarden.rule=Host(`mdp.lsarlinmagnus.fr`)
+        - traefik.http.routers.vaultwarden.entrypoints=websecure
+        - traefik.http.routers.vaultwarden.tls=true
+        - traefik.http.routers.vaultwarden.tls.certresolver=ovh
+        - homepage.group=Miscellaneous
+        - homepage.name=Vaultwarden
+        - homepage.icon=bitwarden.png
+        - homepage.href=https://mdp.lsarlinmagnus.fr
+    env_file:
+      - ./vaultwarden/.env.secret
     environment:
-      SIGNUPS_ALLOWED: "true"
+      SIGNUPS_ALLOWED: "false"
       INVITATIONS_ALLOWED: "false"
       LOG_LEVEL: debug
-      ADMIN_TOKEN: changeme
       TZ: Europe/Paris
+    volumes:
+      - vaultwarden_data:/data
     networks:
-      - overlay_net
+      - proxy
 
 networks:
-  overlay_net:
-    driver: overlay
-    attachable: true
+  proxy:
+    external: true
 
 volumes:
   mealie_data:
