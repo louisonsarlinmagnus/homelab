@@ -52,11 +52,16 @@ services:
         - homepage.name=Grafana
         - homepage.icon=grafana.png
         - homepage.href=https://grafana.lsarlinmagnus.fr
+    configs:
+      - source: grafana_datasource_config
+        target: /etc/grafana/provisioning/datasources/datasources.yaml
     env_file:
       - ./grafana/.env
       - ./grafana/.env.secret
     environment:
       TZ: Europe/Paris
+    volumes:
+      - grafana_data:/var/lib/grafana
     networks:
       - proxy
 
@@ -95,6 +100,8 @@ services:
 configs:
   prometheus_config:
     file: ./prometheus/prometheus.yaml
+  grafana_datasource_config:
+    file: ./grafana/datasources.yaml
 
   # fail2ban_exporter:
   #   image: 
@@ -124,6 +131,8 @@ configs:
   #   networks:
   #     - proxy
 
+volumes:
+  grafana_data:
 
 networks:
   proxy:
