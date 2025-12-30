@@ -5,12 +5,6 @@
 version: '3.8'
 
 services:
-  # cadvisor:
-  #   image: 
-  #   deploy:
-  #     replicas: 1
-  #   networks:
-  #     - proxy
 
   dozzle:
     image: amir20/dozzle:v8.14.12
@@ -35,7 +29,6 @@ services:
       DOZZLE_MODE: swarm
     networks:
       - proxy
-
 
   grafana:
     image: grafana/grafana:12.3.0
@@ -96,7 +89,34 @@ services:
         - homepage.icon=prometheus.png
     networks:
       - proxy
-      
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.55.1
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.services.cadvisor.loadbalancer.server.port=8080
+        - traefik.http.routers.cadvisor.rule=Host(`cadvisor.lsarlinmagnus.fr`)
+        - traefik.http.routers.cadvisor.entrypoints=websecure
+        - traefik.http.routers.cadvisor.tls=true
+        - traefik.http.routers.cadvisor.tls.certresolver=ovh
+        - traefik.http.routers.cadvisor.middlewares=authelia@file
+        - homepage.group=Monitoring
+        - homepage.name=CAdvisor
+        - homepage.icon=cadvisor.png
+        - homepage.href=https://cadvisor.lsarlinmagnus.fr
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    command:
+      - --disable_metrics=diskIO,process,disk,hugetlb,resctrl,udp,advtcp,tcp,referenced_memory
+      - --housekeeping_interval=55s
+      - --docker_only
+    networks:
+      - proxy
+
 configs:
   prometheus_config:
     file: ./prometheus/prometheus.yaml
