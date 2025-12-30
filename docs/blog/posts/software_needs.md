@@ -35,8 +35,6 @@ This stack is dedicated to cool stuff to manage the homelab
 - Dashboard : [Homepage](https://github.com/gethomepage/homepage)
 - Notifying tool : [Gotify](https://github.com/gotify/server)
 - Updates : [Watchtower](https://github.com/containrrr/watchtower)
-- Remote automation : [OliveTin](https://github.com/OliveTin/OliveTin)
-- Remote desktop gateway : [Guacamole](https://github.com/apache/guacamole-server)
 - Auto-pause Container : [Sablier](https://github.com/sablierapp/sablier)
 
 ## pictures stack
@@ -44,9 +42,9 @@ This stack is dedicated to cool stuff to manage the homelab
 This stack is for all my services related to pictures storing and sharing?
 
 - Photo manager : [Immich](https://immich.app/docs/install/docker-compose)
-  - [immich machine learning](https://immich.app/docs/guides/remote-machine-learning/)
-  - [postgreSQL]()
-  - [redis]()
+    + [immich machine learning](https://immich.app/docs/guides/remote-machine-learning/)
+    + [postgreSQL]()
+    + [redis]()
 
 ## media stack
 
@@ -54,15 +52,15 @@ The stack to automate and serve media
 
 - Media server : [Jellyfin](https://github.com/jellyfin/jellyfin)
 - The *arr suite :
-  - Requests : [Jellyseerr](https://github.com/fallenbagel/jellyseerr)
-  - TV shows : [Sonarr](https://github.com/Sonarr/Sonarr)
-  - Movies : [Radarr](https://github.com/Radarr/Radarr)
-  - Indexer manager : [Jackett](https://github.com/Jackett/Jackett)
-  - Torrent client : [qBittorrent](https://github.com/qbittorrent/qBittorrentFlareSolverr)
-  - Solve challenges : [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr)
-  - Stalled torrents remover : [Decluttarr](https://github.com/ManiMatter/decluttarr)
-  - Profile manager : [Profilarr](https://github.com/Dictionarry-Hub/profilarr)
-  - Transcoding automation : [Tdarr](https://home.tdarr.io/)
+    + Requests : [Jellyseerr](https://github.com/fallenbagel/jellyseerr)
+    + TV shows : [Sonarr](https://github.com/Sonarr/Sonarr)
+    + Movies : [Radarr](https://github.com/Radarr/Radarr)
+    + Indexer manager : [Jackett](https://github.com/Jackett/Jackett)
+    + Torrent client : [qBittorrent](https://github.com/qbittorrent/qBittorrent)
+    + Solve challenges : [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr)
+    + Stalled torrents remover : [Decluttarr](https://github.com/ManiMatter/decluttarr)
+    + Profile manager : [Profilarr](https://github.com/Dictionarry-Hub/profilarr)
+    + Transcoding automation : [Tdarr](https://home.tdarr.io/)
 
 ## documents stack
 
@@ -83,12 +81,12 @@ A little stack to do network stuff
 To monitor my homelab
 
 - [Grafana](https://github.com/grafana/grafana)
-  - [Prometheus](https://github.com/prometheus/prometheus)
-  - [cAdvisor](https://github.com/google/cadvisor)
-  - [node-exporter](https://github.com/prometheus/node_exporter)
-  - [fail2ban-prometheus-exporter](https://github.com/hctrdev/fail2ban-prometheus-exporter)
-  - [Promtail]()
-  - [Loki](https://github.com/grafana/loki)
+    + [Prometheus](https://github.com/prometheus/prometheus)
+    + [cAdvisor](https://github.com/google/cadvisor)
+    + [node-exporter](https://github.com/prometheus/node_exporter)
+    + [fail2ban-prometheus-exporter](https://github.com/hctrdev/fail2ban-prometheus-exporter)
+    + [Promtail]()
+    + [Loki](https://github.com/grafana/loki)
 - Centralized logging : [Dozzle](https://github.com/amir20/dozzle)
 - Uptime monitoring : [uptime-kuma](https://github.com/louislam/uptime-kuma)
 
@@ -97,7 +95,6 @@ To monitor my homelab
 This stack will hold other services
 
 - Password manager : [Vaultwarden](https://github.com/dani-garcia/vaultwarden)
-- Recipe book : [Mealie](https://github.com/mealie-recipes/mealie/)
 
 
 # The system tools I need to install directly on the OS
