@@ -5,6 +5,7 @@ global:
 
 log:
   level: INFO
+  format: json
 
 entryPoints:
   web:
@@ -34,7 +35,9 @@ certificatesResolvers:
 
 tls:
   options:
-    default:
+    modern:
+      minVersion: VersionTLS13
+    intermediate:
       minVersion: VersionTLS12
       cipherSuites:
         - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
