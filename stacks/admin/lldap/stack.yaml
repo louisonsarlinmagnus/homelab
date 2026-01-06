@@ -1,0 +1,40 @@
+################################################################################
+# ADMIN STACK => docker stack deploy -c stacks/admin/lldap/stack.yaml lldap
+################################################################################
+
+version: '3.8'
+
+services:
+  lldap:
+    image: nitnelave/lldap:v0.6.2
+    deploy:
+      replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.lldap.entrypoints=websecure
+        - traefik.http.routers.lldap.rule=Host(`lldap.lsarlinmagnus.fr`)
+        - traefik.http.routers.lldap.tls=true
+        - traefik.http.routers.lldap.tls.certresolver=ovh
+        - traefik.http.services.lldap.loadbalancer.server.port=17170
+        - homepage.group=Administration
+        - homepage.name=LLDAP
+        - homepage.icon=lldap.png
+        - homepage.href=https://lldap.lsarlinmagnus.fr
+    env_file:
+      - .env.secret
+    environment:
+      TZ: Europe/Paris
+      UID: 1000
+      GID: 1000
+      LLDAP_LDAP_BASE_DN: dc=lsarlinmagnus,dc=fr
+    volumes:
+      - lldap_data:/data
+    networks:
+      - proxy
+
+volumes:
+  lldap_data:
+
+networks:
+  proxy:
+    external: true
