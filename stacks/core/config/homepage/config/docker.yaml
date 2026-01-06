@@ -6,6 +6,9 @@
 #   host: 127.0.0.1
 #   port: 2375
 
-my-docker:
+docker:
+  socket: /var/run/docker.sock
+
+swarm:
   socket: /var/run/docker.sock
   swarm: true

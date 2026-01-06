@@ -1,0 +1,44 @@
+################################################################################
+# MEDIA STACK => docker compose -f stacks/media/jellyfin.yaml up -d
+################################################################################
+
+version: '3.8'
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:10.11.1
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.jellyfin.loadbalancer.server.port=8096
+      - traefik.http.routers.jellyfin.rule=Host(`jellyfin.lsarlinmagnus.fr`)
+      - traefik.http.routers.jellyfin.entrypoints=websecure
+      - traefik.http.routers.jellyfin.tls=true
+      - traefik.http.routers.jellyfin.tls.certresolver=ovh
+      - homepage.group=Media
+      - homepage.name=Jellyfin
+      - homepage.icon=jellyfin.png
+      - homepage.href=https://jellyfin.lsarlinmagnus.fr
+      - homepage.widget.type=jellyfin
+      - homepage.widget.url=https://jellyfin.lsarlinmagnus.fr
+      - homepage.widget.key=58b4e7c3f7f2488182f07b8e67aea9c2
+      - homepage.widget.enableBlocks=true
+      - homepage.widget.enableNowPlaying=true
+      - homepage.widget.fields=["movies", "series", "episodes"]
+    environment:
+      TZ: Europe/Paris
+    volumes:
+      - /media/raid/jellyfin/media/audiobooks:/data/audiobooks
+      - /media/raid/jellyfin/media/movies:/data/movies
+      - /media/raid/jellyfin/media/series:/data/series
+      - jellyfin_config:/config
+    networks:
+      - proxy
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+
+volumes:
+  jellyfin_config:
+
+networks:
+  proxy:
+    external: true
