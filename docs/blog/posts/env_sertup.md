@@ -121,6 +121,18 @@ louison@homelab:~/homelab$ sudo hdparm -C /dev/sdb
 
 We still have to work on the backup disk !
 
+### UPDATE 11/01/2025 : Disabling disk spinoff
+
+!!! danger "HDD spindown could cause damage"
+    During the pasts days it appears to me that the disks spinoff is quite not the neat idea I thought for the following reasons :
+
+    - The RAID5 being "unreachable" could cause Jellyfin to crash
+    - The disks are being spinup by some process too frequently to be usefull
+    - The disks being spindown and up multiple times a day could be harmful to the disks
+
+    I have undone the previus update.
+
+
 ## Networking
 
 Let's change the SSH default port : 
