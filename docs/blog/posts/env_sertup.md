@@ -36,6 +36,8 @@ To begin, once the hardware thrown in the case, we have to tune the BIOS/UEFI to
 For ease of use and support I will use Ubuntu Server 24.04.2 LTS even if alternative OS like nix are tempting.  
 To get the smallest footprint as possible, I installed the minimal configuration of Ubuntu server without any additional package except OpenSSH for remote access right after the installation.
 
+### Power savings
+
 Once the BIOS configured and the OS installed, let's take a look at the power consumption by installing powertop : `sudo apt install powertop` .Here we can see that the CPU can't go deeper that C2.
 
 The main suspect is the ethernet controller, to set ASPM L1 for this controller :  
@@ -63,12 +65,68 @@ And to persist all those commands, let's add them to the reboot cron :
     At this point the server sips just bellow 12 Watts at idle with HX750i, the N100DC-ITX motherboard, 32 Go of RAM and a 256 Go SATA SSD.
     Adding 2 12x12 fans add 1.5 Watts for a total bellow 13.5 W.
 
+### UPDATE 07/01/2026 : Disks power savings
+
+During the previous days I worked on hard disks for backups and RAID. Thoses disks increase significantly the overall power consumption.
+
+My disks are WD Red Plus, they have been made for servers and therefore better tolerate spinup/spindown.
+
+I have 5 disks : 4 WD Red Plus for the RAID5 (sdb, sdd, sde and sdf) and 1 Seagate for backups (sdc).
+
+Let's activate the spindown for those 4 disks by adding the following lines to `/etc/hdparm.conf` :
+```conf title="/etc/hdparm.conf" linenums="127"
+command_line {
+  hdparm -S 240 /dev/sdb # 240 * 5s = 20 minutes
+  hdparm -S 240 /dev/sdd
+  hdparm -S 240 /dev/sde
+  hdparm -S 240 /dev/sdf
+}
+```
+To apply, just reboot.
+
+We can check that this does exactly what we want :
+
+```bash
+louison@homelab:~/homelab$ date
+Wed Jan  7 19:52:27 UTC 2026
+louison@homelab:~/homelab$ sudo hdparm -C /dev/sdb
+
+/dev/sdb:
+ drive state is:  active/idle
+
+# Now lets wait 20 minutes (idle time defined above)
+
+louison@homelab:~/homelab$ sudo hdparm -C /dev/sdb
+[sudo] password for louison: 
+
+/dev/sdb:
+ drive state is:  standby
+
+ # The disk fall into standby mod (spinoff)
+
+louison@homelab:~/homelab$ ls /media/raid/jellyfin
+media
+
+louison@homelab:~/homelab$ sudo hdparm -C /dev/sdb
+
+/dev/sdb:
+ drive state is:  active/idle
+
+# Accessing our drive (RAID in this case) will spinup the disk
+
+```
+!!! example "Power savings"
+    Before this improvment, the homelab was drawing between 31 and 33 Watts.  
+    When the drive are set on standby mod it goes down to 22 Watts.
+
+We still have to work on the backup disk !
+
 ## Networking
 
 Let's change the SSH default port : 
 
 - Open ssh config `sudo nano /etc/ssh/sshd_config`
-- Edit #Port 22 to something else
+- Edit `#Port 22` to something else
 - Adding new port to firewall `sudo ufw allow xxxx/tcp`
 - Apply change by restarting SSH `sudo systemctl restart ssh.service`
 - Test the connection `ssh <user>@<server_ip> -p xxxx`
