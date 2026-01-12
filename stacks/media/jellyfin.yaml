@@ -7,6 +7,8 @@ version: '3.8'
 services:
   jellyfin:
     image: jellyfin/jellyfin:10.11.1
+    restart: unless-stopped
+
     labels:
       - traefik.enable=true
       - traefik.http.services.jellyfin.loadbalancer.server.port=8096
