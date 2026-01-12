@@ -22,7 +22,7 @@ cardBlur: xl
 fiveColumns: true
 
 layout:
-  Admin:
+  Administration:
   Core:
   Documents:
   Media:
