@@ -1,0 +1,52 @@
+################################################################################
+# MEDIA STACK => docker stack deploy -c stacks/media/stack.yaml media
+################################################################################
+
+version: '3.8'
+
+services:
+  radarr:
+    image: linuxserver/radarr:6.0.4
+    deploy:
+      replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.services.radarr.loadbalancer.server.port=7878
+        - traefik.http.routers.radarr.rule=Host(`radarr.lsarlinmagnus.fr`)
+        - traefik.http.routers.radarr.entrypoints=websecure
+        - traefik.http.routers.radarr.tls=true
+        - traefik.http.routers.radarr.tls.certresolver=ovh
+        - traefik.http.routers.radarr.middlewares=authelia@file
+        - homepage.group=Media
+        - homepage.name=Radarr
+        - homepage.icon=radarr.png
+        - homepage.href=https://radarr.lsarlinmagnus.fr
+        - homepage.widget.type=radarr
+        - homepage.widget.url=http://radarr:7878
+        - homepage.widget.key=cb47bcc48f3a445b8108f20ce7dd8c7f
+        # - homepage.widget.enableQueue=true
+        - homepage.widget.fields=["wanted", "missing", "queued", "movies"]
+    configs:
+      - source: radarr_config
+        target: /config/config.xml
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Paris
+    volumes:
+      - radarr_data:/config
+      # - /media/raid/transmission/downloads/complete:/downloads/complete
+      - /media/raid/jellyfin/media/movies:/movies
+    networks:
+      - proxy
+
+configs:
+  radarr_config:
+    file: ./config/radarr/config.xml
+
+volumes:
+  radarr_data:
+
+networks:
+  proxy:
+    external: true
