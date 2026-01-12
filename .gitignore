@@ -1,3 +1,3 @@
 .vscode
-RAID
 *.secret
+stacks/core/config/homepage/config/services.yaml
