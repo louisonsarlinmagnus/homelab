@@ -18,8 +18,11 @@
     disk: /
 
 - search:
-    provider: duckduckgo
+    provider: custom
+    url: https://www.qwant.com/?t=web&q=
     target: _blank
+    # suggestionUrl: https://ac.ecosia.org/autocomplete?type=list&q= # Optional
+    # showSearchSuggestions: true # Optional
 
 - openmeteo:
     # label: YourLocationLabel # optional
