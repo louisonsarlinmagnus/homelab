@@ -17,6 +17,18 @@
     refresh: 3000
     disk: /
 
+- resources:
+    label: Raid5
+    expanded: true
+    refresh: 3000
+    disk: /media/raid
+
+- resources:
+    label: Backup
+    expanded: true
+    refresh: 3000
+    disk: /mnt/backup
+
 - search:
     provider: custom
     url: https://www.qwant.com/?t=web&q=
