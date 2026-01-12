@@ -40,12 +40,51 @@ services:
     networks:
       - proxy
 
+  sonarr:
+    image: linuxserver/sonarr:4.0.16
+    deploy:
+      replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.services.sonarr.loadbalancer.server.port=8989
+        - traefik.http.routers.sonarr.rule=Host(`sonarr.lsarlinmagnus.fr`)
+        - traefik.http.routers.sonarr.entrypoints=websecure
+        - traefik.http.routers.sonarr.tls=true
+        - traefik.http.routers.sonarr.tls.certresolver=ovh
+        - traefik.http.routers.sonarr.middlewares=authelia@file
+        - homepage.group=Media
+        - homepage.name=Sonarr
+        - homepage.icon=sonarr.png
+        - homepage.href=https://sonarr.lsarlinmagnus.fr
+        - homepage.widget.type=sonarr
+        - homepage.widget.url=http://sonarr:8989
+        - homepage.widget.key=08aadc0c6d204c8a8decda361098e020
+        # - homepage.widget.enableQueue=true
+        - homepage.widget.fields=["wanted", "queued", "series"]
+    configs:
+      - source: sonarr_config
+        target: /config/config.xml
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Paris
+    volumes:
+      - sonarr_data:/config
+      # - /media/raid/transmission/downloads/complete:/downloads/complete
+      - /media/raid/jellyfin/media/series:/tvshows
+    networks:
+      - proxy
+
+
 configs:
   radarr_config:
     file: ./config/radarr/config.xml
+  sonarr_config:
+    file: ./config/sonarr/config.xml
 
 volumes:
   radarr_data:
+  sonarr_data:
 
 networks:
   proxy:
