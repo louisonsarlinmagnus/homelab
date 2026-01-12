@@ -17,15 +17,6 @@ services:
         - traefik.http.routers.radarr.tls=true
         - traefik.http.routers.radarr.tls.certresolver=ovh
         - traefik.http.routers.radarr.middlewares=authelia@file
-        - homepage.group=Media
-        - homepage.name=Radarr
-        - homepage.icon=radarr.png
-        - homepage.href=https://radarr.lsarlinmagnus.fr
-        - homepage.widget.type=radarr
-        - homepage.widget.url=http://radarr:7878
-        - homepage.widget.key=cb47bcc48f3a445b8108f20ce7dd8c7f
-        # - homepage.widget.enableQueue=true
-        - homepage.widget.fields=["wanted", "missing", "queued", "movies"]
     configs:
       - source: radarr_config
         target: /config/config.xml
@@ -52,15 +43,6 @@ services:
         - traefik.http.routers.sonarr.tls=true
         - traefik.http.routers.sonarr.tls.certresolver=ovh
         - traefik.http.routers.sonarr.middlewares=authelia@file
-        - homepage.group=Media
-        - homepage.name=Sonarr
-        - homepage.icon=sonarr.png
-        - homepage.href=https://sonarr.lsarlinmagnus.fr
-        - homepage.widget.type=sonarr
-        - homepage.widget.url=http://sonarr:8989
-        - homepage.widget.key=08aadc0c6d204c8a8decda361098e020
-        # - homepage.widget.enableQueue=true
-        - homepage.widget.fields=["wanted", "queued", "series"]
     configs:
       - source: sonarr_config
         target: /config/config.xml
