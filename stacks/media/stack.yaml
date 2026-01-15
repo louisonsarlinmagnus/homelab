@@ -79,6 +79,30 @@ services:
     networks:
       - proxy
 
+  jackett:
+    image: linuxserver/jackett:0.24.850
+    deploy:
+      replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.services.jackett.loadbalancer.server.port=9117
+        - traefik.http.routers.jackett.rule=Host(`jackett.lsarlinmagnus.fr`)
+        - traefik.http.routers.jackett.entrypoints=websecure
+        - traefik.http.routers.jackett.tls=true
+        - traefik.http.routers.jackett.tls.certresolver=ovh
+        - traefik.http.routers.jackett.middlewares=authelia@file
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Paris
+    volumes:
+      - jackett_data:/config
+      - /media/raid/jackett/downloads:/downloads
+    # ports:
+    #   - 9117:9117
+    networks:
+      - proxy
+
 configs:
   radarr_config:
     file: ./config/radarr/config.xml
@@ -89,6 +113,7 @@ volumes:
   radarr_data:
   sonarr_data:
   transmission_data:
+  jackett_data:
 
 networks:
   proxy:
