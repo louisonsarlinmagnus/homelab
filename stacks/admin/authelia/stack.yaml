@@ -36,6 +36,7 @@ services:
       AUTHELIA_SESSION_SECRET: /run/secrets/authelia_session_secret
     volumes:
       - authelia_data:/config
+      - /var/log/authelia/authelia.log:/var/log/authelia.log
     networks:
       - proxy
 
