@@ -57,6 +57,27 @@ services:
     networks:
       - proxy
 
+  transmission:
+    image: linuxserver/transmission:4.0.6
+    deploy:
+      replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.services.transmission.loadbalancer.server.port=9091
+        - traefik.http.routers.transmission.rule=Host(`transmission.lsarlinmagnus.fr`)
+        - traefik.http.routers.transmission.entrypoints=websecure
+        - traefik.http.routers.transmission.tls=true
+        - traefik.http.routers.transmission.tls.certresolver=ovh
+        - traefik.http.routers.transmission.middlewares=authelia@file
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Paris
+    volumes:
+      - transmission_data:/config
+      - /media/raid/transmission/downloads:/downloads
+    networks:
+      - proxy
 
 configs:
   radarr_config:
@@ -67,6 +88,7 @@ configs:
 volumes:
   radarr_data:
   sonarr_data:
+  transmission_data:
 
 networks:
   proxy:
