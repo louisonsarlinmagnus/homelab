@@ -10,16 +10,16 @@ services:
     deploy:
       replicas: 1
       labels:
-        - traefik.enable=true
-        - traefik.http.services.vaultwarden.loadbalancer.server.port=80
-        - traefik.http.routers.vaultwarden.rule=Host(`mdp.lsarlinmagnus.fr`)
-        - traefik.http.routers.vaultwarden.entrypoints=websecure
-        - traefik.http.routers.vaultwarden.tls=true
-        - traefik.http.routers.vaultwarden.tls.certresolver=ovh
-        - homepage.group=Miscellaneous
-        - homepage.name=Vaultwarden
-        - homepage.icon=bitwarden.png
-        - homepage.href=https://mdp.lsarlinmagnus.fr
+        traefik.enable: "true"
+        traefik.http.services.vaultwarden.loadbalancer.server.port: 80
+        traefik.http.routers.vaultwarden.rule: Host(`mdp.lsarlinmagnus.fr`)
+        traefik.http.routers.vaultwarden.entrypoints: websecure
+        traefik.http.routers.vaultwarden.tls: "true"
+        traefik.http.routers.vaultwarden.tls.certresolver: ovh
+        homepage.group: Miscellaneous
+        homepage.name: Vaultwarden
+        homepage.icon: bitwarden.png
+        homepage.href: https://mdp.lsarlinmagnus.fr
     env_file:
       - ./vaultwarden/.env.secret
     environment:

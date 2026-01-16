@@ -10,16 +10,16 @@ services:
     deploy:
       replicas: 1
       labels:
-        - traefik.enable=true
-        - traefik.http.routers.lldap.entrypoints=websecure
-        - traefik.http.routers.lldap.rule=Host(`lldap.lsarlinmagnus.fr`)
-        - traefik.http.routers.lldap.tls=true
-        - traefik.http.routers.lldap.tls.certresolver=ovh
-        - traefik.http.services.lldap.loadbalancer.server.port=17170
-        - homepage.group=Administration
-        - homepage.name=LLDAP
-        - homepage.icon=lldap.png
-        - homepage.href=https://lldap.lsarlinmagnus.fr
+        traefik.enable: "true"
+        traefik.http.routers.lldap.entrypoints: websecure
+        traefik.http.routers.lldap.rule: Host(`lldap.lsarlinmagnus.fr`)
+        traefik.http.routers.lldap.tls: "true"
+        traefik.http.routers.lldap.tls.certresolver: ovh
+        traefik.http.services.lldap.loadbalancer.server.port: 17170
+        homepage.group: Administration
+        homepage.name: LLDAP
+        homepage.icon: lldap.png
+        homepage.href: https://lldap.lsarlinmagnus.fr
     env_file:
       - .env.secret
     environment:

@@ -10,16 +10,16 @@ services:
     deploy:
       replicas: 1
       labels:
-        - traefik.enable=true
-        - traefik.http.services.authelia.loadbalancer.server.port=9091
-        - traefik.http.routers.authelia.rule=Host(`login.lsarlinmagnus.fr`)
-        - traefik.http.routers.authelia.entrypoints=websecure
-        - traefik.http.routers.authelia.tls=true
-        - traefik.http.routers.authelia.tls.certresolver=ovh
-        - homepage.group=Administration
-        - homepage.name=Authelia
-        - homepage.icon=authelia.png
-        - homepage.href=https://login.lsarlinmagnus.fr
+        traefik.enable: "true"
+        traefik.http.services.authelia.loadbalancer.server.port: 9091
+        traefik.http.routers.authelia.rule: Host(`login.lsarlinmagnus.fr`)
+        traefik.http.routers.authelia.entrypoints: websecure
+        traefik.http.routers.authelia.tls: "true"
+        traefik.http.routers.authelia.tls.certresolver: ovh
+        homepage.group: Administration
+        homepage.name: Authelia
+        homepage.icon: authelia.png
+        homepage.href: https://login.lsarlinmagnus.fr
     configs:
       - source: authelia_config
         target: /config/configuration.yml

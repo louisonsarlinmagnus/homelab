@@ -10,12 +10,12 @@ services:
     deploy:
       replicas: 1
       labels:
-        - homepage.group=Administration
-        - homepage.name=Traefik
-        - homepage.icon=traefik.png
-        - homepage.widget.type=traefik
-        - homepage.widget.url=http://traefik:8080
-        - homepage.widget.fields=["routers", "services", "middleware"]
+        homepage.group: Administration
+        homepage.name: Traefik
+        homepage.icon: traefik.png
+        homepage.widget.type: traefik
+        homepage.widget.url: http://traefik:8080
+        homepage.widget.fields: '["routers", "services", "middleware"]'
     ports:
       - target: 80
         published: 80
@@ -61,17 +61,17 @@ services:
       restart_policy:
         condition: on-failure
       labels:
-        - traefik.enable=true
-        - traefik.http.services.whoami.loadbalancer.server.port=80
-        - traefik.http.routers.whoami-https.rule=Host(`new.lsarlinmagnus.fr`)
-        - traefik.http.routers.whoami-https.entrypoints=websecure
-        - traefik.http.routers.whoami-https.tls=true
-        - traefik.http.routers.whoami-https.tls.certresolver=ovh
-        - traefik.http.routers.whoami-https.middlewares=authelia@file
-        - homepage.group=Administration
-        - homepage.name=Whoami
-        - homepage.icon=traefik.png
-        - homepage.href=https://new.lsarlinmagnus.fr
+        traefik.enable: "true"
+        traefik.http.services.whoami.loadbalancer.server.port: 80
+        traefik.http.routers.whoami-https.rule: Host(`new.lsarlinmagnus.fr`)
+        traefik.http.routers.whoami-https.entrypoints: websecure
+        traefik.http.routers.whoami-https.tls: "true"
+        traefik.http.routers.whoami-https.tls.certresolver: ovh
+        traefik.http.routers.whoami-https.middlewares: authelia@file
+        homepage.group: Administration
+        homepage.name: Whoami
+        homepage.icon: traefik.png
+        homepage.href: https://new.lsarlinmagnus.fr
     networks:
       - proxy
 
@@ -103,30 +103,6 @@ networks:
 
 volumes:
   traefik_certs_data:
-
-  # lldap:
-  #   image: nitnelave/lldap:stable
-  #   deploy:
-  #     replicas: 1
-  #     labels:
-  #       - homepage.group=Administration
-  #       - homepage.name=LLDAP
-  #       - homepage.icon=mdi-account-group
-  #       - homepage.href=http://localhost:17170/
-  #   volumes:
-  #     - ./lldap_data:/data
-  #   ports:
-  #     - 17170:17170
-  #     - 389:389
-  #   environment:
-  #     UID: 1000
-  #     GID: 1000
-  #     LLDAP_JWT_SECRET: ${LLDAP_JWZ_SECRET}
-  #     LLDAP_LDAP_USER_PASS: ${LLDAP_USER_PASS}
-  #     LLDAP_LDAP_BASE_DN: dc=lsarlinmagnus,dc=fr
-  #     TZ: Europe/Paris
-  #   networks:
-  #     - overlay_net
 
   # crowdsec:
   #   image: crowdsecurity/crowdsec

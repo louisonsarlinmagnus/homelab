@@ -27,17 +27,17 @@ services:
     deploy:
       replicas: 1
       labels:
-        - traefik.enable=true
-        - traefik.http.services.homepage.loadbalancer.server.port=3000
-        - traefik.http.routers.homepage.rule=Host(`homepage.lsarlinmagnus.fr`)
-        - traefik.http.routers.homepage.entrypoints=websecure
-        - traefik.http.routers.homepage.tls=true
-        - traefik.http.routers.homepage.tls.certresolver=ovh
-        - traefik.http.routers.homepage.middlewares=authelia@file
-        - homepage.group=Core
-        - homepage.name=Homepage
-        - homepage.icon=homepage.png
-        - homepage.href=https://homepage.lsarlinmagnus.fr
+        traefik.enable: "true"
+        traefik.http.services.homepage.loadbalancer.server.port: 3000
+        traefik.http.routers.homepage.rule: Host(`homepage.lsarlinmagnus.fr`)
+        traefik.http.routers.homepage.entrypoints: websecure
+        traefik.http.routers.homepage.tls: "true"
+        traefik.http.routers.homepage.tls.certresolver: ovh
+        traefik.http.routers.homepage.middlewares: authelia@file
+        homepage.group: Core
+        homepage.name: Homepage
+        homepage.icon: homepage.png
+        homepage.href: https://homepage.lsarlinmagnus.fr
     configs:
       - source: homepage_bookmarks
         target: /app/config/bookmarks.yaml

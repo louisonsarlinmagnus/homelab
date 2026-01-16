@@ -10,17 +10,17 @@ services:
     image: amir20/dozzle:v8.14.12
     deploy:
       labels:
-        - traefik.enable=true
-        - traefik.http.services.dozzle.loadbalancer.server.port=8080
-        - traefik.http.routers.dozzle.rule=Host(`dozzle.lsarlinmagnus.fr`)
-        - traefik.http.routers.dozzle.entrypoints=websecure
-        - traefik.http.routers.dozzle.tls=true
-        - traefik.http.routers.dozzle.tls.certresolver=ovh
-        - traefik.http.routers.dozzle.middlewares=authelia@file
-        - homepage.group=Monitoring
-        - homepage.name=Dozzle
-        - homepage.icon=dozzle.png
-        - homepage.href=https://dozzle.lsarlinmagnus.fr
+        traefik.enable: "true"
+        traefik.http.services.dozzle.loadbalancer.server.port: 8080
+        traefik.http.routers.dozzle.rule: Host(`dozzle.lsarlinmagnus.fr`)
+        traefik.http.routers.dozzle.entrypoints: websecure
+        traefik.http.routers.dozzle.tls: "true"
+        traefik.http.routers.dozzle.tls.certresolver: ovh
+        traefik.http.routers.dozzle.middlewares: authelia@file
+        homepage.group: Monitoring
+        homepage.name: Dozzle
+        homepage.icon: dozzle.png
+        homepage.href: https://dozzle.lsarlinmagnus.fr
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
@@ -35,16 +35,16 @@ services:
     deploy:
       replicas: 1
       labels:
-        - traefik.enable=true
-        - traefik.http.services.grafana.loadbalancer.server.port=3000
-        - traefik.http.routers.grafana.rule=Host(`grafana.lsarlinmagnus.fr`)
-        - traefik.http.routers.grafana.entrypoints=websecure
-        - traefik.http.routers.grafana.tls=true
-        - traefik.http.routers.grafana.tls.certresolver=ovh
-        - homepage.group=Monitoring
-        - homepage.name=Grafana
-        - homepage.icon=grafana.png
-        - homepage.href=https://grafana.lsarlinmagnus.fr
+        traefik.enable: "true"
+        traefik.http.services.grafana.loadbalancer.server.port: 3000
+        traefik.http.routers.grafana.rule: Host(`grafana.lsarlinmagnus.fr`)
+        traefik.http.routers.grafana.entrypoints: websecure
+        traefik.http.routers.grafana.tls: "true"
+        traefik.http.routers.grafana.tls.certresolver: ovh
+        homepage.group: Monitoring
+        homepage.name: Grafana
+        homepage.icon: grafana.png
+        homepage.href: https://grafana.lsarlinmagnus.fr
     configs:
       - source: grafana_datasource_config
         target: /etc/grafana/provisioning/datasources/datasources.yaml
@@ -62,17 +62,17 @@ services:
     image: prom/prometheus:v3.5.0
     deploy:
       labels:
-        - traefik.enable=true
-        - traefik.http.services.prometheus.loadbalancer.server.port=9090
-        - traefik.http.routers.prometheus.rule=Host(`prometheus.lsarlinmagnus.fr`)
-        - traefik.http.routers.prometheus.entrypoints=websecure
-        - traefik.http.routers.prometheus.tls=true
-        - traefik.http.routers.prometheus.tls.certresolver=ovh
-        - traefik.http.routers.prometheus.middlewares=authelia@file
-        - homepage.group=Monitoring
-        - homepage.name=Prometheus
-        - homepage.icon=prometheus.png
-        - homepage.href=https://prometheus.lsarlinmagnus.fr
+        traefik.enable: "true"
+        traefik.http.services.prometheus.loadbalancer.server.port: 9090
+        traefik.http.routers.prometheus.rule: Host(`prometheus.lsarlinmagnus.fr`)
+        traefik.http.routers.prometheus.entrypoints: websecure
+        traefik.http.routers.prometheus.tls: "true"
+        traefik.http.routers.prometheus.tls.certresolver: ovh
+        traefik.http.routers.prometheus.middlewares: authelia@file
+        homepage.group: Monitoring
+        homepage.name: Prometheus
+        homepage.icon: prometheus.png
+        homepage.href: https://prometheus.lsarlinmagnus.fr
     configs: 
       - source: prometheus_config
         target: /etc/prometheus/prometheus.yml
@@ -94,17 +94,17 @@ services:
     image: gcr.io/cadvisor/cadvisor:v0.55.1
     deploy:
       labels:
-        - traefik.enable=true
-        - traefik.http.services.cadvisor.loadbalancer.server.port=8080
-        - traefik.http.routers.cadvisor.rule=Host(`cadvisor.lsarlinmagnus.fr`)
-        - traefik.http.routers.cadvisor.entrypoints=websecure
-        - traefik.http.routers.cadvisor.tls=true
-        - traefik.http.routers.cadvisor.tls.certresolver=ovh
-        - traefik.http.routers.cadvisor.middlewares=authelia@file
-        - homepage.group=Monitoring
-        - homepage.name=CAdvisor
-        - homepage.icon=cadvisor.png
-        - homepage.href=https://cadvisor.lsarlinmagnus.fr
+        traefik.enable: "true"
+        traefik.http.services.cadvisor.loadbalancer.server.port: 8080
+        traefik.http.routers.cadvisor.rule: Host(`cadvisor.lsarlinmagnus.fr`)
+        traefik.http.routers.cadvisor.entrypoints: websecure
+        traefik.http.routers.cadvisor.tls: "true"
+        traefik.http.routers.cadvisor.tls.certresolver: ovh
+        traefik.http.routers.cadvisor.middlewares: authelia@file
+        homepage.group: Monitoring
+        homepage.name: CAdvisor
+        homepage.icon: cadvisor.png
+        homepage.href: https://cadvisor.lsarlinmagnus.fr
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
