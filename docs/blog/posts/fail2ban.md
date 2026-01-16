@@ -1,6 +1,6 @@
 ---
 title: Fail2Ban installation and setup
-draft: true 
+draft: false 
 date: 2026-01-02
 pin: false
 # links:
@@ -117,10 +117,5 @@ sudo fail2ban-client status authelia
     It appears that sshd ban remote IP, but for some reason, the authelia jail bans a local ip "10.0.0.2" instead of the ip of the sender.  
     This issue has been addressed by setting the port mode to host for both 80 and 443 ports for the Traefik service.
 
-
-## GeoIP
-https://grafana.com/grafana/dashboards/22741-fail2ban/
-https://medium.com/@bossm8/geoip-dashboards-in-grafana-from-iptables-logs-101a3b256d55
-
-# Conclusion
-
+!!! success
+    Now that the server is better secure we can focus on the monitoring part and it could be neat to add a geoIP visualisation of the bans from fail2ban !
