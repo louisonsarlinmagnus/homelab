@@ -101,6 +101,26 @@ services:
     networks:
       - proxy
 
+  jellyseerr:
+    image: fallenbagel/jellyseerr:2.7.3
+    deploy:
+      replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.services.jellyseerr.loadbalancer.server.port=5055
+        - traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.lsarlinmagnus.fr`)
+        - traefik.http.routers.jellyseerr.entrypoints=websecure
+        - traefik.http.routers.jellyseerr.tls=true
+        - traefik.http.routers.jellyseerr.tls.certresolver=ovh
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Paris
+    volumes:
+      - jellyseerr_data:/app/config
+    networks:
+      - proxy
+
 configs:
   radarr_config:
     file: ./config/radarr/config.xml
@@ -112,6 +132,7 @@ volumes:
   sonarr_data:
   transmission_data:
   jackett_data:
+  jellyseerr_data:
 
 networks:
   proxy:
