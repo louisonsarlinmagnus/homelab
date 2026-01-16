@@ -52,7 +52,7 @@ services:
       TZ: Europe/Paris
     volumes:
       - sonarr_data:/config
-      - /media/raid/transmission/downloads/complete/sonarr:/downloads/complete/sonarr
+      - /media/raid/transmission/downloads/complete/tv-sonarr:/downloads/complete/tv-sonarr
       - /media/raid/jellyfin/media/series:/tvshows
     networks:
       - proxy
