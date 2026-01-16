@@ -3,6 +3,9 @@ global:
   checkNewVersion: false
   sendAnonymousUsage: false
 
+api:
+  insecure: true
+
 log:
   level: INFO
   format: json
