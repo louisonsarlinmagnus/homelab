@@ -26,7 +26,7 @@ services:
       TZ: Europe/Paris
     volumes:
       - radarr_data:/config
-      # - /media/raid/transmission/downloads/complete:/downloads/complete
+      - /media/raid/transmission/downloads/complete/radarr:/downloads/complete/radarr
       - /media/raid/jellyfin/media/movies:/movies
     networks:
       - proxy
@@ -52,7 +52,7 @@ services:
       TZ: Europe/Paris
     volumes:
       - sonarr_data:/config
-      # - /media/raid/transmission/downloads/complete:/downloads/complete
+      - /media/raid/transmission/downloads/complete/sonarr:/downloads/complete/sonarr
       - /media/raid/jellyfin/media/series:/tvshows
     networks:
       - proxy
@@ -98,8 +98,6 @@ services:
     volumes:
       - jackett_data:/config
       - /media/raid/jackett/downloads:/downloads
-    # ports:
-    #   - 9117:9117
     networks:
       - proxy
 
