@@ -155,6 +155,13 @@ Let's disable password connection for SSH
     - `sudo ss -tulpn` to list all the open ports
     - Don't forget to fix the IP address of the homelab in the router
 
+## Miscellaneous
+
+!!! tip "Don't forget to set the date properly"
+    ```bash linenums="0"
+    sudo timedatectl set-timezone Europe/Paris
+    ```
+
 # The tools
 
 ## CLI utilities
