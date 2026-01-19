@@ -75,18 +75,24 @@ services:
         homepage.href: https://prometheus.lsarlinmagnus.fr
     configs: 
       - source: prometheus_config
-        target: /etc/prometheus/prometheus.yml
+        target: /prometheus/prometheus.yml
     networks:
       - proxy
 
-  node-exporter:
-    image: prom/node-exporter:v1.10.2
+  loki:
+    image: grafana/loki:3.6.3
     deploy:
       replicas: 1
       labels:
-        - homepage.group=Monitoring
-        - homepage.name=Node-Exporter
-        - homepage.icon=prometheus.png
+        homepage.group: Monitoring
+        homepage.name: Loki
+        homepage.icon: loki.png
+    command: -config.file=/etc/loki/local-config.yaml
+    configs:
+      - source: loki_config
+        target: /etc/loki/local-config.yaml
+    ports:
+      - 3100:3100
     networks:
       - proxy
 
@@ -122,27 +128,11 @@ configs:
     file: ./prometheus/prometheus.yaml
   grafana_datasource_config:
     file: ./grafana/datasources.yaml
+  loki_config:
+    file: ./loki/local-config.yaml
+  alloy_config:
+    file: ./alloy/config.alloy
 
-  # fail2ban_exporter:
-  #   image: 
-  #   deploy:
-  #     replicas: 1
-  #   networks:
-  #     - proxy
-
-  # loki:
-  #   image: 
-  #   deploy:
-  #     replicas: 1
-  #   networks:
-  #     - proxy
-
-  # promtail:
-  #   image: 
-  #   deploy:
-  #     replicas: 1
-  #   networks:
-  #     - proxy
 
   # uptime_kuma:
   #   image: jamiequigley/oliveTin
