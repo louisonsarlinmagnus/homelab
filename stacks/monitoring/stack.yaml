@@ -73,6 +73,7 @@ services:
         homepage.name: Prometheus
         homepage.icon: prometheus.png
         homepage.href: https://prometheus.lsarlinmagnus.fr
+    command: --web.enable-remote-write-receiver
     configs: 
       - source: prometheus_config
         target: /prometheus/prometheus.yml
@@ -96,30 +97,38 @@ services:
     networks:
       - proxy
 
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.55.1
+  alloy:
+    image: grafana/alloy:v1.12.2
     deploy:
-      labels:
+      replicas: 1
+    labels:
         traefik.enable: "true"
-        traefik.http.services.cadvisor.loadbalancer.server.port: 8080
-        traefik.http.routers.cadvisor.rule: Host(`cadvisor.lsarlinmagnus.fr`)
-        traefik.http.routers.cadvisor.entrypoints: websecure
-        traefik.http.routers.cadvisor.tls: "true"
-        traefik.http.routers.cadvisor.tls.certresolver: ovh
-        traefik.http.routers.cadvisor.middlewares: authelia@file
+        traefik.http.services.alloy.loadbalancer.server.port: 12345
+        traefik.http.routers.alloy.rule: Host(`alloy.lsarlinmagnus.fr`)
+        traefik.http.routers.alloy.entrypoints: websecure
+        traefik.http.routers.alloy.tls: "true"
+        traefik.http.routers.alloy.tls.certresolver: ovh
+        traefik.http.routers.alloy.middlewares: authelia@file
         homepage.group: Monitoring
-        homepage.name: CAdvisor
-        homepage.icon: cadvisor.png
-        homepage.href: https://cadvisor.lsarlinmagnus.fr
+        homepage.name: Alloy
+        homepage.icon: alloy.png
+        homepage.href: https://alloy.lsarlinmagnus.fr
+    configs:
+      - source: alloy_config
+        target: /etc/alloy/config.alloy
     volumes:
+      - /usr/share/GeoLite2/GeoLite2-City.mmdb:/usr/share/GeoLite2/GeoLite2-City.mmdb:ro
       - /:/rootfs:ro
-      - /var/run:/var/run:rw
+      - /run:/run:ro
+      - /var/log:/var/log:ro
       - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
+      - /var/lib/docker/:/var/lib/docker/:ro
+      - /run/udev/data:/run/udev/data:ro    
     command:
-      - --disable_metrics=diskIO,process,disk,hugetlb,resctrl,udp,advtcp,tcp,referenced_memory
-      - --housekeeping_interval=55s
-      - --docker_only
+      - run
+      - /etc/alloy/config.alloy
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
     networks:
       - proxy
 
