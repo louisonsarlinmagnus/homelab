@@ -117,6 +117,7 @@ loki.source.file "system" {
 
 
 // Host Cadvisor on the Docker socket to expose container metrics.
+
 prometheus.exporter.cadvisor "docker_metrics" {
     docker_only = true
 }
@@ -140,7 +141,7 @@ prometheus.scrape "docker_metrics" {
     targets    = discovery.relabel.docker_metrics.output
     forward_to = [ prometheus.remote_write.default.receiver ]
 
-    scrape_interval = "10s"
+    scrape_interval = "15s"
 }
 
 
@@ -170,11 +171,6 @@ discovery.relabel "docker_logs" {
     }
 
     rule {
-        target_label = "instance"
-        replacement  = "homelab"
-    }
-
-    rule {
         source_labels = ["__meta_docker_container_log_stream"]
         target_label  = "stream"
     }
@@ -186,6 +182,82 @@ loki.source.docker "docker_logs" {
     targets         = discovery.docker.docker_logs.targets
     relabel_rules   = discovery.relabel.docker_logs.rules
     forward_to      = [loki.write.default.receiver]
+}
+
+
+// //////////////////////////////////////// //
+//             FAIL2BAN GEOIP               //  
+// //////////////////////////////////////// //
+
+
+// Retrieve fail2ban logfile
+local.file_match "fail2ban" {
+    path_targets        = [{
+    __address__         = "localhost",
+    __path__            = "/var/log/fail2ban.log",
+    // __path_exclude__  = "/var/log/fail2ban.log.*.gz",
+    instance            = "homelab",
+    job                 = "fail2ban",
+  }]
+}
+
+// Scrape the file and send it to loki
+loki.source.file "fail2ban" {
+    targets    = local.file_match.fail2ban.targets
+    forward_to = [loki.process.fail2ban_get_ip.receiver]
+}
+
+// Process the log entries to extract data
+loki.process "fail2ban_get_ip" {
+    forward_to = [loki.process.fail2ban_geoip_lookup.receiver]
+
+    // Store in group desired data
+    stage.regex {
+        expression = "^(?P<time>\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2},\\d{3})\\s+(?P<fail2ban_component>fail2ban\\.\\w+)\\s+\\[(?P<pid>\\d+)\\]:\\s+(?P<level>\\w+)\\s+\\[(?P<jail>[^\\]]+)\\]\\s+(?P<action>\\w+)\\s+(?P<ip>(?:\\d{1,3}\\.){3}\\d{1,3})?"
+    }
+
+    // Define the time format for the "time" data retrieve in the log entry
+    stage.timestamp {
+        source = "time"
+        format = "2006-01-02 15:04:05,000"
+    }
+
+    // Natively associate every regex group with a label with the same name
+    stage.labels {
+        values = {
+            time      = "",
+            fail2ban_component = "",
+            jail      = "",
+            ip        = "",
+            action    = "",
+        }
+    }
+
+}
+
+// Process the log entries to lookup data
+loki.process "fail2ban_geoip_lookup" {
+    forward_to = [loki.write.default.receiver]
+
+    // Lookup for each ip entry within the GeoLite2 database
+    stage.geoip {
+        db      = "/usr/share/GeoLite2/GeoLite2-City.mmdb"
+        source  = "ip"
+        db_type = "city"
+    }
+
+    // Natively associate every geoip output with a label with the same name
+    stage.labels {
+        values = {
+            geoip_city_name          = "",
+            geoip_country_name       = "",
+            // geoip_country_code       = "",
+            geoip_continent_name     = "",
+            // geoip_continent_code     = "",
+            geoip_location_latitude  = "",
+            geoip_location_longitude = "",
+        }
+    }
 }
 
 // //////////////////////////////////////// //
