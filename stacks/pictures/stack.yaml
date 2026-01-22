@@ -8,13 +8,13 @@ services:
   immich_machine_learning:
     # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
     # Example tag: ${IMMICH_VERSION:-release}-cuda
-    image: ghcr.io/immich-app/immich-machine-learning:v1.133.0
+    image: ghcr.io/immich-app/immich-machine-learning:v2.4.1
     deploy:
       replicas: 1
       labels:
-        - homepage.group=Pictures
-        - homepage.name=Immich-Machine-Learning
-        - homepage.icon=immich.png
+        homepage.group: Pictures
+        homepage.name: Immich-Machine-Learning
+        homepage.icon: immich.png
     volumes:
       - immich_model_cache:/cache
     # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
@@ -23,16 +23,16 @@ services:
     healthcheck:
       disable: false
     networks:
-      - overlay_net
+      - proxy
 
   immich_postgresql:
-    image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:739cdd626151ff1f796dc95a6591b55a714f341c737e27f045019ceabf8e8c52
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
     deploy:
       replicas: 1
       labels:
-        - homepage.group=Pictures
-        - homepage.name=Immich Postgres
-        - homepage.icon=postgres.png
+        homepage.group: Pictures
+        homepage.name: Immich Postgres
+        homepage.icon: postgres.png
     environment:
       POSTGRES_PASSWORD: changeme
       POSTGRES_USER: postgres
@@ -40,68 +40,68 @@ services:
       POSTGRES_INITDB_ARGS: '--data-checksums'
     volumes:
       - immich_database:/var/lib/postgresql/data
-    command: >-
-      postgres -c shared_preload_libraries=vectors.so -c 'search_path="$$user", public, vectors' -c logging_collector=on -c max_wal_size=2GB -c shared_buffers=512MB -c wal_compression=on
+    shm_size: 128mb
     healthcheck:
-      test: >-
-        pg_isready --dbname="$${POSTGRES_DB}" --username="$${POSTGRES_USER}" || exit 1; Chksum="$$(psql --dbname="$${POSTGRES_DB}" --username="$${POSTGRES_USER}" --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
-      interval: 5m
-      start_period: 5m
+      disable: false
     networks:
-      - overlay_net
+      - proxy
 
   immich_valkey:
-    image: docker.io/valkey/valkey:8-bookworm@sha256:42cba146593a5ea9a622002c1b7cba5da7be248650cbb64ecb9c6c33d29794b1
+    image: docker.io/valkey/valkey:9@sha256:546304417feac0874c3dd576e0952c6bb8f06bb4093ea0c9ca303c73cf458f63
     deploy:
       replicas: 1
       labels:
-        - homepage.group=Pictures
-        - homepage.name=Immich Valkey
-        - homepage.icon=valkey.png
+        homepage.group: Pictures
+        homepage.name: Immich Valkey
+        homepage.icon: valkey.png
     healthcheck:
       test: redis-cli ping || exit 1
     networks:
-      - overlay_net
+      - proxy
 
   immich:
-    image: ghcr.io/immich-app/immich-server:v1.133.0
+    image: ghcr.io/immich-app/immich-server:v2.4.1
     deploy:
       replicas: 1
       labels:
-        - homepage.group=Pictures
-        - homepage.name=Immich
-        - homepage.icon=immich.png
-        - homepage.href=http://localhost:3005/
-        # - homepage.href=https://wedding_share.${DOMAIN_NAME}
-        # - homepage.widget.type=immich
-        # - homepage.widget.url=http://immich
-        # - homepage.widget.key=changeme
-        # - homepage.widget.version=2
-        # - homepage.widget.fields=["users" ,"photos", "videos", "storage"]
+        traefik.enable: "true"
+        traefik.http.services.immich.loadbalancer.server.port: 2283
+        traefik.http.routers.immich.rule: Host(`immich.lsarlinmagnus.fr`)
+        traefik.http.routers.immich.entrypoints: websecure
+        traefik.http.routers.immich.tls: "true"
+        traefik.http.routers.immich.tls.certresolver: ovh
+        # traefik.http.routers.immich.middlewares: authelia@file
+        homepage.group: Pictures
+        homepage.name: Immich
+        homepage.icon: immich.png
+        homepage.href: https://immich.lsarlinmagnus.fr
+        homepage.widget.type: immich
+        homepage.widget.url: https://immich.lsarlinmagnus.fr
+        homepage.widget.key: ib975tH9Rvrll9TtUHfSheq9ygK5xczo4DT9idXBFc
+        homepage.widget.version: 2
+        homepage.widget.fields: '["users" ,"photos", "videos", "storage"]'
     volumes:
-      - /home/louison/homelab/RAID/immich/library:/usr/src/app/upload
+      - /media/raid/immich:/data
     environment:
       DB_PASSWORD: changeme
       DB_USERNAME: postgres
       DB_DATABASE_NAME: immich
       DB_HOSTNAME: immich_postgresql
       REDIS_HOSTNAME: immich_valkey
+      UPLOAD_LOCATION: ./library
       TZ: Europe/Paris
     # extends:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
-    ports:
-      - 3005:2283
     healthcheck:
       disable: false
     networks:
-      - overlay_net
+      - proxy
 
 volumes:
   immich_model_cache:
   immich_database:
 
 networks:
-  overlay_net:
-    driver: overlay
-    attachable: true
+  proxy:
+    external: true
