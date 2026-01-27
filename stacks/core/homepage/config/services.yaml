@@ -1,0 +1,54 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+- Media:
+    - Jellyfin:
+        icon: jellyfin.png
+        href: https://jellyfin.lsarlinmagnus.fr
+        widget:
+            type: jellyfin
+            url: http://jellyfin:8096
+            key: 58b4e7c3f7f2488182f07b8e67aea9c2
+            enableBlocks: true
+            enableNowPlaying: true
+            fields: ["movies", "series", "episodes"]
+    - Jellyseerr:
+        icon: jellyseerr.png
+        href: https://jellyseerr.lsarlinmagnus.fr
+        widget:
+            type: jellyseerr
+            url: http://jellyseerr:5055
+            key: MTc2ODU3MDA0NDQ5MDcyZTU1NTk5LTE2ODAtNGNjZS04Y2MzLWRiOWQxNzgzNWZlMg==
+            fields: ["pending", "approved", "available", "issues"]
+    - Radarr:
+        icon: radarr.png
+        href: https://radarr.lsarlinmagnus.fr
+        widget:
+            type: radarr
+            url: http://radarr:7878
+            key: cb47bcc48f3a445b8108f20ce7dd8c7f
+            fields: ["wanted", "missing", "queued", "movies"]
+    - Sonarr:
+        icon: sonarr.png
+        href: https://sonarr.lsarlinmagnus.fr
+        widget:
+            type: sonarr
+            url: http://sonarr:8989
+            key: 08aadc0c6d204c8a8decda361098e020
+            fields: ["wanted", "queued", "series"]
+    - Transmission:
+        icon: transmission.png
+        href: https://transmission.lsarlinmagnus.fr
+        widget:
+            type: transmission
+            url: http://transmission:9091
+            rpcURL: /transmission/
+            fields: ["leech", "download", "seed", "upload"]
+    - Jackett:
+        icon: jackett.png
+        href: https://jackett.lsarlinmagnus.fr
+        widget:
+            type: jackett
+            url: http://jackett:9117
+            fields: ["configured", "errored"]

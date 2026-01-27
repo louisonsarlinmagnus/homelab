@@ -62,17 +62,17 @@ services:
   
 configs:
   homepage_bookmarks:
-    file: ./config/homepage/config/bookmarks.yaml
+    file: ./homepage/config/bookmarks.yaml
   homepage_docker:
-    file: ./config/homepage/config/docker.yaml
+    file: ./homepage/config/docker.yaml
   homepage_services:
-    file: ./config/homepage/config/services.yaml
+    file: ./homepage/config/services.yaml
   homepage_settings:
-    file: ./config/homepage/config/settings.yaml
+    file: ./homepage/config/settings.yaml
   homepage_widgets:
-    file: ./config/homepage/config/widgets.yaml
+    file: ./homepage/config/widgets.yaml
   homepage_wallpaper:
-    file: ./config/homepage/wallpaper/wallpaper.jpg
+    file: ./homepage/wallpaper/wallpaper.jpg
 
   # watchtower:
   #   image: containrrr/watchtower:latest 
