@@ -21,6 +21,7 @@ services:
         homepage.name: Dozzle
         homepage.icon: dozzle.png
         homepage.href: https://dozzle.lsarlinmagnus.fr
+        wud.tag.include: ^v\d+\.\d+\.\d+$$
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
@@ -45,6 +46,7 @@ services:
         homepage.name: Grafana
         homepage.icon: grafana.png
         homepage.href: https://grafana.lsarlinmagnus.fr
+        wud.tag.include: ^\d+\.\d+\.\d+$$
     configs:
       - source: grafana_datasource_config
         target: /etc/grafana/provisioning/datasources/datasources.yaml
@@ -73,6 +75,7 @@ services:
         homepage.name: Prometheus
         homepage.icon: prometheus.png
         homepage.href: https://prometheus.lsarlinmagnus.fr
+        wud.tag.include: ^v\d+\.\d+\.\d+$$
     command: --web.enable-remote-write-receiver
     configs: 
       - source: prometheus_config
@@ -88,6 +91,7 @@ services:
         homepage.group: Monitoring
         homepage.name: Loki
         homepage.icon: loki.png
+        wud.tag.include: ^\d+\.\d+\.\d+$$
     command: -config.file=/etc/loki/local-config.yaml
     configs:
       - source: loki_config
@@ -113,6 +117,7 @@ services:
         homepage.name: Alloy
         homepage.icon: alloy.png
         homepage.href: https://alloy.lsarlinmagnus.fr
+        wud.tag.include: ^v\d+\.\d+\.\d+$$
     configs:
       - source: alloy_config
         target: /etc/alloy/config.alloy

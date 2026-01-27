@@ -20,6 +20,7 @@ services:
         homepage.name: LLDAP
         homepage.icon: lldap.png
         homepage.href: https://lldap.lsarlinmagnus.fr
+        wud.tag.include: ^\d+\.\d+\.\d+$$
     env_file:
       - .env.secret
     environment:

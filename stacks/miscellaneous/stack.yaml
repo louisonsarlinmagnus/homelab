@@ -20,6 +20,7 @@ services:
         homepage.name: Vaultwarden
         homepage.icon: bitwarden.png
         homepage.href: https://mdp.lsarlinmagnus.fr
+        wud.tag.include: ^\d+\.\d+\.\d+$$
     env_file:
       - ./vaultwarden/.env.secret
     environment:

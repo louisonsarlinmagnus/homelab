@@ -17,6 +17,7 @@ services:
         traefik.http.routers.radarr.tls: "true"
         traefik.http.routers.radarr.tls.certresolver: ovh
         traefik.http.routers.radarr.middlewares: authelia@file
+        wud.tag.include: ^\d+\.\d+\.\d+$$
     configs:
       - source: radarr_config
         target: /config/config.xml
@@ -43,6 +44,7 @@ services:
         traefik.http.routers.sonarr.tls: "true"
         traefik.http.routers.sonarr.tls.certresolver: ovh
         traefik.http.routers.sonarr.middlewares: authelia@file
+        wud.tag.include: ^\d+\.\d+\.\d+$$
     configs:
       - source: sonarr_config
         target: /config/config.xml
@@ -69,6 +71,7 @@ services:
         traefik.http.routers.transmission.tls: "true"
         traefik.http.routers.transmission.tls.certresolver: ovh
         traefik.http.routers.transmission.middlewares: authelia@file
+        wud.tag.include: ^\d+\.\d+\.\d+$$
     environment:
       PUID: 1000
       PGID: 1000
@@ -91,6 +94,7 @@ services:
         traefik.http.routers.jackett.tls: "true"
         traefik.http.routers.jackett.tls.certresolver: ovh
         traefik.http.routers.jackett.middlewares: authelia@file
+        wud.tag.include: ^\d+\.\d+\.\d+$$
     environment:
       PUID: 1000
       PGID: 1000
@@ -112,6 +116,7 @@ services:
         traefik.http.routers.jellyseerr.entrypoints: websecure
         traefik.http.routers.jellyseerr.tls: "true"
         traefik.http.routers.jellyseerr.tls.certresolver: ovh
+        wud.tag.include: ^\d+\.\d+\.\d+$$
     environment:
       PUID: 1000
       PGID: 1000
