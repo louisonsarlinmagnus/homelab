@@ -27,8 +27,6 @@ services:
       TZ: Europe/Paris
     volumes:
       - gotify_data:/app/data
-    ports:
-      - 30000:80
     networks:
       - proxy
 
