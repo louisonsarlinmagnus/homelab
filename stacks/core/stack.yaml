@@ -5,22 +5,32 @@
 version: '3.8'
 
 services:
-  # gotify:
-  #   image: gotify/server
-  #   deploy:
-  #     replicas: 1
-  #     labels:
-  #       - homepage.group=Core
-  #       - homepage.name=Gotify
-  #       - homepage.icon=gotify.png
-  #       # - homepage.href=https://gotify.${DOMAIN_NAME}
-  #   ports:
-  #     - 3001:80
-  #   volumes:
-  #     - gotify_data:/app/data
-  #     - ./config/gotify/gotify.yaml:/etc/gotify/config.yml
-  #   networks:
-  #     - proxy
+  gotify:
+    image: gotify/server:2.8.0 
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.gotify.loadbalancer.server.port: 80
+        traefik.http.routers.gotify.rule: Host(`gotify.lsarlinmagnus.fr`)
+        traefik.http.routers.gotify.entrypoints: websecure
+        traefik.http.routers.gotify.tls: "true"
+        traefik.http.routers.gotify.tls.certresolver: ovh
+        homepage.group: Core
+        homepage.name: Gotify
+        homepage.icon: gotify.png
+        homepage.href: https://gotify.lsarlinmagnus.fr
+    env_file:
+      - ./gotify/.env
+      - ./gotify/.env.secret
+    environment:
+      TZ: Europe/Paris
+    volumes:
+      - gotify_data:/app/data
+    ports:
+      - 30000:80
+    networks:
+      - proxy
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
