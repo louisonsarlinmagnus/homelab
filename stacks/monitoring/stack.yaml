@@ -96,8 +96,6 @@ services:
     configs:
       - source: loki_config
         target: /etc/loki/local-config.yaml
-    ports:
-      - 3100:3100
     networks:
       - proxy
 
