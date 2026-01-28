@@ -104,18 +104,18 @@ services:
     deploy:
       replicas: 1
     labels:
-        traefik.enable: "true"
-        traefik.http.services.alloy.loadbalancer.server.port: 12345
-        traefik.http.routers.alloy.rule: Host(`alloy.lsarlinmagnus.fr`)
-        traefik.http.routers.alloy.entrypoints: websecure
-        traefik.http.routers.alloy.tls: "true"
-        traefik.http.routers.alloy.tls.certresolver: ovh
-        traefik.http.routers.alloy.middlewares: authelia@file
-        homepage.group: Monitoring
-        homepage.name: Alloy
-        homepage.icon: alloy.png
-        homepage.href: https://alloy.lsarlinmagnus.fr
-        wud.tag.include: ^v\d+\.\d+\.\d+$$
+      traefik.enable: "true"
+      traefik.http.services.alloy.loadbalancer.server.port: 12345
+      traefik.http.routers.alloy.rule: Host(`alloy.lsarlinmagnus.fr`)
+      traefik.http.routers.alloy.entrypoints: websecure
+      traefik.http.routers.alloy.tls: "true"
+      traefik.http.routers.alloy.tls.certresolver: ovh
+      traefik.http.routers.alloy.middlewares: authelia@file
+      homepage.group: Monitoring
+      homepage.name: Alloy
+      homepage.icon: alloy.png
+      homepage.href: https://alloy.lsarlinmagnus.fr
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
     configs:
       - source: alloy_config
         target: /etc/alloy/config.alloy
