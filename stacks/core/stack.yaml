@@ -65,7 +65,7 @@ services:
       HOMEPAGE_ALLOWED_HOSTS: homepage.lsarlinmagnus.fr
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
-      - /media/raid:/media/raid
+      - /media/raid:/media/raid:ro
       # - /mnt/backup:/mnt/backup
     networks:
       - proxy
