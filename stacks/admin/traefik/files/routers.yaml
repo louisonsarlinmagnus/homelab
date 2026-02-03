@@ -1,1 +1,11 @@
 ---
+http:
+  routers:
+    api:
+      middlewares: authelia@file #Middleware pour l'authentification
+      rule: Host(`traefik.lsarlinmagnus.fr`) #Adresse du dashboard de Traefik
+      entrypoints:
+        - websecure
+      service: api@internal
+      tls:
+        certResolver: ovh

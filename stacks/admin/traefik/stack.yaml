@@ -13,6 +13,7 @@ services:
         homepage.group: Administration
         homepage.name: Traefik
         homepage.icon: traefik.png
+        homepage.href: https://traefik.lsarlinmagnus.fr
         homepage.widget.type: traefik
         homepage.widget.url: http://traefik:8080
         homepage.widget.fields: '["routers", "services", "middleware"]'
