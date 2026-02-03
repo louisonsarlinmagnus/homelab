@@ -91,7 +91,7 @@ Once the metrics exposed, it's child's play to scrape it with Alloy :
 
 ```alloy title="config.alloy" linenums="0"
 --8<--
-stacks/monitoring/alloy/config.alloy:264:279
+stacks/monitoring/alloy/config.alloy:269:284
 --8<--
 ```
 

@@ -43,9 +43,9 @@ discovery.relabel "system" {
     }
 }
 
-// Let scrape what we asked every 15 seconds
+// Let scrape what we asked every 10 seconds
 prometheus.scrape "system" {
-    scrape_interval = "15s"
+    scrape_interval = "10s"
     targets         = discovery.relabel.system.output
     forward_to      = [prometheus.remote_write.default.receiver]
 }
@@ -119,7 +119,12 @@ loki.source.file "system" {
 // Host Cadvisor on the Docker socket to expose container metrics.
 
 prometheus.exporter.cadvisor "docker_metrics" {
-    docker_only = true
+    docker_only     = true
+    enabled_metrics = [
+        "network",
+        "cpu",
+        "memory",
+        ]
 }
 
 discovery.relabel "docker_metrics" {
@@ -141,7 +146,7 @@ prometheus.scrape "docker_metrics" {
     targets    = discovery.relabel.docker_metrics.output
     forward_to = [ prometheus.remote_write.default.receiver ]
 
-    scrape_interval = "15s"
+    scrape_interval = "30s"
 }
 
 
@@ -275,7 +280,7 @@ prometheus.scrape "shelly_api" {
         },
     ]
     forward_to      = [prometheus.remote_write.default.receiver]
-    scrape_interval = "15s"
+    scrape_interval = "10s"
 }
 
 // //////////////////////////////////////// //
