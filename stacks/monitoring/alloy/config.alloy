@@ -260,6 +260,24 @@ loki.process "fail2ban_geoip_lookup" {
     }
 }
 
+
+// //////////////////////////////////////// //
+//           SMART PLUG METRICS             //  
+// //////////////////////////////////////// //
+
+// Scraping Shelly API
+prometheus.scrape "shelly_api" {
+    targets    = [
+        {
+            "__scheme__"        = "http",
+            "__address__"       = "192.168.1.45",
+            "__metrics_path__"  = "/script/1/metrics",
+        },
+    ]
+    forward_to      = [prometheus.remote_write.default.receiver]
+    scrape_interval = "15s"
+}
+
 // //////////////////////////////////////// //
 //          OBSERVABILITY HOARDER           //  
 // //////////////////////////////////////// //
