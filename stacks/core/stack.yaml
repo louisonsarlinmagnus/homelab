@@ -101,6 +101,36 @@ services:
     networks:
       - proxy
 
+
+  diun:
+    image: crazymax/diun:4.31.0
+    deploy:
+      replicas: 1
+      labels:
+        homepage.group: Core
+        homepage.name: DIUN
+        homepage.icon: diun.png
+    environment:  
+      DIUN_PROVIDERS_SWARM_WATCHBYDEFAULT: "true"
+      DIUN_WATCH_WORKERS: 10
+      DIUN_WATCH_SCHEDULE: 0 */1 * * *
+      DIUN_WATCH_JITTER: 30s
+      DIUN_DEFAULTS_NOTIFYON: new,update
+      DIUN_DEFAULTS_INCLUDETAGS: ^\d+\.\d+\.\d+$$,^v\d+\.\d+\.\d+$$
+      DIUN_PROVIDERS_SWARM: "true"
+      DIUN_PROVIDERS_DOCKER: "true"
+      LOG_LEVEL: debug
+      LOG_JSON: "false"
+      DIUN_NOTIF_GOTIFY_ENDPOINT: http://gotify:80
+      DIUN_NOTIF_GOTIFY_TOKEN: AkV3e0.jplEvMnv
+      DIUN_NOTIF_GOTIFY_TEMPLATETITLE: 
+      DIUN_NOTIF_GOTIFY_TEMPLATEBODY: 
+      TZ: Europe/Paris
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - proxy
+
 configs:
   homepage_bookmarks:
     file: ./homepage/config/bookmarks.yaml
