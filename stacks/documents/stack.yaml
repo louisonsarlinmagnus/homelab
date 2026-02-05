@@ -5,101 +5,129 @@
 version: '3.8'
 
 services:
-  paperless_ngx:
-    image: ghcr.io/paperless-ngx/paperless-ngx:latest
-    deploy:
-      replicas: 1
-      labels:
-        - homepage.group=Documents
-        - homepage.name=Paperless NGX
-        - homepage.icon=paperless
-        - homepage.href=http://localhost:3007/
-        # - homepage.href=https://paperless_ngx.${DOMAIN_NAME}
-    ports:
-      - 3007:8000
-    volumes:
-      - paperless_data:/usr/src/paperless/data
-      - /home/louison/homelab/RAID/paperless_ngx/media:/usr/src/paperless/media
-      - paperless_data:/usr/src/paperless/export
-      - paperless_data:/usr/src/paperless/consume
-    environment:
-      PAPERLESS_REDIS: redis://paperless_ngx_redis:6379
-      PAPERLESS_DBHOST: paperless_ngx_postgres
-      PAPERLESS_DBNAME: paperless
-      PAPERLESS_DBUSER: changeme
-      PAPERLESS_DBPASS: changeme
-      # PAPERLESS_URL: https://paperless_ngx.${DOMAIN_NAME}
-      PAPERLESS_SECRET_KEY: changeme
-      PAPERLESS_TIME_ZONE: Europe/Paris
-      PAPERLESS_OCR_LANGUAGE: fra
-      PAPERLESS_ADMIN_USER: changeme
-      PAPERLESS_ADMIN_PASSWORD: changeme
-    networks:
-      - overlay_net
+  # paperless_ngx:
+  #   image: ghcr.io/paperless-ngx/paperless-ngx:latest
+  #   deploy:
+  #     replicas: 1
+  #     labels:
+  #       - homepage.group=Documents
+  #       - homepage.name=Paperless NGX
+  #       - homepage.icon=paperless
+  #       - homepage.href=http://localhost:3007/
+  #       # - homepage.href=https://paperless_ngx.${DOMAIN_NAME}
+  #   ports:
+  #     - 3007:8000
+  #   volumes:
+  #     - paperless_data:/usr/src/paperless/data
+  #     - /home/louison/homelab/RAID/paperless_ngx/media:/usr/src/paperless/media
+  #     - paperless_data:/usr/src/paperless/export
+  #     - paperless_data:/usr/src/paperless/consume
+  #   environment:
+  #     PAPERLESS_REDIS: redis://paperless_ngx_redis:6379
+  #     PAPERLESS_DBHOST: paperless_ngx_postgres
+  #     PAPERLESS_DBNAME: paperless
+  #     PAPERLESS_DBUSER: changeme
+  #     PAPERLESS_DBPASS: changeme
+  #     # PAPERLESS_URL: https://paperless_ngx.${DOMAIN_NAME}
+  #     PAPERLESS_SECRET_KEY: changeme
+  #     PAPERLESS_TIME_ZONE: Europe/Paris
+  #     PAPERLESS_OCR_LANGUAGE: fra
+  #     PAPERLESS_ADMIN_USER: changeme
+  #     PAPERLESS_ADMIN_PASSWORD: changeme
+  #   networks:
+  #     - proxy
 
-  paperless_ngx_postgres:
-    image: docker.io/library/postgres:17
-    deploy:
-      replicas: 1
-      labels:
-        - homepage.group=Documents
-        - homepage.name=Paperless PDF Postgres
-        - homepage.icon=postgres.png
-    volumes:
-      - paperless_database:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: paperless
-      POSTGRES_USER: changeme
-      POSTGRES_PASSWORD: changeme
-      USERMAP_UID: 1000
-      USERMAP_GID: 1000
-    networks:
-      - overlay_net
+  # paperless_ngx_postgres:
+  #   image: docker.io/library/postgres:17
+  #   deploy:
+  #     replicas: 1
+  #     labels:
+  #       - homepage.group=Documents
+  #       - homepage.name=Paperless PDF Postgres
+  #       - homepage.icon=postgres.png
+  #   volumes:
+  #     - paperless_database:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_DB: paperless
+  #     POSTGRES_USER: changeme
+  #     POSTGRES_PASSWORD: changeme
+  #     USERMAP_UID: 1000
+  #     USERMAP_GID: 1000
+  #   networks:
+  #     - proxy
 
-  paperless_ngx_redis:
-    image: docker.io/library/redis:8
-    deploy:
-      replicas: 1
-      labels:
-        - homepage.group=Documents
-        - homepage.name=Paperless PDF Redis
-        - homepage.icon=redis.png
-    volumes:
-      - paperless_key_value:/data
-    networks:
-      - overlay_net
+  # paperless_ngx_redis:
+  #   image: docker.io/library/redis:8
+  #   deploy:
+  #     replicas: 1
+  #     labels:
+  #       - homepage.group=Documents
+  #       - homepage.name=Paperless PDF Redis
+  #       - homepage.icon=redis.png
+  #   volumes:
+  #     - paperless_key_value:/data
+  #   networks:
+  #     - proxy
 
-  stirling_pdf:
-    image: docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest
+  # stirling_pdf:
+  #   image: docker.stirlingpdf.com/stirlingtools/stirling-pdf:2.4.3-ultra-lite
+  #   deploy:
+  #     replicas: 1
+  #     labels:
+  #       traefik.enable: "true"
+  #       traefik.http.services.stirling.loadbalancer.server.port: 8080
+  #       traefik.http.routers.stirling.rule: Host(`stirling.lsarlinmagnus.fr`)
+  #       traefik.http.routers.stirling.entrypoints: websecure
+  #       traefik.http.routers.stirling.tls: "true"
+  #       traefik.http.routers.stirling.tls.certresolver: ovh
+  #       traefik.http.routers.stirling.middlewares: authelia@file
+  #       homepage.group: Documents
+  #       homepage.name: Stirling PDF
+  #       homepage.icon: stirling-pdf.png
+  #       homepage.href: https://stirling.lsarlinmagnus.fr
+  #   volumes:
+  #     - stirling_pdf_data:/configs
+  #   environment:
+  #     DOCKER_ENABLE_SECURITY: "true"
+  #     LANGS: fr_FR
+  #     TZ: Europe/Paris
+  #   networks:
+  #     - proxy
+
+  papra:
+    image: ghcr.io/papra-hq/papra:26.1.0-rootless
     deploy:
       replicas: 1
       labels:
-        - homepage.group=Documents
-        - homepage.name=Stirling PDF
-        - homepage.icon=stirling-pdf.png
-        - homepage.href=http://localhost:3006/   
-        # - homepage.href=https://stirling_pdf.${DOMAIN_NAME}      
-    volumes:
-      - stirling_pdf_data:/usr/share/tessdata # Required for extra OCR languages
-      - stirling_pdf_data:/configs
-      - stirling_pdf_data:/customFiles/
-      - stirling_pdf_data:/logs/
-      - stirling_pdf_data:/pipeline/
+        traefik.enable: "true"
+        traefik.http.services.papra.loadbalancer.server.port: 1221
+        traefik.http.routers.papra.rule: Host(`papra.lsarlinmagnus.fr`)
+        traefik.http.routers.papra.entrypoints: websecure
+        traefik.http.routers.papra.tls: "true"
+        traefik.http.routers.papra.tls.certresolver: ovh
+        # traefik.http.routers.papra.middlewares: authelia@file
+        homepage.group: Documents
+        homepage.name: Papra
+        homepage.icon: papra.png
+        homepage.href: https://papra.lsarlinmagnus.fr
+    env_file:
+      - ./papra/.env.secret
     environment:
-      DOCKER_ENABLE_SECURITY: "true"
-      LANGS: fr_FR
-    ports:
-      - 3006:8080
+      APP_BASE_URL: https://papra.lsarlinmagnus.fr
+      DOCUMENTS_OCR_LANGUAGES: fra
+    volumes:
+      - papra_data:/app/app-data
+      - /media/raid/papra/documents:/app/app-data/documents
     networks:
-      - overlay_net
+      - proxy
 
 volumes:
-  stirling_pdf_data:
-  paperless_data:
-  paperless_database:
-  paperless_key_value:
+  # stirling_pdf_data:
+  # paperless_data:
+  # paperless_database:
+  # paperless_key_value:
+  papra_data:
 
 networks:
-  overlay_net:
-    driver: overlay
-    attachable: true
+  proxy:
+    external: true
