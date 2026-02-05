@@ -3,6 +3,12 @@ global:
   checkNewVersion: false
   sendAnonymousUsage: false
 
+experimental:
+  plugins:
+    sablier:
+      moduleName: "github.com/sablierapp/sablier-traefik-plugin"
+      version: "v1.1.0"
+
 api:
   insecure: true
 
