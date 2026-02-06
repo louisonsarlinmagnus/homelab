@@ -1,5 +1,5 @@
 ################################################################################
-# PICTURES STACK => docker stack deploy -c stacks/pictures/stack.yaml pictures
+# IMMICH STACK => docker stack deploy -c stacks/immich/stack.yaml immich
 ################################################################################
 
 version: '3.8'
