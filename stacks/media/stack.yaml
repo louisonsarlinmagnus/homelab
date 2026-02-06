@@ -110,7 +110,11 @@ services:
     deploy:
       replicas: 1
       labels:
+        sablier.enable: "true"
+        sablier.group: jellyseerr
         traefik.enable: "true"
+        traefik.swarm.lbswarm: "true"
+        traefik.http.routers.jellyseerr.middlewares: jellyseerr@swarm
         traefik.http.services.jellyseerr.loadbalancer.server.port: 5055
         traefik.http.routers.jellyseerr.rule: Host(`jellyseerr.lsarlinmagnus.fr`)
         traefik.http.routers.jellyseerr.entrypoints: websecure
