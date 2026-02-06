@@ -11,6 +11,11 @@ services:
       replicas: 1
       labels:
         traefik.enable: "true"
+        # whoami
+        traefik.http.middlewares.whoami.plugin.sablier.group: whoami
+        traefik.http.middlewares.whoami.plugin.sablier.sablierUrl: http://sablier:10000
+        traefik.http.middlewares.whoami.plugin.sablier.sessionDuration: 1m
+        traefik.http.middlewares.whoami.plugin.sablier.dynamic.displayName: whoami
         traefik.http.services.sablier.loadbalancer.server.port: 10000
         homepage.group: Administration
         homepage.name: Sablier
@@ -18,45 +23,34 @@ services:
     command:
       - start
       - --provider.name=swarm
-    configs:
-      - source: sablier_config
-        target: /etc/sablier/sablier.yaml
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
+      SABLIER_STRATEGY_DYNAMIC_DEFAULT_THEME: ghost
       TZ: Europe/Paris
-    ports:
-      - 10000:10000
     networks:
       - proxy
 
   whoami:
     image: traefik/whoami:v1.11.0
     deploy:
-      replicas: 0
       labels:
+        sablier.enable: "true"
+        sablier.group: whoami
         traefik.enable: "true"
         traefik.swarm.lbswarm: "true"
-        traefik.http.routers.whoami.middlewares: sablier@file
-        traefik.http.routers.whoami.service: whoami
-        sablier.enbale: "true"
-        sablier.group: mygroup
+        traefik.http.routers.whoami.middlewares: whoami@swarm
         traefik.http.services.whoami.loadbalancer.server.port: 80
-        traefik.http.routers.whoami-https.rule: Host(`new.lsarlinmagnus.fr`)
-        traefik.http.routers.whoami-https.entrypoints: websecure
-        traefik.http.routers.whoami-https.tls: "true"
-        traefik.http.routers.whoami-https.tls.certresolver: ovh
-        # traefik.http.routers.whoami-https.middlewares: authelia@file
+        traefik.http.routers.whoami.rule: Host(`new.lsarlinmagnus.fr`)
+        traefik.http.routers.whoami.entrypoints: websecure
+        traefik.http.routers.whoami.tls: "true"
+        traefik.http.routers.whoami.tls.certresolver: ovh
         homepage.group: Administration
         homepage.name: Whoami
         homepage.icon: traefik.png
         homepage.href: https://new.lsarlinmagnus.fr
     networks:
       - proxy
-
-configs:
-  sablier_config:
-    file: ./sablier.yaml
 
 networks:
   proxy:
