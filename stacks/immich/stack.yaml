@@ -12,6 +12,8 @@ services:
     deploy:
       replicas: 1
       labels:
+        sablier.enable: "true"
+        sablier.group: immich
         homepage.group: Pictures
         homepage.name: Immich-Machine-Learning
         homepage.icon: immich.png
@@ -41,7 +43,6 @@ services:
       POSTGRES_INITDB_ARGS: '--data-checksums'
     volumes:
       - immich_database:/var/lib/postgresql/data
-    shm_size: 128mb
     healthcheck:
       disable: false
     networks:
@@ -65,7 +66,11 @@ services:
     deploy:
       replicas: 1
       labels:
+        sablier.enable: "true"
+        sablier.group: immich
         traefik.enable: "true"
+        traefik.swarm.lbswarm: "true"
+        traefik.http.routers.immich.middlewares: immich@swarm
         traefik.http.services.immich.loadbalancer.server.port: 2283
         traefik.http.routers.immich.rule: Host(`immich.lsarlinmagnus.fr`)
         traefik.http.routers.immich.entrypoints: websecure
