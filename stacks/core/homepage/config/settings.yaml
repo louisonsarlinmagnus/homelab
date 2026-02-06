@@ -19,8 +19,6 @@ background:
 
 cardBlur: xl
 
-fiveColumns: true
-
 layout:
   Administration:
   Core:
