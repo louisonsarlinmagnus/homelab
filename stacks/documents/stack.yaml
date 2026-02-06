@@ -99,7 +99,11 @@ services:
     deploy:
       replicas: 1
       labels:
+        sablier.enable: "true"
+        sablier.group: papra
         traefik.enable: "true"
+        traefik.swarm.lbswarm: "true"
+        traefik.http.routers.papra.middlewares: papra@swarm
         traefik.http.services.papra.loadbalancer.server.port: 1221
         traefik.http.routers.papra.rule: Host(`papra.lsarlinmagnus.fr`)
         traefik.http.routers.papra.entrypoints: websecure

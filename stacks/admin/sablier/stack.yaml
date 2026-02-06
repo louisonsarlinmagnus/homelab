@@ -21,6 +21,12 @@ services:
         traefik.http.middlewares.jellyseerr.plugin.sablier.sablierUrl: http://sablier:10000
         traefik.http.middlewares.jellyseerr.plugin.sablier.sessionDuration: 1m
         traefik.http.middlewares.jellyseerr.plugin.sablier.dynamic.displayName: jellyseerr
+        # papra
+        traefik.http.middlewares.papra.plugin.sablier.group: papra
+        traefik.http.middlewares.papra.plugin.sablier.sablierUrl: http://sablier:10000
+        traefik.http.middlewares.papra.plugin.sablier.sessionDuration: 1m
+        traefik.http.middlewares.papra.plugin.sablier.dynamic.displayName: papra
+        #
         traefik.http.services.sablier.loadbalancer.server.port: 10000
         homepage.group: Administration
         homepage.name: Sablier
