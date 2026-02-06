@@ -8,7 +8,7 @@ services:
   immich_machine_learning:
     # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
     # Example tag: ${IMMICH_VERSION:-release}-cuda
-    image: ghcr.io/immich-app/immich-machine-learning:v2.4.1
+    image: ghcr.io/immich-app/immich-machine-learning:v2.5.5
     deploy:
       replicas: 1
       labels:
@@ -61,7 +61,7 @@ services:
       - proxy
 
   immich:
-    image: ghcr.io/immich-app/immich-server:v2.4.1
+    image: ghcr.io/immich-app/immich-server:v2.5.5
     deploy:
       replicas: 1
       labels:
