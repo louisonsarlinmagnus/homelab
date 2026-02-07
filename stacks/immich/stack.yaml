@@ -12,12 +12,9 @@ services:
     deploy:
       replicas: 1
       labels:
-        sablier.enable: "true"
-        sablier.group: immich
         homepage.group: Pictures
         homepage.name: Immich-Machine-Learning
         homepage.icon: immich.png
-        wud.tag.include: ^v\d+\.\d+\.\d+$$
     volumes:
       - immich_model_cache:/cache
     # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
@@ -66,8 +63,6 @@ services:
     deploy:
       replicas: 1
       labels:
-        sablier.enable: "true"
-        sablier.group: immich
         traefik.enable: "true"
         traefik.swarm.lbswarm: "true"
         traefik.http.routers.immich.middlewares: immich@swarm
@@ -86,7 +81,6 @@ services:
         homepage.widget.key: ib975tH9Rvrll9TtUHfSheq9ygK5xczo4DT9idXBFc
         homepage.widget.version: 2
         homepage.widget.fields: '["users" ,"photos", "videos", "storage"]'
-        wud.tag.include: ^v\d+\.\d+\.\d+$$
     volumes:
       - /media/raid/immich:/data
     environment:
