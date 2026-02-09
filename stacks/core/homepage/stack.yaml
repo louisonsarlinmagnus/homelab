@@ -1,5 +1,5 @@
 ################################################################################
-# CORE STACK => docker stack deploy -c stacks/homepage/stack.yaml homepage
+# CORE STACK => docker stack deploy -c stacks/core/homepage/stack.yaml homepage
 ################################################################################
 
 version: '3.8'
