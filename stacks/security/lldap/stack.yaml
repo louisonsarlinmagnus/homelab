@@ -1,5 +1,5 @@
 ################################################################################
-# ADMIN STACK => docker stack deploy -c stacks/admin/lldap/stack.yaml lldap
+# ADMIN STACK => docker stack deploy -c stacks/security/lldap/stack.yaml lldap
 ################################################################################
 
 version: '3.8'

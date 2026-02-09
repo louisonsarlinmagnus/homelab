@@ -1,5 +1,5 @@
 ################################################################################
-# ADMIN STACK => docker stack deploy -c stacks/admin/traefik/stack.yaml traefik
+# ADMIN STACK => docker stack deploy -c stacks/security/traefik/stack.yaml traefik
 ################################################################################
 
 version: '3.8'

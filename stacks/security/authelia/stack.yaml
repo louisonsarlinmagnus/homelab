@@ -1,5 +1,5 @@
 ################################################################################
-# ADMIN STACK => docker stack deploy -c stacks/admin/authelia/stack.yaml authelia
+# ADMIN STACK => docker stack deploy -c stacks/security/authelia/stack.yaml authelia
 ################################################################################
 
 version: '3.8'
