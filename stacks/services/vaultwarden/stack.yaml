@@ -16,7 +16,7 @@ services:
         traefik.http.routers.vaultwarden.entrypoints: websecure
         traefik.http.routers.vaultwarden.tls: "true"
         traefik.http.routers.vaultwarden.tls.certresolver: ovh
-        homepage.group: Miscellaneous
+        homepage.group: Passwords
         homepage.name: Vaultwarden
         homepage.icon: bitwarden.png
         homepage.href: https://mdp.lsarlinmagnus.fr

@@ -26,16 +26,15 @@ layout:
   Services:
     Documents:
     Tools:
-    Miscellaneous:
+    Passwords:
     Networking:
-  Monitoring:
-    Grafana:
   Pictures:
   Media:
+  Monitoring:
+    Grafana:
 
 disableCollapse: true
 hideVersion: true
 hideErrors: true
-# showStats: true
 useEqualHeights: true
-# language: fr
+maxGroupColumns: 6
