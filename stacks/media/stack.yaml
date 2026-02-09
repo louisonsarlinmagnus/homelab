@@ -17,6 +17,14 @@ services:
         traefik.http.routers.radarr.tls: "true"
         traefik.http.routers.radarr.tls.certresolver: ovh
         traefik.http.routers.radarr.middlewares: authelia@file
+        homepage.group: Media
+        homepage.name: Radarr
+        homepage.icon: radarr.png
+        homepage.href: https://radarr.lsarlinmagnus.fr
+        homepage.widget.type: radarr
+        homepage.widget.url: http://radarr:7878
+        homepage.widget.key: ${RADARR_HOMEPAGE_API_KEY}
+        homepage.widget.fields: '["wanted", "missing", "queued", "movies"]'
     configs:
       - source: radarr_config
         target: /config/config.xml
@@ -43,6 +51,14 @@ services:
         traefik.http.routers.sonarr.tls: "true"
         traefik.http.routers.sonarr.tls.certresolver: ovh
         traefik.http.routers.sonarr.middlewares: authelia@file
+        homepage.group: Media
+        homepage.name: Sonarr
+        homepage.icon: sonarr.png
+        homepage.href: https://sonarr.lsarlinmagnus.fr
+        homepage.widget.type: sonarr
+        homepage.widget.url: http://sonarr:8989
+        homepage.widget.key: ${SONARR_HOMEPAGE_API_KEY}
+        homepage.widget.fields: '["wanted", "queued", "series"]'
     configs:
       - source: sonarr_config
         target: /config/config.xml
@@ -69,6 +85,14 @@ services:
         traefik.http.routers.transmission.tls: "true"
         traefik.http.routers.transmission.tls.certresolver: ovh
         traefik.http.routers.transmission.middlewares: authelia@file
+        homepage.group: Media
+        homepage.name: Transmission
+        homepage.icon: transmission.png
+        homepage.href: https://transmission.lsarlinmagnus.fr
+        homepage.widget.type: transmission
+        homepage.widget.url: http://transmission:9091
+        homepage.widget.rpcURL: /transmission/
+        homepage.widget.fields: '["leech", "download", "seed", "upload"]'
     environment:
       PUID: 1000
       PGID: 1000
@@ -91,6 +115,13 @@ services:
         traefik.http.routers.jackett.tls: "true"
         traefik.http.routers.jackett.tls.certresolver: ovh
         traefik.http.routers.jackett.middlewares: authelia@file
+        homepage.group: Media
+        homepage.name: Jackett
+        homepage.icon: jackett.png
+        homepage.href: https://jackett.lsarlinmagnus.fr
+        homepage.widget.type: jackett
+        homepage.widget.url: http://jackett:9117
+        homepage.widget.fields: '["configured", "errored"]'
     environment:
       PUID: 1000
       PGID: 1000
@@ -116,6 +147,14 @@ services:
         traefik.http.routers.jellyseerr.entrypoints: websecure
         traefik.http.routers.jellyseerr.tls: "true"
         traefik.http.routers.jellyseerr.tls.certresolver: ovh
+        homepage.group: Media
+        homepage.name: Jellyseerr
+        homepage.icon: jellyseerr.png
+        homepage.href: https://jellyseerr.lsarlinmagnus.fr
+        homepage.widget.type: jellyseerr
+        homepage.widget.url: http://jellyseerr:5055
+        homepage.widget.key: ${JELLYSEERR_HOMEPAGE_API_KEY}
+        homepage.widget.fields: '["pending", "approved", "available", "issues"]'
     environment:
       PUID: 1000
       PGID: 1000
