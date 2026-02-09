@@ -1,0 +1,35 @@
+################################################################################
+# OMNI-TOOLS STACK => docker stack deploy -c stacks/services/omnitools/stack.yaml omnitools
+################################################################################
+
+version: '3.8'
+
+services:
+
+  omnitools:
+    image: iib0011/omni-tools:0.6.0
+    deploy:
+      replicas: 1
+      labels:
+        sablier.enable: "true"
+        sablier.group: omnitools
+        traefik.enable: "true"
+        traefik.swarm.lbswarm: "true"
+        traefik.http.routers.omnitools.middlewares: omnitools@swarm, authelia@file
+        traefik.http.services.omnitools.loadbalancer.server.port: 80
+        traefik.http.routers.omnitools.rule: Host(`omnitools.lsarlinmagnus.fr`)
+        traefik.http.routers.omnitools.entrypoints: websecure
+        traefik.http.routers.omnitools.tls: "true"
+        traefik.http.routers.omnitools.tls.certresolver: ovh
+        homepage.group: Tools
+        homepage.name: Omni-Tools
+        homepage.icon: omni-tools.png
+        homepage.href: https://omnitools.lsarlinmagnus.fr
+    environment:
+      TZ: Europe/Paris
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
