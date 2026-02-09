@@ -1,5 +1,5 @@
 ################################################################################
-# DOCUMENTS STACK => docker stack deploy -c stacks/documents/stack.yaml documents
+# PAPRA STACK => docker stack deploy -c stacks/papra/stack.yaml papra
 ################################################################################
 
 version: '3.8'
@@ -27,7 +27,7 @@ services:
         homepage.icon: papra.png
         homepage.href: https://papra.lsarlinmagnus.fr
     env_file:
-      - ./papra/.env.secret
+      - ./.env.secret
     environment:
       APP_BASE_URL: https://papra.lsarlinmagnus.fr
       DOCUMENTS_OCR_LANGUAGES: fra
