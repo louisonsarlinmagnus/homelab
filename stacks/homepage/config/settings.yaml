@@ -20,14 +20,16 @@ background:
 cardBlur: xl
 
 layout:
-  Administration:
-  Core:
-  Documents:
-  Media:
-  Miscellaneous:
+  Administration: 
+    Security:
+    Core:
+  Services:
+    Documents:
+    Miscellaneous:
+    Networking:
   Monitoring:
-  Networking:
   Pictures:
+  Media:
 
 disableCollapse: true
 hideVersion: true

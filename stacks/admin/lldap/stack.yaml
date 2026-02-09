@@ -16,7 +16,7 @@ services:
         traefik.http.routers.lldap.tls: "true"
         traefik.http.routers.lldap.tls.certresolver: ovh
         traefik.http.services.lldap.loadbalancer.server.port: 17170
-        homepage.group: Administration
+        homepage.group: Security
         homepage.name: LLDAP
         homepage.icon: lldap.png
         homepage.href: https://lldap.lsarlinmagnus.fr

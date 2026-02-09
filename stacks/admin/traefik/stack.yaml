@@ -10,7 +10,7 @@ services:
     deploy:
       replicas: 1
       labels:
-        homepage.group: Administration
+        homepage.group: Security
         homepage.name: Traefik
         homepage.icon: traefik.png
         homepage.href: https://traefik.lsarlinmagnus.fr

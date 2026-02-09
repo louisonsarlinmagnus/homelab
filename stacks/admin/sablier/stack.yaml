@@ -33,7 +33,7 @@ services:
         traefik.http.middlewares.jellyfin.plugin.sablier.dynamic.displayName: jellyfin
         #
         traefik.http.services.sablier.loadbalancer.server.port: 10000
-        homepage.group: Administration
+        homepage.group: Core
         homepage.name: Sablier
         homepage.icon: sh-sablier.png
     command:
