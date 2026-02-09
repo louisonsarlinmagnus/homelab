@@ -1,0 +1,62 @@
+################################################################################
+# CORE STACK => docker stack deploy -c stacks/homepage/stack.yaml homepage
+################################################################################
+
+version: '3.8'
+
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:v1.9.0
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.homepage.loadbalancer.server.port: 3000
+        traefik.http.routers.homepage.rule: Host(`homepage.lsarlinmagnus.fr`)
+        traefik.http.routers.homepage.entrypoints: websecure
+        traefik.http.routers.homepage.tls: "true"
+        traefik.http.routers.homepage.tls.certresolver: ovh
+        traefik.http.routers.homepage.middlewares: authelia@file
+        homepage.group: Core
+        homepage.name: Homepage
+        homepage.icon: homepage.png
+        homepage.href: https://homepage.lsarlinmagnus.fr
+    configs:
+      - source: homepage_bookmarks
+        target: /app/config/bookmarks.yaml
+      - source: homepage_docker
+        target: /app/config/docker.yaml
+      - source: homepage_services
+        target: /app/config/services.yaml
+      - source: homepage_settings
+        target: /app/config/settings.yaml
+      - source: homepage_widgets
+        target: /app/config/widgets.yaml
+      - source: homepage_wallpaper
+        target: /app/public/images/wallpaper.jpg
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: homepage.lsarlinmagnus.fr
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
+      - /media/raid:/media/raid:ro
+      # - /mnt/backup:/mnt/backup
+    networks:
+      - proxy
+
+configs:
+  homepage_bookmarks:
+    file: ./config/bookmarks.yaml
+  homepage_docker:
+    file: ./config/docker.yaml
+  homepage_services:
+    file: ./config/services.yaml
+  homepage_settings:
+    file: ./config/settings.yaml
+  homepage_widgets:
+    file: ./config/widgets.yaml
+  homepage_wallpaper:
+    file: ./wallpaper/wallpaper.jpg
+
+networks:
+  proxy:
+    external: true
