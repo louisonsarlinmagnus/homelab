@@ -17,7 +17,6 @@ services:
       traefik.http.routers.jellyfin.entrypoints: websecure
       traefik.http.routers.jellyfin.tls: true
       traefik.http.routers.jellyfin.tls.certresolver: ovh
-      wud.tag.include: ^\d+\.\d+\.\d+$$
     environment:
       TZ: Europe/Paris
     volumes:

@@ -20,7 +20,6 @@ services:
         homepage.name: Gotify
         homepage.icon: gotify.png
         homepage.href: https://gotify.lsarlinmagnus.fr
-        wud.tag.include: ^\d+\.\d+\.\d+$$
     env_file:
       - ./gotify/.env
       - ./gotify/.env.secret
@@ -47,7 +46,6 @@ services:
         homepage.name: Homepage
         homepage.icon: homepage.png
         homepage.href: https://homepage.lsarlinmagnus.fr
-        wud.tag.include: ^v\d+\.\d+\.\d+$$
     configs:
       - source: homepage_bookmarks
         target: /app/config/bookmarks.yaml
@@ -91,7 +89,6 @@ services:
         homepage.widget.username: homepage_api
         homepage.widget.password: GKpUluNvWnmwYQfqs3MX5793TjKLgh0Y
         homepage.widget.fields: '["monitoring", "updates"]'
-        wud.tag.include: ^\d+\.\d+\.\d+$$
     env_file:
       - ./wud/.env
     environment:

@@ -20,7 +20,6 @@ services:
         homepage.name: Authelia
         homepage.icon: authelia.png
         homepage.href: https://login.lsarlinmagnus.fr
-        wud.tag.include: ^\d+\.\d+\.\d+$$
     configs:
       - source: authelia_config
         target: /config/configuration.yml
