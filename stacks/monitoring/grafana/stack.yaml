@@ -1,34 +1,10 @@
 ################################################################################
-# MONITORING STACK => docker stack deploy -c stacks/monitoring/stack.yaml monitoring
+# MONITORING STACK => docker stack deploy -c stacks/monitoring/grafana/stack.yaml grafana
 ################################################################################
 
 version: '3.8'
 
 services:
-
-  dozzle:
-    image: amir20/dozzle:v8.14.12
-    deploy:
-      labels:
-        traefik.enable: "true"
-        traefik.http.services.dozzle.loadbalancer.server.port: 8080
-        traefik.http.routers.dozzle.rule: Host(`dozzle.lsarlinmagnus.fr`)
-        traefik.http.routers.dozzle.entrypoints: websecure
-        traefik.http.routers.dozzle.tls: "true"
-        traefik.http.routers.dozzle.tls.certresolver: ovh
-        traefik.http.routers.dozzle.middlewares: authelia@file
-        homepage.group: Monitoring
-        homepage.name: Dozzle
-        homepage.icon: dozzle.png
-        homepage.href: https://dozzle.lsarlinmagnus.fr
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      DOZZLE_HOSTNAME: homelab
-      DOZZLE_ENABLE_ACTIONS: "true"
-      DOZZLE_MODE: swarm
-    networks:
-      - proxy
 
   grafana:
     image: grafana/grafana:12.3.0
@@ -41,7 +17,7 @@ services:
         traefik.http.routers.grafana.entrypoints: websecure
         traefik.http.routers.grafana.tls: "true"
         traefik.http.routers.grafana.tls.certresolver: ovh
-        homepage.group: Monitoring
+        homepage.group: Grafana
         homepage.name: Grafana
         homepage.icon: grafana.png
         homepage.href: https://grafana.lsarlinmagnus.fr
@@ -69,7 +45,7 @@ services:
         traefik.http.routers.prometheus.tls: "true"
         traefik.http.routers.prometheus.tls.certresolver: ovh
         traefik.http.routers.prometheus.middlewares: authelia@file
-        homepage.group: Monitoring
+        homepage.group: Grafana
         homepage.name: Prometheus
         homepage.icon: prometheus.png
         homepage.href: https://prometheus.lsarlinmagnus.fr
@@ -85,7 +61,7 @@ services:
     deploy:
       replicas: 1
       labels:
-        homepage.group: Monitoring
+        homepage.group: Grafana
         homepage.name: Loki
         homepage.icon: loki.png
     command: -config.file=/etc/loki/local-config.yaml
@@ -107,7 +83,7 @@ services:
       traefik.http.routers.alloy.tls: "true"
       traefik.http.routers.alloy.tls.certresolver: ovh
       traefik.http.routers.alloy.middlewares: authelia@file
-      homepage.group: Monitoring
+      homepage.group: Grafana
       homepage.name: Alloy
       homepage.icon: alloy.png
       homepage.href: https://alloy.lsarlinmagnus.fr
@@ -139,14 +115,6 @@ configs:
     file: ./loki/local-config.yaml
   alloy_config:
     file: ./alloy/config.alloy
-
-
-  # uptime_kuma:
-  #   image: jamiequigley/oliveTin
-  #   deploy:
-  #     replicas: 1
-  #   networks:
-  #     - proxy
 
 volumes:
   grafana_data:

@@ -1,5 +1,5 @@
 ################################################################################
-# ADMIN STACK => docker stack deploy -c stacks/security/sablier/stack.yaml sablier
+# ADMIN STACK => docker stack deploy -c stacks/core/sablier/stack.yaml sablier
 ################################################################################
 
 version: '3.8'

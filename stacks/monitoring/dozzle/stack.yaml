@@ -1,0 +1,35 @@
+################################################################################
+# MONITORING STACK => docker stack deploy -c stacks/monitoring/dozzle/stack.yaml dozzle
+################################################################################
+
+version: '3.8'
+
+services:
+
+  dozzle:
+    image: amir20/dozzle:v8.14.12
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.dozzle.loadbalancer.server.port: 8080
+        traefik.http.routers.dozzle.rule: Host(`dozzle.lsarlinmagnus.fr`)
+        traefik.http.routers.dozzle.entrypoints: websecure
+        traefik.http.routers.dozzle.tls: "true"
+        traefik.http.routers.dozzle.tls.certresolver: ovh
+        traefik.http.routers.dozzle.middlewares: authelia@file
+        homepage.group: Monitoring
+        homepage.name: Dozzle
+        homepage.icon: dozzle.png
+        homepage.href: https://dozzle.lsarlinmagnus.fr
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      DOZZLE_HOSTNAME: homelab
+      DOZZLE_ENABLE_ACTIONS: "true"
+      DOZZLE_MODE: swarm
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

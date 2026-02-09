@@ -1,5 +1,5 @@
 ################################################################################
-# MISCELLANEOUS STACK => docker stack deploy -c stacks/miscellaneous/stack.yaml miscellaneous
+# MISCELLANEOUS STACK => docker stack deploy -c stacks/services/vaultwarden/stack.yaml vaultwarden
 ################################################################################
 
 version: '3.8'
@@ -21,7 +21,7 @@ services:
         homepage.icon: bitwarden.png
         homepage.href: https://mdp.lsarlinmagnus.fr
     env_file:
-      - ./vaultwarden/.env.secret
+      - ./.env.secret
     environment:
       SIGNUPS_ALLOWED: "false"
       INVITATIONS_ALLOWED: "false"
@@ -37,5 +37,4 @@ networks:
     external: true
 
 volumes:
-  mealie_data:
   vaultwarden_data:

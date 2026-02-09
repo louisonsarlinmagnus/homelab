@@ -1,5 +1,5 @@
 ################################################################################
-# PAPRA STACK => docker stack deploy -c stacks/papra/stack.yaml papra
+# PAPRA STACK => docker stack deploy -c stacks/services/papra/stack.yaml papra
 ################################################################################
 
 version: '3.8'
