@@ -17,7 +17,7 @@ services:
       homepage.group: Home Automation
       homepage.name: Home Assistant
       homepage.icon: home-assistant.png
-      homepage.href: https://homeassistant.lsarlinmagnus.fr
+      homepage.href: https://homeassistant.lsarlinmagnus.fr/auth/oidc/redirect
       homepage.widget.type: homeassistant
       homepage.widget.url: http://homeassistant:8123
       homepage.widget.key: ${HOMEASSISTANT_HOMEPAGE_API_KEY}
