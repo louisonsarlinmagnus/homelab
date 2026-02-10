@@ -164,6 +164,20 @@ services:
     networks:
       - proxy
 
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:v3.4.6
+    deploy:
+      replicas: 1
+      labels:
+        homepage.group: Media
+        homepage.name: Flaresolverr
+        homepage.icon: flaresolverr.png
+    environment:
+      LOG_LEVEL: info
+      TZ: Europe/Paris
+    networks:
+      - proxy
+
 configs:
   radarr_config:
     file: ./config/radarr/config.xml
