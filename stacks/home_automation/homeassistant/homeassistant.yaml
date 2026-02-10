@@ -29,6 +29,31 @@ services:
     networks:
       - proxy
 
+  matter_server:
+    image: ghcr.io/matter-js/python-matter-server:8.1.2
+    labels:
+      homepage.group: Home Automation
+      homepage.name: Matter Server
+      homepage.icon: matter.png
+    restart: unless-stopped
+    # Required for mDNS to work correctly
+    network_mode: host
+    environment:
+      - MATTER_SERVER_PORT=5580
+      - MATTER_SERVER_LOG_LEVEL=info
+    ports:
+      - 5580:5580
+    # security_opt:
+    #   # Needed for Bluetooth via dbus
+    #   - apparmor:unconfined
+    # volumes:
+      # Create an .env file that sets the USERDIR environment variable.
+      # - ${USERDIR:-$HOME}/docker/matter-server/data:/data/
+      # Required for Bluetooth via D-Bus
+      # - /run/dbus:/run/dbus:ro
+    # If you adjust command line, make sure to pass the default CMD arguments too:
+    #command: --storage-path /data --paa-root-cert-dir /data/credentials --bluetooth-adapter 0
+
 volumes:
   config:
 
