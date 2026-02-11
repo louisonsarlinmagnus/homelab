@@ -32,13 +32,10 @@ services:
       APP_BASE_URL: https://papra.lsarlinmagnus.fr
       DOCUMENTS_OCR_LANGUAGES: fra
     volumes:
-      - papra_data:/app/app-data
-      - /media/raid/papra/documents:/app/app-data/documents
+      - /media/raid/papra:/app/app-data
     networks:
       - proxy
 
-volumes:
-  papra_data:
 
 networks:
   proxy:
