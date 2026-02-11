@@ -25,9 +25,6 @@ services:
         homepage.widget.url: http://radarr:7878
         homepage.widget.key: ${RADARR_HOMEPAGE_API_KEY}
         homepage.widget.fields: '["wanted", "missing", "queued", "movies"]'
-    configs:
-      - source: radarr_config
-        target: /config/config.xml
     environment:
       PUID: 1000
       PGID: 1000
@@ -59,9 +56,6 @@ services:
         homepage.widget.url: http://sonarr:8989
         homepage.widget.key: ${SONARR_HOMEPAGE_API_KEY}
         homepage.widget.fields: '["wanted", "queued", "series"]'
-    configs:
-      - source: sonarr_config
-        target: /config/config.xml
     environment:
       PUID: 1000
       PGID: 1000
@@ -177,12 +171,6 @@ services:
       TZ: Europe/Paris
     networks:
       - proxy
-
-configs:
-  radarr_config:
-    file: ./config/radarr/config.xml
-  sonarr_config:
-    file: ./config/sonarr/config.xml
 
 volumes:
   radarr_data:
