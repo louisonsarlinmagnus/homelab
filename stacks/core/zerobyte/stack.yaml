@@ -1,0 +1,38 @@
+################################################################################
+# CORE STACK => docker stack deploy -c stacks/core/zerobyte/stack.yaml zerobyte
+################################################################################
+
+services:
+  zerobyte:
+    image: ghcr.io/nicotsx/zerobyte:v0.26
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.zerobyte.loadbalancer.server.port: 4096
+        traefik.http.routers.zerobyte.rule: Host(`zerobyte.lsarlinmagnus.fr`)
+        traefik.http.routers.zerobyte.entrypoints: websecure
+        traefik.http.routers.zerobyte.tls: "true"
+        traefik.http.routers.zerobyte.tls.certresolver: ovh
+        homepage.group: Core
+        homepage.name: Zerobyte
+        homepage.icon: zerobyte.png
+        homepage.href: https://zerobyte.lsarlinmagnus.fr
+    env_file:
+      - .env.secret
+    environment:
+      TZ: Europe/Paris # Set your timezone here
+      BASE_URL: https://zerobyte.lsarlinmagnus.fr # URL you will use to access Zerobyte
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/backup_hdd/zerobyte:/var/lib/zerobyte # Path to store local backups on local HDD
+      - /mnt/portable_backup:/mnt/portable_backup # Path to store remote backups on portable HDD
+      # Mount to backup
+      - /media/raid/immich:/media/raid/immich
+      - /media/raid/papra:/media/raid/papra
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
