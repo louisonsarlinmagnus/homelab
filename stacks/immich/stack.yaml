@@ -73,9 +73,9 @@ services:
         homepage.group: Pictures
         homepage.name: Immich
         homepage.icon: immich.png
-        homepage.href: http://immich:2283
+        homepage.href: https://immich.lsarlinmagnus.fr
         homepage.widget.type: immich
-        homepage.widget.url: https://immich.lsarlinmagnus.fr
+        homepage.widget.url: http://immich:2283
         homepage.widget.key: ${IMMICH_HOMEPAGE_API_KEY}
         homepage.widget.version: 2
         homepage.widget.fields: '["users" ,"photos", "videos", "storage"]'
