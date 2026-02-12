@@ -16,7 +16,7 @@ services:
         homepage.name: Immich-Machine-Learning
         homepage.icon: immich.png
     volumes:
-      - immich_model_cache:/cache
+      - /media/raid/immich/model_cache:/cache
     # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference - use the `-wsl` version for WSL2 where applicable
@@ -39,7 +39,7 @@ services:
       POSTGRES_DB: immich
       POSTGRES_INITDB_ARGS: '--data-checksums'
     volumes:
-      - immich_database:/var/lib/postgresql/data
+      - /media/raid/immich/database:/var/lib/postgresql/data
     healthcheck:
       disable: false
     networks:
@@ -73,14 +73,14 @@ services:
         homepage.group: Pictures
         homepage.name: Immich
         homepage.icon: immich.png
-        homepage.href: http://immich:2283
+        homepage.href: https://immich.lsarlinmagnus.fr
         homepage.widget.type: immich
-        homepage.widget.url: https://immich.lsarlinmagnus.fr
+        homepage.widget.url: http://immich:2283
         homepage.widget.key: ${IMMICH_HOMEPAGE_API_KEY}
         homepage.widget.version: 2
         homepage.widget.fields: '["users" ,"photos", "videos", "storage"]'
     volumes:
-      - /media/raid/immich:/data
+      - /media/raid/immich/data:/data
     environment:
       DB_PASSWORD: ${IMMICH_DATABASE_PASSWORD}
       DB_USERNAME: postgres
@@ -96,10 +96,6 @@ services:
       disable: false
     networks:
       - proxy
-
-volumes:
-  immich_model_cache:
-  immich_database:
 
 networks:
   proxy:
