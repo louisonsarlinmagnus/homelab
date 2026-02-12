@@ -28,8 +28,7 @@ services:
       - /mnt/backup_hdd/zerobyte:/var/lib/zerobyte # Path to store local backups on local HDD
       - /mnt/portable_backup:/mnt/portable_backup # Path to store remote backups on portable HDD
       # Mount to backup
-      - /media/raid/immich:/media/raid/immich
-      - /media/raid/papra:/media/raid/papra
+      - /media/raid/:/media/raid/
     networks:
       - proxy
 
