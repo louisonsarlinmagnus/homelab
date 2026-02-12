@@ -14,23 +14,18 @@ services:
         # whoami
         traefik.http.middlewares.whoami.plugin.sablier.group: whoami
         traefik.http.middlewares.whoami.plugin.sablier.sablierUrl: http://sablier:10000
-        traefik.http.middlewares.whoami.plugin.sablier.sessionDuration: 1m
+        traefik.http.middlewares.whoami.plugin.sablier.sessionDuration: 10m
         traefik.http.middlewares.whoami.plugin.sablier.dynamic.displayName: whoami
         # jellyseerr
         traefik.http.middlewares.jellyseerr.plugin.sablier.group: jellyseerr
         traefik.http.middlewares.jellyseerr.plugin.sablier.sablierUrl: http://sablier:10000
-        traefik.http.middlewares.jellyseerr.plugin.sablier.sessionDuration: 1m
+        traefik.http.middlewares.jellyseerr.plugin.sablier.sessionDuration: 10m
         traefik.http.middlewares.jellyseerr.plugin.sablier.dynamic.displayName: jellyseerr
         # papra
         traefik.http.middlewares.papra.plugin.sablier.group: papra
         traefik.http.middlewares.papra.plugin.sablier.sablierUrl: http://sablier:10000
-        traefik.http.middlewares.papra.plugin.sablier.sessionDuration: 1m
+        traefik.http.middlewares.papra.plugin.sablier.sessionDuration: 10m
         traefik.http.middlewares.papra.plugin.sablier.dynamic.displayName: papra
-        # jellyfin
-        traefik.http.middlewares.jellyfin.plugin.sablier.group: jellyfin
-        traefik.http.middlewares.jellyfin.plugin.sablier.sablierUrl: http://sablier:10000
-        traefik.http.middlewares.jellyfin.plugin.sablier.sessionDuration: 10m
-        traefik.http.middlewares.jellyfin.plugin.sablier.dynamic.displayName: jellyfin
         # omnitools
         traefik.http.middlewares.omnitools.plugin.sablier.group: omnitools
         traefik.http.middlewares.omnitools.plugin.sablier.sablierUrl: http://sablier:10000

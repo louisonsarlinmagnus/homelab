@@ -7,11 +7,11 @@ services:
     image: jellyfin/jellyfin:10.11.1
     restart: unless-stopped
     labels:
-      sablier.enable: "true"
-      sablier.group: jellyfin
+      # sablier.enable: "true"
+      # sablier.group: jellyfin
       traefik.enable: "true"
-      traefik.swarm.lbswarm: "true"
-      traefik.http.routers.jellyfin.middlewares: jellyseerr@swarm
+      # traefik.swarm.lbswarm: "true"
+      # traefik.http.routers.jellyfin.middlewares: jellyfin@swarm
       traefik.http.services.jellyfin.loadbalancer.server.port: 8096
       traefik.http.routers.jellyfin.rule: Host(`jellyfin.lsarlinmagnus.fr`)
       traefik.http.routers.jellyfin.entrypoints: websecure
