@@ -26,7 +26,7 @@ services:
     environment:
       TZ: Europe/Paris
     volumes:
-      - gotify_data:/app/data
+      - /media/raid/gotify:/app/data
     networks:
       - proxy
 
