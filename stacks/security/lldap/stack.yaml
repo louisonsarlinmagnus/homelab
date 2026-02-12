@@ -28,12 +28,9 @@ services:
       GID: 1000
       LLDAP_LDAP_BASE_DN: dc=lsarlinmagnus,dc=fr
     volumes:
-      - lldap_data:/data
+      - /media/raid/lldap:/data
     networks:
       - proxy
-
-volumes:
-  lldap_data:
 
 networks:
   proxy:

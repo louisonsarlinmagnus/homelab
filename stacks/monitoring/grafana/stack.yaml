@@ -30,7 +30,7 @@ services:
     environment:
       TZ: Europe/Paris
     volumes:
-      - grafana_data:/var/lib/grafana
+      - /media/raid/grafana:/var/lib/grafana
     networks:
       - proxy
 
@@ -115,9 +115,6 @@ configs:
     file: ./loki/local-config.yaml
   alloy_config:
     file: ./alloy/config.alloy
-
-volumes:
-  grafana_data:
 
 networks:
   proxy:

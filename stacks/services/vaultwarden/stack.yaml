@@ -28,13 +28,10 @@ services:
       LOG_LEVEL: info
       TZ: Europe/Paris
     volumes:
-      - vaultwarden_data:/data
+      - /media/raid/vaultwarden:/data
     networks:
       - proxy
 
 networks:
   proxy:
     external: true
-
-volumes:
-  vaultwarden_data:

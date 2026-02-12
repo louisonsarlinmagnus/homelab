@@ -35,7 +35,7 @@ services:
       AUTHELIA_STORAGE_ENCRYPTION_KEY: /run/secrets/authelia_storage_encryption_key
       AUTHELIA_SESSION_SECRET: /run/secrets/authelia_session_secret
     volumes:
-      - authelia_data:/config
+      - /media/raid/authelia:/config
       - /var/log/authelia/authelia.log:/var/log/authelia.log
     networks:
       - proxy
@@ -56,9 +56,6 @@ secrets:
   authelia_session_secret:
     file: .env.secret
     name: AUTHELIA_SESSION_SECRET
-
-volumes:
-  authelia_data:
 
 networks:
   proxy:

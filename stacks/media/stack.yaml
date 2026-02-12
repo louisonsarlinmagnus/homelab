@@ -30,7 +30,7 @@ services:
       PGID: 1000
       TZ: Europe/Paris
     volumes:
-      - radarr_data:/config
+      - /media/raid/radarr/config:/config
       - /media/raid/transmission/downloads/complete/radarr:/downloads/complete/radarr
       - /media/raid/jellyfin/media/movies:/movies
     networks:
@@ -61,7 +61,7 @@ services:
       PGID: 1000
       TZ: Europe/Paris
     volumes:
-      - sonarr_data:/config
+      - /media/raid/sonarr/config:/config
       - /media/raid/transmission/downloads/complete/tv-sonarr:/downloads/complete/tv-sonarr
       - /media/raid/jellyfin/media/series:/tvshows
     networks:
@@ -92,7 +92,7 @@ services:
       PGID: 1000
       TZ: Europe/Paris
     volumes:
-      - transmission_data:/config
+      - /media/raid/transmission/config:/config
       - /media/raid/transmission/downloads:/downloads
     networks:
       - proxy
@@ -121,7 +121,7 @@ services:
       PGID: 1000
       TZ: Europe/Paris
     volumes:
-      - jackett_data:/config
+      - /media/raid/jackett/config:/config
       - /media/raid/jackett/downloads:/downloads
     networks:
       - proxy
@@ -154,7 +154,7 @@ services:
       PGID: 1000
       TZ: Europe/Paris
     volumes:
-      - jellyseerr_data:/app/config
+      - /media/raid/jellyseerr/config:/app/config
     networks:
       - proxy
 
@@ -172,12 +172,12 @@ services:
     networks:
       - proxy
 
-volumes:
-  radarr_data:
-  sonarr_data:
-  transmission_data:
-  jackett_data:
-  jellyseerr_data:
+# volumes:
+#   radarr_data:
+#   sonarr_data:
+#   transmission_data:
+#   jackett_data:
+#   jellyseerr_data:
 
 networks:
   proxy:

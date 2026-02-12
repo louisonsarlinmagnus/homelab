@@ -8,6 +8,7 @@ nav:
   - Scripts:
       - scripts/index.md
       - PWM fan control: scripts/pwm_fan_control.md
+      - Backup : scripts/backup.md
   - Cheatsheet Markdown:
       - cheatsheet/index.md
       - Generic formatting: cheatsheet/generic_formatting.md
