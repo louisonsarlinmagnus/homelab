@@ -30,7 +30,7 @@ services:
       # - 443:443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - traefik_certs_data:/var/traefik/certs/:rw
+      - /media/raid/traefik/certs:/var/traefik/certs/:rw
     configs:
       - source: traefik_config
         target: /etc/traefik/traefik.yaml
@@ -100,15 +100,3 @@ networks:
     driver: overlay
     attachable: true
     name: proxy
-
-volumes:
-  traefik_certs_data:
-
-  # crowdsec:
-  #   image: crowdsecurity/crowdsec
-  #   deploy:
-  #     replicas: 1
-  #   volumes:
-  #     - ./crowdsec_data:/var/lib/crowdsec/data
-  #   networks:
-  #     - overlay_net
