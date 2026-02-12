@@ -33,15 +33,11 @@ services:
       - /media/raid/jellyfin/media/audiobooks:/data/audiobooks
       - /media/raid/jellyfin/media/movies:/data/movies
       - /media/raid/jellyfin/media/series:/data/series
-      - media_jellyfin_config:/config
+      - /media/raid/jellyfin/config:/config
     networks:
       - proxy
     devices:
       - /dev/dri/renderD128:/dev/dri/renderD128
-
-volumes:
-  media_jellyfin_config:
-    external: true
 
 networks:
   proxy:
