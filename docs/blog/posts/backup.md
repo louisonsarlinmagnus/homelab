@@ -98,24 +98,3 @@ Once bought, I had wipe the NTFS partition and setup a ext4 partition.
 # Backup tool
 
 There is plenty of backup tools out there !
-
-
-
-# Storage inventory
-
-~~Gotify :                    gotify_data:/app/data                       => RAID~~
-~~Immich_machine_learning :   immich_model_cache:/cache                   => RAID~~
-~~Immich_database :           immich_database:/var/lib/postgresql/data    => RAID~~
-~~Radarr :                    radarr_data:/config                         => RAID~~
-~~Sonarr :                    sonarr_data:/config                         => RAID~~
-~~Transmission :              transmission_data:/config                   => RAID~~
-~~Jackett :                   jackett_data:/config                        => RAID~~
-~~Jellyseerr :                jellyseerr_data:/app/config                 => RAID~~
-~~Grafana :                   grafana_data:/var/lib/grafana               => RAID~~
-~~Authelia :                  authelia_data:/config                       => RAID~~
-~~LLDAP :                     lldap_data:/data                            => RAID~~
-~~Traefik :                   traefik_certs_data:/var/traefik/certs/:rw   => RAID~~
-~~Vaultwarden :               vaultwarden_data:/data                      => RAID~~
-~~Jellyfin :                  media_jellyfin_config:/config               => RAID
-
-
