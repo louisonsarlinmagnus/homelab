@@ -1,0 +1,41 @@
+################################################################################
+# What's Up Docker STACK => docker stack deploy -c stacks/core/wud/stack.yaml wud
+################################################################################
+
+version: '3.8'
+
+services:
+  whatsupdocker:
+    image: getwud/wud:8.1.1
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.whatsupdocker.loadbalancer.server.port: 3000
+        traefik.http.routers.whatsupdocker.rule: Host(`wud.lsarlinmagnus.fr`)
+        traefik.http.routers.whatsupdocker.entrypoints: websecure
+        traefik.http.routers.whatsupdocker.tls: "true"
+        traefik.http.routers.whatsupdocker.tls.certresolver: ovh
+        traefik.http.routers.whatsupdocker.middlewares: authelia@file
+        homepage.group: Core
+        homepage.name: What's up Docker
+        homepage.icon: whats-up-docker.png
+        homepage.href: https://wud.lsarlinmagnus.fr
+        homepage.widget.type: whatsupdocker
+        homepage.widget.url: http://whatsupdocker:3000
+        homepage.widget.username: homepage_api
+        homepage.widget.password: GKpUluNvWnmwYQfqs3MX5793TjKLgh0Y
+        homepage.widget.fields: '["monitoring", "updates"]'
+        wud.tag.include: ^\d+\.\d+\.\d+$$
+    env_file:
+      - .env
+    environment:
+      TZ: Europe/Paris
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
