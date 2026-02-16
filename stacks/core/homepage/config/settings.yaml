@@ -25,9 +25,10 @@ layout:
     Core:
   Services:
     Documents:
-    Tools:
-    Passwords:
     Networking:
+    Passwords:
+    Search:
+    Tools:
   Home Automation:
   Pictures:
   Media:

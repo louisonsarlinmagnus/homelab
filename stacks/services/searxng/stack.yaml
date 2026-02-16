@@ -1,0 +1,33 @@
+################################################################################
+# SEARXNG STACK => docker stack deploy -c stacks/services/searxng/stack.yaml searxng
+################################################################################
+
+version: '3.8'
+
+services:
+
+  searxng:
+    image: searxng/searxng:latest
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.searxng.loadbalancer.server.port: 8080
+        traefik.http.routers.searxng.rule: Host(`searxng.lsarlinmagnus.fr`)
+        traefik.http.routers.searxng.entrypoints: websecure
+        traefik.http.routers.searxng.tls: "true"
+        traefik.http.routers.searxng.tls.certresolver: ovh
+        traefik.http.routers.searxng.middlewares: authelia@file
+        homepage.group: Search
+        homepage.name: SearXNG
+        homepage.icon: searxng.png
+        homepage.href: https://searxng.lsarlinmagnus.fr
+    volumes:
+      - ./config/:/etc/searxng/
+      - /media/raid/searxng/cache/:/var/cache/searxng/
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
