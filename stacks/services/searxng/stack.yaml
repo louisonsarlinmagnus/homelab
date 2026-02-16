@@ -22,6 +22,8 @@ services:
         homepage.name: SearXNG
         homepage.icon: searxng.png
         homepage.href: https://searxng.lsarlinmagnus.fr
+    env_file:
+      - ./.env.secret
     volumes:
       - ./config/:/etc/searxng/
       - /media/raid/searxng/cache/:/var/cache/searxng/
