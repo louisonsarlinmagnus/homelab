@@ -31,7 +31,7 @@
 
 - search:
     provider: custom
-    url: https://www.qwant.com/?t=web&q=
+    url: https://searxng.lsarlinmagnus.fr/search?q=
     target: _blank
     # suggestionUrl: https://ac.ecosia.org/autocomplete?type=list&q= # Optional
     # showSearchSuggestions: true # Optional
