@@ -8,6 +8,8 @@ services:
 
   omnitools:
     image: iib0011/omni-tools:0.6.0
+    labels:
+      wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
       replicas: 1
       labels:

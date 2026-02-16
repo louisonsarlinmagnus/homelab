@@ -5,6 +5,8 @@
 services:
   zerobyte:
     image: ghcr.io/nicotsx/zerobyte:v0.26
+    labels:
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
       replicas: 1
       labels:

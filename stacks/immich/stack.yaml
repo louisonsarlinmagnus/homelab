@@ -9,6 +9,8 @@ services:
     # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
     # Example tag: ${IMMICH_VERSION:-release}-cuda
     image: ghcr.io/immich-app/immich-machine-learning:v2.5.5
+    labels:
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
       replicas: 1
       labels:
@@ -27,6 +29,8 @@ services:
 
   immich_postgresql:
     image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
+    labels:
+      wud.tag.include: ^(\d+)-vectorchord(\d+\.\d+\.\d+)-pgvectors(\d+\.\d+\.\d+)$$
     deploy:
       replicas: 1
       labels:
@@ -47,6 +51,8 @@ services:
 
   immich_valkey:
     image: docker.io/valkey/valkey:9
+    labels:
+      wud.tag.include: ^\d+$$
     deploy:
       replicas: 1
       labels:
@@ -60,6 +66,8 @@ services:
 
   immich:
     image: ghcr.io/immich-app/immich-server:v2.5.5
+    labels:
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
       replicas: 1
       labels:

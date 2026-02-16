@@ -8,6 +8,8 @@ services:
 
   searxng:
     image: searxng/searxng:latest
+    labels:
+      wud.tag.include: latest
     deploy:
       replicas: 1
       labels:

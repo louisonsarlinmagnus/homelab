@@ -8,6 +8,8 @@ services:
 
   papra:
     image: ghcr.io/papra-hq/papra:26.1.0-rootless
+    labels:
+      wud.tag.include: ^(\d+\.\d+\.\d+)-rootless$$
     deploy:
       replicas: 1
       labels:

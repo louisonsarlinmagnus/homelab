@@ -8,6 +8,8 @@ services:
 
   grafana:
     image: grafana/grafana:12.3.0
+    labels:
+      wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
       replicas: 1
       labels:
@@ -36,6 +38,8 @@ services:
 
   prometheus:
     image: prom/prometheus:v3.5.0
+    labels:
+      wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
       labels:
         traefik.enable: "true"
@@ -58,6 +62,8 @@ services:
 
   loki:
     image: grafana/loki:3.6.3
+    labels:
+      wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
       replicas: 1
       labels:
@@ -73,20 +79,22 @@ services:
 
   alloy:
     image: grafana/alloy:v1.12.2
+    labels:
+      wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
       replicas: 1
-    labels:
-      traefik.enable: "true"
-      traefik.http.services.alloy.loadbalancer.server.port: 12345
-      traefik.http.routers.alloy.rule: Host(`alloy.lsarlinmagnus.fr`)
-      traefik.http.routers.alloy.entrypoints: websecure
-      traefik.http.routers.alloy.tls: "true"
-      traefik.http.routers.alloy.tls.certresolver: ovh
-      traefik.http.routers.alloy.middlewares: authelia@file
-      homepage.group: Grafana
-      homepage.name: Alloy
-      homepage.icon: alloy.png
-      homepage.href: https://alloy.lsarlinmagnus.fr
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.alloy.loadbalancer.server.port: 12345
+        traefik.http.routers.alloy.rule: Host(`alloy.lsarlinmagnus.fr`)
+        traefik.http.routers.alloy.entrypoints: websecure
+        traefik.http.routers.alloy.tls: "true"
+        traefik.http.routers.alloy.tls.certresolver: ovh
+        traefik.http.routers.alloy.middlewares: authelia@file
+        homepage.group: Grafana
+        homepage.name: Alloy
+        homepage.icon: alloy.png
+        homepage.href: https://alloy.lsarlinmagnus.fr
     configs:
       - source: alloy_config
         target: /etc/alloy/config.alloy

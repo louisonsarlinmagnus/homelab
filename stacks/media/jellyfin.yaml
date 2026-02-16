@@ -27,6 +27,7 @@ services:
       homepage.widget.enableBlocks: "true"
       homepage.widget.enableNowPlaying: "true"
       homepage.widget.fields: '["movies", "series", "episodes"]'
+      wud.tag.include: ^\d+\.\d+\.\d+$$
     environment:
       TZ: Europe/Paris
     volumes:

@@ -7,6 +7,8 @@ version: '3.8'
 services:
   whatsupdocker:
     image: getwud/wud:8.1.1
+    labels:
+      wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
       replicas: 1
       labels:
@@ -26,7 +28,6 @@ services:
         homepage.widget.username: homepage_api
         homepage.widget.password: GKpUluNvWnmwYQfqs3MX5793TjKLgh0Y
         homepage.widget.fields: '["monitoring", "updates"]'
-        wud.tag.include: ^\d+\.\d+\.\d+$$
     env_file:
       - .env
     environment:

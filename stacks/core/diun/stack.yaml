@@ -7,6 +7,8 @@ version: '3.8'
 services:
   diun:
     image: crazymax/diun:4.31.0
+    labels:
+      wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
       replicas: 1
       labels:

@@ -8,6 +8,8 @@ services:
 
   dozzle:
     image: amir20/dozzle:v8.14.12
+    labels:
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
       labels:
         traefik.enable: "true"
