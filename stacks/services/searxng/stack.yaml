@@ -7,9 +7,9 @@ version: '3.8'
 services:
 
   searxng:
-    image: searxng/searxng:latest
+    image: searxng/searxng:2026.2.16-8e824017d
     labels:
-      wud.tag.include: latest
+      wud.tag.include: ^(\d+\.\d+\.\d+)-(\S+)$$
     deploy:
       replicas: 1
       labels:
