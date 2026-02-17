@@ -61,7 +61,7 @@ services:
       - proxy
 
   loki:
-    image: grafana/loki:3.6.3
+    image: grafana/loki:3.6.5
     labels:
       wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
