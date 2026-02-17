@@ -6,7 +6,7 @@ version: '3.8'
 
 services:
   homepage:
-    image: ghcr.io/gethomepage/homepage:v1.9.0
+    image: ghcr.io/gethomepage/homepage:v1.10.1
     labels:
       wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
