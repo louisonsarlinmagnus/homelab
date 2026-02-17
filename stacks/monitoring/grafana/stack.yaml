@@ -37,9 +37,9 @@ services:
       - proxy
 
   prometheus:
-    image: prom/prometheus:v3.5.0
+    image: prom/prometheus:v3.9.1
     labels:
-      wud.tag.include: ^\d+\.\d+\.\d+$$
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
       labels:
         traefik.enable: "true"
