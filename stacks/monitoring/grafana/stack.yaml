@@ -78,9 +78,9 @@ services:
       - proxy
 
   alloy:
-    image: grafana/alloy:v1.12.2
+    image: grafana/alloy:v1.13.1
     labels:
-      wud.tag.include: ^\d+\.\d+\.\d+$$
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
       replicas: 1
       labels:
