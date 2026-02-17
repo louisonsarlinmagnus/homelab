@@ -6,9 +6,9 @@ version: '3.8'
 
 services:
   traefik:
-    image: traefik:ramequin
+    image: traefik:v3.6.8
     labels:
-      wud.tag.include: ^[a-zA-Z]+$$
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
       replicas: 1
       labels:
