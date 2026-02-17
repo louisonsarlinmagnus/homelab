@@ -72,9 +72,9 @@ services:
       - proxy
 
   transmission:
-    image: linuxserver/transmission:4.0.6
+    image: linuxserver/transmission:4.1.0
     labels:
-      wud.tag.include: ^\d+\.\d+\.\d+$$
+      wud.tag.include: ^\d\.\d+\.\d+$$
     deploy:
       replicas: 1
       labels:
