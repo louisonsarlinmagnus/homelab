@@ -41,7 +41,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
       - /media/raid:/media/raid:ro
-      # - /mnt/backup:/mnt/backup
+      - /mnt/backup_hdd:/mnt/backup_hdd:ro
     networks:
       - proxy
 

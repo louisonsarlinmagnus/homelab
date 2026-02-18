@@ -27,7 +27,7 @@
     label: Backup
     expanded: true
     refresh: 3000
-    disk: /mnt/backup
+    disk: /mnt/backup_hdd
 
 - search:
     provider: custom
