@@ -16,7 +16,7 @@ services:
         # whoami
         traefik.http.middlewares.whoami.plugin.sablier.group: whoami
         traefik.http.middlewares.whoami.plugin.sablier.sablierUrl: http://sablier:10000
-        traefik.http.middlewares.whoami.plugin.sablier.sessionDuration: 10m
+        traefik.http.middlewares.whoami.plugin.sablier.sessionDuration: 1m
         traefik.http.middlewares.whoami.plugin.sablier.dynamic.displayName: whoami
         # jellyseerr
         traefik.http.middlewares.jellyseerr.plugin.sablier.group: jellyseerr
