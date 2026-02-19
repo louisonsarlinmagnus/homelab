@@ -12,13 +12,16 @@ services:
     deploy:
       replicas: 1
       labels:
+        sablier.enable: "true"
+        sablier.group: whatsupdocker
         traefik.enable: "true"
+        traefik.swarm.lbswarm: "true"
         traefik.http.services.whatsupdocker.loadbalancer.server.port: 3000
         traefik.http.routers.whatsupdocker.rule: Host(`wud.lsarlinmagnus.fr`)
         traefik.http.routers.whatsupdocker.entrypoints: websecure
         traefik.http.routers.whatsupdocker.tls: "true"
         traefik.http.routers.whatsupdocker.tls.certresolver: ovh
-        traefik.http.routers.whatsupdocker.middlewares: authelia@file
+        traefik.http.routers.whatsupdocker.middlewares: authelia@file, whatsupdocker@swarm
         homepage.group: Core
         homepage.name: What's up Docker
         homepage.icon: whats-up-docker.png
