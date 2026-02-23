@@ -33,8 +33,7 @@ services:
       TZ: Europe/Paris
     volumes:
       - /media/raid/radarr/config:/config
-      - /media/raid/transmission/downloads/complete/radarr:/downloads/complete/radarr
-      - /media/raid/jellyfin/media/movies:/movies
+      - /media/raid:/media/raid
     networks:
       - proxy
 
@@ -99,7 +98,7 @@ services:
       TZ: Europe/Paris
     volumes:
       - /media/raid/transmission/config:/config
-      - /media/raid/transmission/downloads:/downloads
+      - /media/raid/transmission/downloads:/media/raid/transmission/downloads
     networks:
       - proxy
 
