@@ -65,8 +65,7 @@ services:
       TZ: Europe/Paris
     volumes:
       - /media/raid/sonarr/config:/config
-      - /media/raid/transmission/downloads/complete/tv-sonarr:/downloads/complete/tv-sonarr
-      - /media/raid/jellyfin/media/series:/tvshows
+      - /media/raid:/media/raid
     networks:
       - proxy
 
