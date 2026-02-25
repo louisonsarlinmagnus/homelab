@@ -132,37 +132,36 @@ services:
     networks:
       - proxy
 
-  jellyseerr:
-    image: fallenbagel/jellyseerr:2.7.3
+  seerr:
+    image: ghcr.io/seerr-team/seerr:v3.0.1
     labels:
-      wud.tag.include: ^\d+\.\d+\.\d+$$
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
       replicas: 1
       labels:
-        sablier.enable: "true"
-        sablier.group: jellyseerr
+        # sablier.enable: "true"
+        # sablier.group: seerr
         traefik.enable: "true"
-        traefik.swarm.lbswarm: "true"
-        traefik.http.routers.jellyseerr.middlewares: jellyseerr@swarm
-        traefik.http.services.jellyseerr.loadbalancer.server.port: 5055
-        traefik.http.routers.jellyseerr.rule: Host(`jellyseerr.lsarlinmagnus.fr`)
-        traefik.http.routers.jellyseerr.entrypoints: websecure
-        traefik.http.routers.jellyseerr.tls: "true"
-        traefik.http.routers.jellyseerr.tls.certresolver: ovh
+        # traefik.swarm.lbswarm: "true"
+        # traefik.http.routers.seerr.middlewares: seerr@swarm
+        traefik.http.services.seerr.loadbalancer.server.port: 5055
+        traefik.http.routers.seerr.rule: Host(`seerr.lsarlinmagnus.fr`)
+        traefik.http.routers.seerr.entrypoints: websecure
+        traefik.http.routers.seerr.tls: "true"
+        traefik.http.routers.seerr.tls.certresolver: ovh
         homepage.group: Media
-        homepage.name: Jellyseerr
-        homepage.icon: jellyseerr.png
-        homepage.href: https://jellyseerr.lsarlinmagnus.fr
-        homepage.widget.type: jellyseerr
-        homepage.widget.url: http://jellyseerr:5055
+        homepage.name: Seerr
+        homepage.icon: seerr.png
+        homepage.href: https://seerr.lsarlinmagnus.fr
+        homepage.widget.type: seerr
+        homepage.widget.url: http://seerr:5055
         homepage.widget.key: ${JELLYSEERR_HOMEPAGE_API_KEY}
         homepage.widget.fields: '["pending", "approved", "available", "issues"]'
     environment:
-      PUID: 1000
-      PGID: 1000
+      LOG_LEVEL: info
       TZ: Europe/Paris
     volumes:
-      - /media/raid/jellyseerr/config:/app/config
+      - /media/raid/seerr/config:/app/config
     networks:
       - proxy
 
@@ -181,13 +180,6 @@ services:
       TZ: Europe/Paris
     networks:
       - proxy
-
-# volumes:
-#   radarr_data:
-#   sonarr_data:
-#   transmission_data:
-#   jackett_data:
-#   jellyseerr_data:
 
 networks:
   proxy:
