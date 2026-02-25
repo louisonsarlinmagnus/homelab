@@ -1,5 +1,5 @@
 ################################################################################
-# MEDIA STACK => docker compose -f stacks/media/jellyfin.yaml up -d
+# JELLYFIN COMPOSE => docker compose -f stacks/media/jellyfin.yaml up -d
 ################################################################################
 
 services:
