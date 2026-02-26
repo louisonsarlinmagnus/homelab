@@ -1,0 +1,5 @@
+name: test
+working_dir: stacks/test/
+compose_files: 
+  - stack.yaml
+---
