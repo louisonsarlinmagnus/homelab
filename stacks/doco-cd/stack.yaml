@@ -1,0 +1,49 @@
+################################################################################
+# DOCO-CD STACK => docker stack deploy -c stacks/doco-cd/stack.yaml doco-cd
+################################################################################
+
+version: '3.8'
+
+services:
+  doco-cd:
+    image: ghcr.io/kimdre/doco-cd:0.68.0
+    # labels:
+    #   wud.tag.include: ^\d+\.\d+\.\d+$$
+    # deploy:
+    #   replicas: 1
+    #   labels:
+    #     traefik.enable: "true"
+    #     homepage.group: GitOps
+    #     homepage.name: Doco-CD
+    #     homepage.icon: docker-moby.png
+    ports:
+      - target: 80
+        published: 8888
+        protocol: tcp
+        mode: host
+      - target: 9120
+        published: 9120
+        protocol: tcp
+        mode: host
+    # For all available environment variables and explanations, see https://github.com/kimdre/doco-cd/wiki/App-Settings
+    environment:
+      LOG_LEVEL: debug
+      GIT_ACCESS_TOKEN: xxx
+      API_SECRET: test
+      TZ: Europe/Paris
+      # WEBHOOK_SECRET: xxx  # Uncomment this line and the webhook port above and set a secure secret if you want to use webhooks.
+      # <<: *poll-config  # Uncomment this line to use the poll configuration from above (the `x-poll-config` section).
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: [ "CMD", "/doco-cd", "healthcheck" ]
+      start_period: 15s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+#     networks:
+#       - proxy
+
+# networks:
+#   proxy:
+#     external: true
