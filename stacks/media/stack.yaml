@@ -139,11 +139,11 @@ services:
     deploy:
       replicas: 1
       labels:
-        # sablier.enable: "true"
-        # sablier.group: seerr
+        sablier.enable: "true"
+        sablier.group: seerr
         traefik.enable: "true"
-        # traefik.swarm.lbswarm: "true"
-        # traefik.http.routers.seerr.middlewares: seerr@swarm
+        traefik.swarm.lbswarm: "true"
+        traefik.http.routers.seerr.middlewares: seerr@swarm
         traefik.http.services.seerr.loadbalancer.server.port: 5055
         traefik.http.routers.seerr.rule: Host(`seerr.lsarlinmagnus.fr`)
         traefik.http.routers.seerr.entrypoints: websecure
