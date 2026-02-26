@@ -155,7 +155,7 @@ services:
         homepage.href: https://seerr.lsarlinmagnus.fr
         homepage.widget.type: jellyseerr
         homepage.widget.url: http://seerr:5055
-        homepage.widget.key: ${JELLYSEERR_HOMEPAGE_API_KEY}
+        homepage.widget.key: ${SEERR_HOMEPAGE_API_KEY}
         homepage.widget.fields: '["pending", "approved", "available", "issues"]'
     environment:
       LOG_LEVEL: info
