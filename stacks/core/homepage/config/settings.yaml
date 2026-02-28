@@ -23,6 +23,7 @@ layout:
   Administration: 
     Security:
     Core:
+    Test:
   Services:
     Documents:
     Networking:
