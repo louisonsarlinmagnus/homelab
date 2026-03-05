@@ -21,22 +21,22 @@ services:
         # seerr
         traefik.http.middlewares.seerr.plugin.sablier.group: seerr
         traefik.http.middlewares.seerr.plugin.sablier.sablierUrl: http://sablier:10000
-        traefik.http.middlewares.seerr.plugin.sablier.sessionDuration: 10m
+        traefik.http.middlewares.seerr.plugin.sablier.sessionDuration: 1h
         traefik.http.middlewares.seerr.plugin.sablier.dynamic.displayName: seerr
         # papra
         traefik.http.middlewares.papra.plugin.sablier.group: papra
         traefik.http.middlewares.papra.plugin.sablier.sablierUrl: http://sablier:10000
-        traefik.http.middlewares.papra.plugin.sablier.sessionDuration: 10m
+        traefik.http.middlewares.papra.plugin.sablier.sessionDuration: 1h
         traefik.http.middlewares.papra.plugin.sablier.dynamic.displayName: papra
         # omnitools
         traefik.http.middlewares.omnitools.plugin.sablier.group: omnitools
         traefik.http.middlewares.omnitools.plugin.sablier.sablierUrl: http://sablier:10000
-        traefik.http.middlewares.omnitools.plugin.sablier.sessionDuration: 10m
+        traefik.http.middlewares.omnitools.plugin.sablier.sessionDuration: 30m
         traefik.http.middlewares.omnitools.plugin.sablier.dynamic.displayName: omnitools
         # whatsupdocker
         traefik.http.middlewares.whatsupdocker.plugin.sablier.group: whatsupdocker
         traefik.http.middlewares.whatsupdocker.plugin.sablier.sablierUrl: http://sablier:10000
-        traefik.http.middlewares.whatsupdocker.plugin.sablier.sessionDuration: 10m
+        traefik.http.middlewares.whatsupdocker.plugin.sablier.sessionDuration: 30m
         traefik.http.middlewares.whatsupdocker.plugin.sablier.dynamic.displayName: whatsupdocker
         #
         traefik.http.services.sablier.loadbalancer.server.port: 10000
