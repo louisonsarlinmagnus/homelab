@@ -31,9 +31,7 @@ services:
     environment:
       TZ: Europe/Paris
     volumes:
-      - /media/raid/jellyfin/media/audiobooks:/data/audiobooks
-      - /media/raid/jellyfin/media/movies:/data/movies
-      - /media/raid/jellyfin/media/series:/data/series
+      - /media/raid/jellyfin/media:/data
       - /media/raid/jellyfin/config:/config
     networks:
       - proxy
