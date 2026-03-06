@@ -181,6 +181,38 @@ services:
     networks:
       - proxy
 
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:3.1.0
+    labels:
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.lidarr.loadbalancer.server.port: 8686
+        traefik.http.routers.lidarr.rule: Host(`lidarr.lsarlinmagnus.fr`)
+        traefik.http.routers.lidarr.entrypoints: websecure
+        traefik.http.routers.lidarr.tls: "true"
+        traefik.http.routers.lidarr.tls.certresolver: ovh
+        traefik.http.routers.lidarr.middlewares: authelia@file
+        homepage.group: Media
+        homepage.name: Lidarr
+        homepage.icon: lidarr.png
+        homepage.href: https://lidarr.lsarlinmagnus.fr
+        homepage.widget.type: lidarr
+        homepage.widget.url: http://lidarr:8686
+        homepage.widget.key: ${LIDARR_HOMEPAGE_API_KEY}
+        homepage.widget.fields: '["wanted", "queued", "artists"]'
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Paris
+    volumes:
+      - /media/raid/lidarr/config:/config
+      - /media/raid:/media/raid
+    networks:
+      - proxy
+
 networks:
   proxy:
     external: true
