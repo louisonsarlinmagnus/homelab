@@ -6,7 +6,7 @@ version: '3.8'
 
 services:
   authelia:
-    image: authelia/authelia:4.39.15
+    image: authelia/authelia:4.39.16
     labels:
       wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
