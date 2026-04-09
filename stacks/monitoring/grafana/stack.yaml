@@ -7,7 +7,7 @@ version: '3.8'
 services:
 
   grafana:
-    image: grafana/grafana:12.3.3
+    image: grafana/grafana:12.4.2
     labels:
       wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
@@ -37,7 +37,7 @@ services:
       - proxy
 
   prometheus:
-    image: prom/prometheus:v3.9.1
+    image: prom/prometheus:v3.11.1
     labels:
       wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
@@ -61,7 +61,7 @@ services:
       - proxy
 
   loki:
-    image: grafana/loki:3.6.5
+    image: grafana/loki:3.7.1
     labels:
       wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
@@ -78,7 +78,7 @@ services:
       - proxy
 
   alloy:
-    image: grafana/alloy:v1.13.1
+    image: grafana/alloy:v1.15.0
     labels:
       wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
