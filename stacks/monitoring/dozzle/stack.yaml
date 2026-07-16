@@ -7,7 +7,7 @@ version: '3.8'
 services:
 
   dozzle:
-    image: amir20/dozzle:v10.3.0
+    image: amir20/dozzle:v10.6.10
     labels:
       wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
