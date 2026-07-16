@@ -6,7 +6,7 @@ version: '3.8'
 
 services:
   lldap:
-    image: nitnelave/lldap:v0.6.2
+    image: nitnelave/lldap:v0.6.3
     labels:
       wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
