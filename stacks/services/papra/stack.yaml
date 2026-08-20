@@ -33,6 +33,7 @@ services:
     environment:
       APP_BASE_URL: https://papra.lsarlinmagnus.fr
       DOCUMENTS_OCR_LANGUAGES: fra
+      DOCUMENT_STORAGE_MAX_UPLOAD_SIZE: 64000000
     volumes:
       - /media/raid/papra:/app/app-data
     networks:
