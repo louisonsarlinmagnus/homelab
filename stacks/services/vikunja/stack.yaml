@@ -1,0 +1,48 @@
+####################################################################################
+# VIKUNJA STACK => docker stack deploy -c stacks/services/vikunja/stack.yaml vikunja
+####################################################################################
+
+version: '3.8'
+
+services:
+
+  vikunja:
+    image: vikunja/vikunja:2.7.0
+    labels:
+      wud.tag.include: ^(\d+\.\d+\.\d+)
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        traefik.swarm.lbswarm: "true"
+        traefik.http.services.vikunja.loadbalancer.server.port: 3456
+        traefik.http.routers.vikunja.rule: Host(`vikunja.lsarlinmagnus.fr`)
+        traefik.http.routers.vikunja.entrypoints: websecure
+        traefik.http.routers.vikunja.tls: "true"
+        traefik.http.routers.vikunja.tls.certresolver: ovh
+        homepage.group: Tools
+        homepage.name: Vikunja
+        homepage.icon: vikunja.png
+        homepage.href: https://vikunja.lsarlinmagnus.fr
+    environment:
+      TZ: Europe/Paris
+      VIKUNJA_SERVICE_PUBLICURL: https://vikunja.lsarlinmagnus.fr
+      VIKUNJA_DATABASE_PATH: /db/vikunja.db
+      # VIKUNJA_SERVICE_ENABLEREGISTRATION: 'false'
+      VIKUNJA_AUTH_OPENID_ENABLED: 'true'
+      VIKUNJA_AUTH_OPENID_PROVIDERS_AUTHELIA_NAME: Authelia
+      VIKUNJA_AUTH_OPENID_PROVIDERS_AUTHELIA_AUTHURL: https://login.lsarlinmagnus.fr
+      VIKUNJA_AUTH_OPENID_PROVIDERS_AUTHELIA_CLIENTID: vikunja
+      VIKUNJA_AUTH_OPENID_PROVIDERS_AUTHELIA_SCOPE: 'openid profile email'
+    env_file:
+      - ./.env.secret
+    volumes:
+      - /media/raid/vikunja/files:/app/vikunja/files
+      - /media/raid/vikunja/db:/db
+    networks:
+      - proxy
+
+
+networks:
+  proxy:
+    external: true
