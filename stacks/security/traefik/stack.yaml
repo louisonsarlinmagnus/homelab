@@ -54,7 +54,10 @@ services:
       OVH_APPLICATION_SECRET_FILE: /run/secrets/ovh_application_secret
       OVH_CONSUMER_KEY_FILE: /run/secrets/ovh_consumer_key
     networks:
-      - proxy
+      proxy:
+          aliases:
+            - login.lsarlinmagnus.fr
+            - gitea.lsarlinmagnus.fr
 
 configs:
   traefik_config:

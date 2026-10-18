@@ -1,0 +1,56 @@
+################################################################################
+# GITEA STACK => docker stack deploy -c stacks/services/gitea/stack.yaml gitea
+################################################################################
+
+version: '3.8'
+
+services:
+  gitea:
+    image: docker.gitea.com/gitea:1.25.5-rootless
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.gitea.loadbalancer.server.port: 3000
+        traefik.http.routers.gitea.rule: Host(`gitea.lsarlinmagnus.fr`)
+        traefik.http.routers.gitea.entrypoints: websecure
+        traefik.http.routers.gitea.tls: "true"
+        traefik.http.routers.gitea.tls.certresolver: ovh
+        homepage.group: Version control
+        homepage.name: Gitea
+        homepage.icon: gitea.png
+        homepage.href: https://gitea.lsarlinmagnus.fr
+        # homepage.widget.type: gitea
+        # homepage.widget.url: http://gitea:3000
+        # homepage.widget.key:
+    volumes:
+      - /media/raid/gitea/data:/var/lib/gitea
+      - /media/raid/gitea/config:/etc/gitea
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    # ports:
+    #   - 3000:3000
+      # - 2003:2222
+    networks:
+      - proxy
+
+  runner:
+    image: docker.io/gitea/act_runner:latest
+    env_file:
+      - ./.env.secret
+    environment:
+      CONFIG_FILE: /config.yaml
+      GITEA_INSTANCE_URL: http://gitea:3000
+      # GITEA_RUNNER_REGISTRATION_TOKEN: "${REGISTRATION_TOKEN}"
+      # GITEA_RUNNER_NAME: "${RUNNER_NAME}"
+      # GITEA_RUNNER_LABELS: "${RUNNER_LABELS}"
+    volumes:
+      - /media/raid/gitea/runner/config.yaml:/config.yaml
+      # - ./data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
