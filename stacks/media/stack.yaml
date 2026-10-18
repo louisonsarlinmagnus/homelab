@@ -219,8 +219,6 @@ services:
       wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
       replicas: 1
-      restart_policy:
-        condition: none
       labels:
         traefik.enable: "true"
         traefik.http.services.maintainerr.loadbalancer.server.port: 6246
