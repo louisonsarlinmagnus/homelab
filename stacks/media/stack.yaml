@@ -213,6 +213,39 @@ services:
     networks:
       - proxy
 
+  maintainerr:
+    image: ghcr.io/maintainerr/maintainerr:3.30.1
+    labels:
+      wud.tag.include: ^\d+\.\d+\.\d+$$
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: none
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.maintainerr.loadbalancer.server.port: 6246
+        traefik.http.routers.maintainerr.rule: Host(`maintainerr.lsarlinmagnus.fr`)
+        traefik.http.routers.maintainerr.entrypoints: websecure
+        traefik.http.routers.maintainerr.tls: "true"
+        traefik.http.routers.maintainerr.tls.certresolver: ovh
+        traefik.http.routers.maintainerr.middlewares: authelia@file
+        homepage.group: Media
+        homepage.name: Maintainerr
+        homepage.icon: maintainerr.png
+        homepage.href: https://maintainerr.lsarlinmagnus.fr
+        homepage.widget.type: lidarr
+        homepage.widget.url: http://maintainerr:6246
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Paris
+      LOG_LEVEL: info
+    volumes:
+      - /media/raid/maintainerr/data:/opt/data
+    networks:
+      - proxy
+
+
 networks:
   proxy:
     external: true
