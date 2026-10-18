@@ -243,6 +243,57 @@ services:
     networks:
       - proxy
 
+  streamystats:
+    image: ghcr.io/fredrikburmester/streamystats-aio:v2.20.0
+    labels:
+      wud.tag.include: ^v\d+\.\d+\.\d+$$
+    stop_grace_period: 60s
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.streamystats.loadbalancer.server.port: 3000
+        traefik.http.routers.streamystats.rule: Host(`streamystats.lsarlinmagnus.fr`)
+        traefik.http.routers.streamystats.entrypoints: websecure
+        traefik.http.routers.streamystats.tls: "true"
+        traefik.http.routers.streamystats.tls.certresolver: ovh
+        traefik.http.routers.streamystats.middlewares: authelia@file
+        homepage.group: Media
+        homepage.name: Streamystats
+        homepage.icon: streamystats.png
+        homepage.href: https://streamystats.lsarlinmagnus.fr
+        homepage.widget.type: lidarr
+        homepage.widget.url: http://streamystats:3000
+    env_file:
+      - ./.env.secret
+    environment:
+      PUID: 1000
+      PGID: 1000
+      POSTGRES_USER: postgres
+      POSTGRES_DB: streamystats
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+      NODE_ENV: production
+      # Job server cron configuration (optional)
+      SESSION_POLL_INTERVAL_MS: ${SESSION_POLL_INTERVAL_MS:-5000}
+      CRON_ACTIVITY_SYNC: ${CRON_ACTIVITY_SYNC:-*/1 * * * *}
+      CRON_RECENT_ITEMS_SYNC: ${CRON_RECENT_ITEMS_SYNC:-*/1 * * * *}
+      CRON_USER_SYNC: ${CRON_USER_SYNC:-*/1 * * * *}
+      CRON_PEOPLE_SYNC: ${CRON_PEOPLE_SYNC:-*/15 * * * *}
+      CRON_EMBEDDINGS_SYNC: ${CRON_EMBEDDINGS_SYNC:-*/15 * * * *}
+      CRON_GEOLOCATION_SYNC: ${CRON_GEOLOCATION_SYNC:-*/5 * * * *}
+      CRON_FINGERPRINT_SYNC: ${CRON_FINGERPRINT_SYNC:-0 4 * * *}
+      CRON_JOB_CLEANUP: ${CRON_JOB_CLEANUP:-*/1 * * * *}
+      CRON_OLD_JOB_CLEANUP: ${CRON_OLD_JOB_CLEANUP:-0 3 * * *}
+      CRON_FULL_SYNC: ${CRON_FULL_SYNC:-0 2 * * *}
+      CRON_DELETED_ITEMS_CLEANUP: ${CRON_DELETED_ITEMS_CLEANUP:-0 * * * *}
+      # Skip full sync on server startup (set to "true" or "1" to skip)
+      SKIP_STARTUP_FULL_SYNC: ${SKIP_STARTUP_FULL_SYNC:-false}
+      TZ: Europe/Paris
+    volumes:
+      - /media/raid/streamystats/data:/var/lib/postgresql/data
+    networks:
+      - proxy     
 
 networks:
   proxy:
