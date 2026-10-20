@@ -6,3 +6,35 @@ use_default_settings: true
 server:
   secret_key: "sgsKqMrQy9swCs8Ty9oL4AkC7Ek6Dn"
   image_proxy: true
+  limiter: false
+  public_instance: false
+
+search:
+  suspended_times:
+    SearxEngineTooManyRequests: 600
+    SearxEngineCaptchaException: 3600
+
+outgoing:
+  request_timeout: 6.0
+  max_request_timeout: 15.0
+
+engines:
+  - name: duckduckgo
+    timeout: 6.0
+  - name: google
+    disabled: true
+  - name: brave
+    disabled: false
+  - name: bing
+    disabled: false
+  - name: startpage
+    disabled: false
+  - name: qwant
+    disabled: false
+  - name: mojeek
+    disabled: false
+  - name: yahoo
+    disabled: false
+  - name: marginalia
+    disabled: false
+    weight: 0.3
