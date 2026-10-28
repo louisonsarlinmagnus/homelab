@@ -1,0 +1,50 @@
+#######################################################################################
+# LLAMA.CPP STACK => docker stack deploy -c stacks/services/llamacpp/stack.yaml llamacpp
+#######################################################################################
+
+version: '3.8'
+
+services:
+
+  llamacpp:
+    image: ghcr.io/ggml-org/llama.cpp:server
+    labels:
+      wud.tag.include: ^server-b(\d+)$$
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.llamacpp.loadbalancer.server.port: 8080
+        traefik.http.routers.llamacpp.rule: Host(`llama.lsarlinmagnus.fr`)
+        traefik.http.routers.llamacpp.entrypoints: websecure
+        traefik.http.routers.llamacpp.tls: "true"
+        traefik.http.routers.llamacpp.tls.certresolver: ovh
+        traefik.http.routers.llamacpp.middlewares: authelia@file
+        homepage.group: AI
+        homepage.name: llama.cpp
+        homepage.icon: sh-llama-cpp.png
+        homepage.href: https://llama.lsarlinmagnus.fr
+      resources:
+        limits:
+          memory: 22g
+    environment:
+      LLAMA_ARG_HOST: 0.0.0.0
+      LLAMA_ARG_PORT: 8080
+      LLAMA_ARG_MODELS_DIR: /models
+      LLAMA_ARG_MODELS_MAX: 1
+      LLAMA_ARG_MODELS_MEMORY_MARGIN: 2048
+      LLAMA_CACHE: /models
+      LLAMA_ARG_ENDPOINT_METRICS: 1
+      LLAMA_ARG_CTX_SIZE: 8192
+      LLAMA_ARG_JINJA: 1
+      LLAMA_ARG_THREADS: 3
+    env_file:
+      - ./.env.secret
+    volumes:
+      - /media/raid/llamacpp/models/:/models
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
