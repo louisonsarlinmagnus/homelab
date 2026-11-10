@@ -42,6 +42,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
       - /media/raid:/media/raid:ro
       - /mnt/backup_hdd:/mnt/backup_hdd:ro
+      - /home/louison/homelab/stacks/core/homepage/icons/goexplor.svg:/app/public/icons/goexplor.svg
     networks:
       - proxy
 

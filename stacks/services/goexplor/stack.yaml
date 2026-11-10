@@ -1,0 +1,32 @@
+#######################################################################################
+# GoExplor STACK => docker stack deploy --with-registry-auth -c stacks/services/goexplor/stack.yaml goexplor
+#######################################################################################
+
+version: '3.8'
+
+services:
+
+  goexplor:
+    image: gitea.lsarlinmagnus.fr/louison/goexplor/goexplor:v1.0.2
+    deploy:
+      replicas: 1
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.goexplor.loadbalancer.server.port: 8080
+        traefik.http.routers.goexplor.rule: Host(`goexplor.lsarlinmagnus.fr`)
+        traefik.http.routers.goexplor.entrypoints: websecure
+        traefik.http.routers.goexplor.tls: "true"
+        traefik.http.routers.goexplor.tls.certresolver: ovh
+        traefik.http.routers.goexplor.middlewares: authelia@file
+        homepage.group: GoExplor
+        homepage.name: GoExplor
+        homepage.icon: /icons/goexplor.svg
+        homepage.href: https://goexplor.lsarlinmagnus.fr
+    volumes:
+      - /home/louison/homelab/stacks/services/goexplor/data:/app/data
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
