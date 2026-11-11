@@ -7,7 +7,7 @@ version: '3.8'
 services:
 
   goexplor:
-    image: gitea.lsarlinmagnus.fr/louison/goexplor/goexplor:v1.2.0
+    image: gitea.lsarlinmagnus.fr/louison/goexplor/goexplor:v1.2.1
     deploy:
       replicas: 1
       labels:
