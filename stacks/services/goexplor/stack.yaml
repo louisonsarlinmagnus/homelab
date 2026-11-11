@@ -1,13 +1,13 @@
-#######################################################################################
+############################################################################################################
 # GoExplor STACK => docker stack deploy --with-registry-auth -c stacks/services/goexplor/stack.yaml goexplor
-#######################################################################################
+############################################################################################################
 
 version: '3.8'
 
 services:
 
   goexplor:
-    image: gitea.lsarlinmagnus.fr/louison/goexplor/goexplor:v1.0.2
+    image: gitea.lsarlinmagnus.fr/louison/goexplor/goexplor:v1.1.2
     deploy:
       replicas: 1
       labels:
