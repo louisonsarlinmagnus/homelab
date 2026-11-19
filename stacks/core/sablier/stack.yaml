@@ -6,7 +6,7 @@ version: '3.8'
 
 services:
   sablier:
-    image: sablierapp/sablier:1.15.0
+    image: sablierapp/sablier:1.21.1
     labels:
       wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
