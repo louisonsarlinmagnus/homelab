@@ -6,7 +6,7 @@ version: '3.8'
 
 services:
   traefik:
-    image: traefik:v3.6.8
+    image: traefik:v3.7.19
     labels:
       wud.tag.include: ^v\d+\.\d+\.\d+$$
     deploy:
