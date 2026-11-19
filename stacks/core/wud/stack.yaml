@@ -10,7 +10,7 @@ services:
     labels:
       wud.tag.include: ^\d+\.\d+\.\d+$$
     deploy:
-      replicas: 1
+      replicas: 0
       labels:
         sablier.enable: "true"
         sablier.group: whatsupdocker
